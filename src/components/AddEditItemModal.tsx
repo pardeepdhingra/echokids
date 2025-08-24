@@ -84,16 +84,23 @@ export const AddEditItemModal: React.FC<AddEditItemModalProps> = ({
   };
 
   const pickImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 0.8,
-    });
+    console.log("📷 Pick image function called");
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0.8,
+      });
 
-    if (!result.canceled && result.assets[0]) {
-      setSelectedImage(result.assets[0].uri);
-      setShowImageModal(false);
+      console.log("📷 Image picker result:", result);
+      if (!result.canceled && result.assets[0]) {
+        setSelectedImage(result.assets[0].uri);
+        setShowImageModal(false);
+      }
+    } catch (error) {
+      console.log("📷 Image picker error:", error);
+      Alert.alert("Error", "Failed to pick image. Please check permissions.");
     }
   };
 
@@ -141,106 +148,114 @@ export const AddEditItemModal: React.FC<AddEditItemModalProps> = ({
     setShowTemplateModal(false);
   };
 
-  const renderTemplateModal = () => (
-    <Modal visible={showTemplateModal} animationType="slide" transparent>
-      <View style={styles.overlay}>
-        <View style={styles.modal}>
-          <View style={styles.modalHeader}>
-            <Text style={styles.modalTitle}>Choose Template</Text>
-            <TouchableOpacity onPress={() => setShowTemplateModal(false)}>
-              <Text style={{ fontSize: 24, color: COLORS.text }}>✕</Text>
-            </TouchableOpacity>
-          </View>
+  const renderTemplateModal = () => {
+    console.log("📋 Rendering template modal, visible:", showTemplateModal);
+    if (!showTemplateModal) return null;
+    return (
+      <Modal visible={showTemplateModal} animationType="slide" transparent>
+        <View style={[styles.overlay, { backgroundColor: "rgba(255, 0, 0, 0.8)" }]}>
+          <View style={[styles.modal, { backgroundColor: "#FFFFFF" }]}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Choose Template</Text>
+              <TouchableOpacity onPress={() => setShowTemplateModal(false)}>
+                <Text style={{ fontSize: 24, color: COLORS.text }}>✕</Text>
+              </TouchableOpacity>
+            </View>
 
-          <ScrollView style={styles.modalContent}>
-            <View style={styles.templateGrid}>
-              {BUTTON_TEMPLATES.map((template) => {
-                return (
-                  <TouchableOpacity
-                    key={template.id}
-                    style={styles.templateItem}
-                    onPress={() => selectTemplate(template)}
-                  >
-                    <View style={styles.templateIcon}>
-                      <Text style={{ fontSize: 32, color: COLORS.primary }}>
-                        {getEmojiForText(template.text)}
+            <ScrollView style={styles.modalContent}>
+              <View style={styles.templateGrid}>
+                {BUTTON_TEMPLATES.map((template) => {
+                  return (
+                    <TouchableOpacity
+                      key={template.id}
+                      style={styles.templateItem}
+                      onPress={() => selectTemplate(template)}
+                    >
+                      <View style={styles.templateIcon}>
+                        <Text style={{ fontSize: 32, color: COLORS.primary }}>
+                          {getEmojiForText(template.text)}
+                        </Text>
+                      </View>
+                      <Text style={styles.templateText}>{template.text}</Text>
+                      <Text style={styles.templateMessage}>
+                        {template.message}
                       </Text>
-                    </View>
-                    <Text style={styles.templateText}>{template.text}</Text>
-                    <Text style={styles.templateMessage}>
-                      {template.message}
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
+            </ScrollView>
+          </View>
+        </View>
+      </Modal>
+    );
+  };
+
+  const renderImageModal = () => {
+    console.log("🖼️ Rendering image modal, visible:", showImageModal);
+    if (!showImageModal) return null;
+    return (
+      <Modal visible={showImageModal} animationType="slide" transparent>
+        <View style={[styles.overlay, { backgroundColor: "rgba(0, 255, 0, 0.8)" }]}>
+          <View style={[styles.modal, { backgroundColor: "#FFFFFF" }]}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Select Image</Text>
+              <TouchableOpacity onPress={() => setShowImageModal(false)}>
+                <Text style={{ fontSize: 24, color: COLORS.text }}>✕</Text>
+              </TouchableOpacity>
+            </View>
+
+            <ScrollView style={styles.modalContent}>
+              <View style={styles.imageSection}>
+                <Text style={styles.sectionTitle}>Upload Image</Text>
+                <View style={styles.uploadButtons}>
+                  <TouchableOpacity
+                    style={styles.uploadButton}
+                    onPress={pickImage}
+                  >
+                    <Text style={{ fontSize: 24, color: COLORS.primary }}>
+                      📷
+                    </Text>
+                    <Text style={styles.uploadButtonText}>Photo Library</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.uploadButton}
+                    onPress={takePhoto}
+                  >
+                    <Text style={{ fontSize: 24, color: COLORS.primary }}>
+                      📸
+                    </Text>
+                    <Text style={styles.uploadButtonText}>Take Photo</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+
+              <View style={styles.imageSection}>
+                <Text style={styles.sectionTitle}>Search Internet</Text>
+                <View style={styles.searchContainer}>
+                  <TextInput
+                    style={styles.searchInput}
+                    value={imageSearchQuery}
+                    onChangeText={setImageSearchQuery}
+                    placeholder="Search for images..."
+                    placeholderTextColor={COLORS.textSecondary}
+                  />
+                  <TouchableOpacity
+                    style={styles.searchButton}
+                    onPress={searchImageFromInternet}
+                  >
+                    <Text style={{ fontSize: 20, color: COLORS.surface }}>
+                      🔍
                     </Text>
                   </TouchableOpacity>
-                );
-              })}
-            </View>
-          </ScrollView>
-        </View>
-      </View>
-    </Modal>
-  );
-
-  const renderImageModal = () => (
-    <Modal visible={showImageModal} animationType="slide" transparent>
-      <View style={styles.overlay}>
-        <View style={styles.modal}>
-          <View style={styles.modalHeader}>
-            <Text style={styles.modalTitle}>Select Image</Text>
-            <TouchableOpacity onPress={() => setShowImageModal(false)}>
-              <Text style={{ fontSize: 24, color: COLORS.text }}>✕</Text>
-            </TouchableOpacity>
+                </View>
+              </View>
+            </ScrollView>
           </View>
-
-          <ScrollView style={styles.modalContent}>
-            <View style={styles.imageSection}>
-              <Text style={styles.sectionTitle}>Upload Image</Text>
-              <View style={styles.uploadButtons}>
-                <TouchableOpacity
-                  style={styles.uploadButton}
-                  onPress={pickImage}
-                >
-                  <Text style={{ fontSize: 24, color: COLORS.primary }}>
-                    📷
-                  </Text>
-                  <Text style={styles.uploadButtonText}>Photo Library</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.uploadButton}
-                  onPress={takePhoto}
-                >
-                  <Text style={{ fontSize: 24, color: COLORS.primary }}>
-                    📸
-                  </Text>
-                  <Text style={styles.uploadButtonText}>Take Photo</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            <View style={styles.imageSection}>
-              <Text style={styles.sectionTitle}>Search Internet</Text>
-              <View style={styles.searchContainer}>
-                <TextInput
-                  style={styles.searchInput}
-                  value={imageSearchQuery}
-                  onChangeText={setImageSearchQuery}
-                  placeholder="Search for images..."
-                  placeholderTextColor={COLORS.textSecondary}
-                />
-                <TouchableOpacity
-                  style={styles.searchButton}
-                  onPress={searchImageFromInternet}
-                >
-                  <Text style={{ fontSize: 20, color: COLORS.surface }}>
-                    🔍
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </ScrollView>
         </View>
-      </View>
-    </Modal>
-  );
+      </Modal>
+    );
+  };
 
   const colorOptions = [
     "#FF6B6B",
@@ -285,6 +300,7 @@ export const AddEditItemModal: React.FC<AddEditItemModalProps> = ({
                     "📋 Template button pressed, templates available:",
                     BUTTON_TEMPLATES.length
                   );
+                  console.log("📋 Setting showTemplateModal to true");
                   setShowTemplateModal(true);
                 }}
               >
@@ -325,6 +341,7 @@ export const AddEditItemModal: React.FC<AddEditItemModalProps> = ({
                   style={styles.imageSelector}
                   onPress={() => {
                     console.log("🖼️ Image button pressed");
+                    console.log("🖼️ Setting showImageModal to true");
                     setShowImageModal(true);
                   }}
                 >
@@ -463,6 +480,33 @@ export const AddEditItemModal: React.FC<AddEditItemModalProps> = ({
 
       {renderImageModal()}
       {renderTemplateModal()}
+      
+      {/* Debug indicator for modal visibility */}
+      {showTemplateModal && (
+        <View style={{
+          position: 'absolute',
+          top: 50,
+          left: 50,
+          backgroundColor: 'red',
+          padding: 10,
+          zIndex: 9999,
+        }}>
+          <Text style={{ color: 'white' }}>Template Modal Should Be Visible</Text>
+        </View>
+      )}
+      
+      {showImageModal && (
+        <View style={{
+          position: 'absolute',
+          top: 100,
+          left: 50,
+          backgroundColor: 'green',
+          padding: 10,
+          zIndex: 9999,
+        }}>
+          <Text style={{ color: 'white' }}>Image Modal Should Be Visible</Text>
+        </View>
+      )}
     </>
   );
 };
@@ -643,12 +687,20 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     justifyContent: "center",
     alignItems: "center",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 1000,
   },
   modal: {
     backgroundColor: COLORS.surface,
     borderRadius: 16,
     width: "90%",
     maxHeight: "80%",
+    zIndex: 1001,
+    elevation: 10,
   },
   header: {
     flexDirection: "row",

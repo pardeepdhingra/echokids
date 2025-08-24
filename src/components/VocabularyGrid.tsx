@@ -8,9 +8,9 @@ import {
   ScrollView,
   Vibration,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { VocabularyItem, AppSettings } from "../types";
 import { COLORS } from "../constants";
+import { getTranslatedText } from "../utils/translations";
 import { speak, playBeep } from "../utils/tts";
 
 interface VocabularyGridProps {
@@ -182,6 +182,9 @@ const EMOJI_MAP: { [key: string]: string } = {
   angry: "😠",
   scared: "😨",
   excited: "🎉",
+  surprised: "😲",
+  confused: "😕",
+  proud: "😌",
   cold: "🥶",
   hot: "🥵",
   play: "🎮",
@@ -189,6 +192,9 @@ const EMOJI_MAP: { [key: string]: string } = {
   more: "➕",
   "all done": "✅",
   book: "📚",
+  cycling: "🚴",
+  scooter: "🛴",
+  tv: "📺",
   mom: "👩",
   dad: "👨",
   friend: "👫",
@@ -219,6 +225,13 @@ const EMOJI_MAP: { [key: string]: string } = {
   "dirty nappy": "🩲",
   clean: "🧼",
   dirty: "💩",
+  towel: "🛁",
+  toothbrush: "🪥",
+  paper: "📄",
+  pencil: "✏️",
+  hospital: "🏥",
+  library: "📚",
+  beach: "🏖️",
 
   // Weather
   sunny: "☀️",
@@ -519,7 +532,10 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
                 minimumFontScale={isChildMode ? 0.5 : 0.7}
                 ellipsizeMode="tail"
               >
-                {item.text}
+                {item.translations && settings.language ? 
+                  getTranslatedText(item as any, settings.language) : 
+                  item.text
+                }
               </Text>
             </>
           ) : (

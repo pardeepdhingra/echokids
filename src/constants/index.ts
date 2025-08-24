@@ -18,6 +18,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   hiddenCategories: [],
   childAge: undefined,
   hasShownAgePrompt: false,
+  language: "en",
 };
 
 // This will be populated dynamically with available voices
@@ -131,97 +132,165 @@ export const VOICE_CATEGORIES = [
   { id: "adult-male", name: "Male Voices" },
 ];
 
+
+
 export const BUTTON_TEMPLATES: ButtonTemplate[] = [
   // Greetings
   {
     id: "hello",
     text: "Hello",
-    message: "Hello, how are you?",
-    twoWord: "Hello there",
+    message: "Hello!",
     category: "greetings",
-    color: "#FF6B9D", // Bright pink
+    color: "#4ECDC4",
+    translations: {
+      en: "Hello",
+      hi: "नमस्ते",
+      es: "Hola",
+      fr: "Bonjour",
+      zh: "你好"
+    }
   },
   {
     id: "goodbye",
     text: "Goodbye",
-    message: "Goodbye, see you later.",
-    twoWord: "Goodbye now",
+    message: "Goodbye!",
     category: "greetings",
-    color: "#4ECDC4", // Turquoise
+    color: "#4ECDC4",
+    translations: {
+      en: "Goodbye",
+      hi: "अलविदा",
+      es: "Adiós",
+      fr: "Au revoir",
+      zh: "再见"
+    }
   },
   {
     id: "thank-you",
     text: "Thank you",
-    message: "Thank you very much.",
-    twoWord: "Thank you",
+    message: "Thank you!",
     category: "greetings",
-    color: "#9B59B6", // Purple
+    color: "#4ECDC4",
+    translations: {
+      en: "Thank you",
+      hi: "धन्यवाद",
+      es: "Gracias",
+      fr: "Merci",
+      zh: "谢谢"
+    }
   },
   {
     id: "please",
     text: "Please",
-    message: "Please help me.",
-    twoWord: "Please help",
+    message: "Please!",
     category: "greetings",
-    color: "#F1C40F", // Yellow
+    color: "#4ECDC4",
+    translations: {
+      en: "Please",
+      hi: "कृपया",
+      es: "Por favor",
+      fr: "S'il vous plaît",
+      zh: "请"
+    }
   },
   {
     id: "happy-birthday",
     text: "Happy Birthday",
     message: "Happy Birthday!",
-    twoWord: "Happy Birthday",
     category: "greetings",
-    color: "#FF69B4", // Hot pink
+    color: "#FF6B6B",
+    translations: {
+      en: "Happy Birthday",
+      hi: "जन्मदिन मुबारक",
+      es: "Feliz Cumpleaños",
+      fr: "Joyeux Anniversaire",
+      zh: "生日快乐"
+    }
   },
   {
     id: "i-love-you",
     text: "I love you",
     message: "I love you!",
-    twoWord: "I love you!",
     category: "greetings",
-    color: "#E91E63", // Deep pink
+    color: "#FF6B6B",
+    translations: {
+      en: "I love you",
+      hi: "मैं तुमसे प्यार करता हूं",
+      es: "Te amo",
+      fr: "Je t'aime",
+      zh: "我爱你"
+    }
   },
 
   // Food & Drink
   {
     id: "food",
     text: "Food",
-    message: "I want food.",
-    twoWord: "Want food",
+    message: "I want food!",
     category: "food",
-    color: "#FFB347", // Warm orange
+    color: "#FFA07A",
+    translations: {
+      en: "Food",
+      hi: "खाना",
+      es: "Comida",
+      fr: "Nourriture",
+      zh: "食物"
+    }
   },
   {
     id: "hungry",
     text: "Hungry",
-    message: "I am hungry.",
-    twoWord: "Am hungry",
+    message: "I'm hungry!",
     category: "food",
-    color: "#E67E22", // Dark orange
+    color: "#FFA07A",
+    translations: {
+      en: "Hungry",
+      hi: "भूखा",
+      es: "Hambriento",
+      fr: "Affamé",
+      zh: "饿了"
+    }
   },
   {
     id: "water",
     text: "Water",
-    message: "I want water.",
-    twoWord: "Want water",
+    message: "I want water!",
     category: "food",
-    color: "#45B7D1", // Sky blue
+    color: "#45B7D1",
+    translations: {
+      en: "Water",
+      hi: "पानी",
+      es: "Agua",
+      fr: "Eau",
+      zh: "水"
+    }
   },
   {
     id: "thirsty",
     text: "Thirsty",
-    message: "I am thirsty.",
-    twoWord: "Am thirsty",
+    message: "I'm thirsty!",
     category: "food",
-    color: "#3498DB", // Blue
+    color: "#45B7D1",
+    translations: {
+      en: "Thirsty",
+      hi: "प्यासा",
+      es: "Sediento",
+      fr: "Assoiffé",
+      zh: "渴了"
+    }
   },
   {
     id: "milk",
     text: "Milk",
-    message: "I want milk.",
-    twoWord: "Want milk",
+    message: "I want milk!",
     category: "food",
-    color: "#98D8C8", // Mint green
+    color: "#45B7D1",
+    translations: {
+      en: "Milk",
+      hi: "दूध",
+      es: "Leche",
+      fr: "Lait",
+      zh: "牛奶"
+    }
   },
   {
     id: "sandwich",
@@ -334,6 +403,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Want ice cream",
     category: "food",
     color: "#98D8C8", // Mint green
+    translations: {
+      en: "Ice Cream",
+      hi: "आइसक्रीम",
+      es: "Helado",
+      fr: "Crème glacée",
+      zh: "冰淇淋",
+    },
   },
   {
     id: "chocolate",
@@ -422,76 +498,130 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
   {
     id: "bathroom",
     text: "Bathroom",
-    message: "I need to use the bathroom.",
-    twoWord: "Need bathroom",
+    message: "I need to go to the bathroom!",
     category: "needs",
-    color: "#E74C3C", // Red
+    color: "#98D8C8",
+    translations: {
+      en: "Bathroom",
+      hi: "बाथरूम",
+      es: "Baño",
+      fr: "Salle de bain",
+      zh: "浴室"
+    }
   },
   {
     id: "help",
     text: "Help",
-    message: "I need help.",
-    twoWord: "Need help",
+    message: "I need help!",
     category: "needs",
-    color: "#F39C12", // Orange
+    color: "#FF6B6B",
+    translations: {
+      en: "Help",
+      hi: "मदद",
+      es: "Ayuda",
+      fr: "Aide",
+      zh: "帮助"
+    }
   },
   {
     id: "tired",
     text: "Tired",
-    message: "I am tired.",
-    twoWord: "Am tired",
+    message: "I'm tired!",
     category: "needs",
-    color: "#8E44AD", // Purple
+    color: "#607D8B",
+    translations: {
+      en: "Tired",
+      hi: "थका हुआ",
+      es: "Cansado",
+      fr: "Fatigué",
+      zh: "累了"
+    }
   },
   {
     id: "sleep",
     text: "Sleep",
-    message: "I want to sleep.",
-    twoWord: "Want sleep",
+    message: "I want to sleep!",
     category: "needs",
-    color: "#2C3E50", // Dark blue
+    color: "#607D8B",
+    translations: {
+      en: "Sleep",
+      hi: "नींद",
+      es: "Dormir",
+      fr: "Dormir",
+      zh: "睡觉"
+    }
   },
 
   // Emotions
   {
     id: "happy",
     text: "Happy",
-    message: "I am happy.",
-    twoWord: "Am happy",
+    message: "I'm happy!",
     category: "emotions",
-    color: "#F1C40F", // Yellow
+    color: "#4CAF50",
+    translations: {
+      en: "Happy",
+      hi: "खुश",
+      es: "Feliz",
+      fr: "Heureux",
+      zh: "开心"
+    }
   },
   {
     id: "sad",
     text: "Sad",
-    message: "I am sad.",
-    twoWord: "Am sad",
+    message: "I'm sad!",
     category: "emotions",
-    color: "#3498DB", // Blue
+    color: "#2196F3",
+    translations: {
+      en: "Sad",
+      hi: "दुखी",
+      es: "Triste",
+      fr: "Triste",
+      zh: "伤心"
+    }
   },
   {
     id: "angry",
     text: "Angry",
-    message: "I am angry.",
-    twoWord: "Am angry",
+    message: "I'm angry!",
     category: "emotions",
-    color: "#E74C3C", // Red
+    color: "#FF5722",
+    translations: {
+      en: "Angry",
+      hi: "गुस्सा",
+      es: "Enojado",
+      fr: "En colère",
+      zh: "生气"
+    }
   },
   {
     id: "scared",
     text: "Scared",
-    message: "I am scared.",
-    twoWord: "Am scared",
+    message: "I'm scared!",
     category: "emotions",
-    color: "#8E44AD", // Purple
+    color: "#9C27B0",
+    translations: {
+      en: "Scared",
+      hi: "डरा हुआ",
+      es: "Asustado",
+      fr: "Effrayé",
+      zh: "害怕"
+    }
   },
   {
     id: "excited",
     text: "Excited",
-    message: "I am excited!",
-    twoWord: "Am excited",
+    message: "I'm excited!",
     category: "emotions",
-    color: "#FF6B9D", // Pink
+    color: "#FF9800",
+    translations: {
+      en: "Excited",
+      hi: "उत्साहित",
+      es: "Emocionado",
+      fr: "Excité",
+      zh: "兴奋"
+    }
   },
   {
     id: "cold",
@@ -516,6 +646,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Am surprised",
     category: "emotions",
     color: "#FF6B9D", // Pink
+    translations: {
+      en: "Surprised",
+      hi: "हैरान",
+      es: "Sorprendido",
+      fr: "Surpris",
+      zh: "惊讶"
+    }
   },
   {
     id: "confused",
@@ -524,6 +661,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Am confused",
     category: "emotions",
     color: "#9B59B6", // Purple
+    translations: {
+      en: "Confused",
+      hi: "उलझन में",
+      es: "Confundido",
+      fr: "Confus",
+      zh: "困惑"
+    }
   },
   {
     id: "proud",
@@ -532,6 +676,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Am proud",
     category: "emotions",
     color: "#F1C40F", // Yellow
+    translations: {
+      en: "Proud",
+      hi: "गर्व",
+      es: "Orgulloso",
+      fr: "Fier",
+      zh: "骄傲"
+    }
   },
   {
     id: "clean",
@@ -540,6 +691,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Am clean",
     category: "emotions",
     color: "#2ECC71", // Green
+    translations: {
+      en: "Clean",
+      hi: "साफ",
+      es: "Limpio",
+      fr: "Propre",
+      zh: "干净",
+    },
   },
   {
     id: "dirty",
@@ -548,48 +706,85 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Am dirty",
     category: "emotions",
     color: "#8E44AD", // Purple
+    translations: {
+      en: "Dirty",
+      hi: "गंदा",
+      es: "Sucio",
+      fr: "Sale",
+      zh: "脏",
+    },
   },
 
   // Activities
   {
     id: "play",
     text: "Play",
-    message: "I want to play.",
-    twoWord: "Want play",
+    message: "I want to play!",
     category: "activities",
-    color: "#2ECC71", // Green
+    color: "#4CAF50",
+    translations: {
+      en: "Play",
+      hi: "खेलना",
+      es: "Jugar",
+      fr: "Jouer",
+      zh: "玩"
+    }
   },
   {
     id: "stop",
     text: "Stop",
-    message: "Please stop.",
-    twoWord: "Please stop",
+    message: "Stop!",
     category: "activities",
-    color: "#E74C3C", // Red
+    color: "#FF5722",
+    translations: {
+      en: "Stop",
+      hi: "रुको",
+      es: "Parar",
+      fr: "Arrêter",
+      zh: "停止"
+    }
   },
   {
     id: "more",
     text: "More",
-    message: "I want more.",
-    twoWord: "Want more",
+    message: "I want more!",
     category: "activities",
-    color: "#F39C12", // Orange
+    color: "#FF9800",
+    translations: {
+      en: "More",
+      hi: "और",
+      es: "Más",
+      fr: "Plus",
+      zh: "更多"
+    }
   },
   {
     id: "all-done",
-    text: "All Done",
-    message: "I am all done.",
-    twoWord: "All done",
+    text: "All done",
+    message: "All done!",
     category: "activities",
-    color: "#9B59B6", // Purple
+    color: "#4CAF50",
+    translations: {
+      en: "All done",
+      hi: "सब हो गया",
+      es: "Todo listo",
+      fr: "Terminé",
+      zh: "完成了"
+    }
   },
   {
     id: "book",
     text: "Book",
-    message: "I want to read a book.",
-    twoWord: "Want book",
+    message: "I want to read a book!",
     category: "activities",
-    color: "#45B7D1", // Sky blue
+    color: "#2196F3",
+    translations: {
+      en: "Book",
+      hi: "किताब",
+      es: "Libro",
+      fr: "Livre",
+      zh: "书"
+    }
   },
   {
     id: "cycling",
@@ -598,6 +793,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Want cycling",
     category: "activities",
     color: "#2ECC71", // Green
+    translations: {
+      en: "Cycling",
+      hi: "साइकिल चलाना",
+      es: "Ciclismo",
+      fr: "Vélo",
+      zh: "骑自行车"
+    }
   },
   {
     id: "scooter",
@@ -606,6 +808,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Want scooter",
     category: "activities",
     color: "#F39C12", // Orange
+    translations: {
+      en: "Scooter",
+      hi: "स्कूटर",
+      es: "Patineta",
+      fr: "Trottinette",
+      zh: "滑板车"
+    }
   },
   {
     id: "tv",
@@ -614,6 +823,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Want TV",
     category: "activities",
     color: "#9B59B6", // Purple
+    translations: {
+      en: "TV",
+      hi: "टीवी",
+      es: "TV",
+      fr: "TV",
+      zh: "电视"
+    }
   },
 
   // Daily Items
@@ -680,6 +896,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Need towel",
     category: "daily-items",
     color: "#98D8C8", // Mint green
+    translations: {
+      en: "Towel",
+      hi: "तौलिया",
+      es: "Toalla",
+      fr: "Serviette",
+      zh: "毛巾"
+    }
   },
   {
     id: "paper",
@@ -688,6 +911,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Need paper",
     category: "daily-items",
     color: "#F1C40F", // Yellow
+    translations: {
+      en: "Paper",
+      hi: "कागज",
+      es: "Papel",
+      fr: "Papier",
+      zh: "纸"
+    }
   },
   {
     id: "pencil",
@@ -696,6 +926,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Need pencil",
     category: "daily-items",
     color: "#95A5A6", // Gray
+    translations: {
+      en: "Pencil",
+      hi: "पेंसिल",
+      es: "Lápiz",
+      fr: "Crayon",
+      zh: "铅笔"
+    }
   },
   {
     id: "shower",
@@ -704,6 +941,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Want shower",
     category: "needs",
     color: "#3498DB", // Blue
+    translations: {
+      en: "Shower",
+      hi: "शॉवर",
+      es: "Ducha",
+      fr: "Douche",
+      zh: "淋浴",
+    },
   },
   {
     id: "bath",
@@ -712,6 +956,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Want bath",
     category: "needs",
     color: "#45B7D1", // Sky blue
+    translations: {
+      en: "Bath",
+      hi: "स्नान",
+      es: "Baño",
+      fr: "Bain",
+      zh: "洗澡",
+    },
   },
   {
     id: "clothes",
@@ -720,6 +971,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Need clothes",
     category: "needs",
     color: "#9B59B6", // Purple
+    translations: {
+      en: "Clothes",
+      hi: "कपड़े",
+      es: "Ropa",
+      fr: "Vêtements",
+      zh: "衣服",
+    },
   },
   {
     id: "wet-nappy",
@@ -728,6 +986,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Wet nappy",
     category: "needs",
     color: "#98D8C8", // Mint green
+    translations: {
+      en: "Wet Nappy",
+      hi: "गीला डायपर",
+      es: "Pañal mojado",
+      fr: "Couche mouillée",
+      zh: "湿尿布",
+    },
   },
   {
     id: "dirty-nappy",
@@ -736,40 +1001,71 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Dirty nappy",
     category: "needs",
     color: "#E67E22", // Dark orange
+    translations: {
+      en: "Dirty Nappy",
+      hi: "गंदा डायपर",
+      es: "Pañal sucio",
+      fr: "Couche sale",
+      zh: "脏尿布",
+    },
   },
 
   // People
   {
     id: "mom",
     text: "Mom",
-    message: "I want my mom.",
-    twoWord: "Want mom",
+    message: "Mom!",
     category: "people",
-    color: "#FF6B9D", // Pink
+    color: "#E91E63",
+    translations: {
+      en: "Mom",
+      hi: "माँ",
+      es: "Mamá",
+      fr: "Maman",
+      zh: "妈妈"
+    }
   },
   {
     id: "dad",
     text: "Dad",
-    message: "I want my dad.",
-    twoWord: "Want dad",
+    message: "Dad!",
     category: "people",
-    color: "#4ECDC4", // Turquoise
+    color: "#2196F3",
+    translations: {
+      en: "Dad",
+      hi: "पापा",
+      es: "Papá",
+      fr: "Papa",
+      zh: "爸爸"
+    }
   },
   {
     id: "friend",
     text: "Friend",
-    message: "I want to see my friend.",
-    twoWord: "Want friend",
+    message: "My friend!",
     category: "people",
-    color: "#F1C40F", // Yellow
+    color: "#4CAF50",
+    translations: {
+      en: "Friend",
+      hi: "दोस्त",
+      es: "Amigo",
+      fr: "Ami",
+      zh: "朋友"
+    }
   },
   {
     id: "teacher",
     text: "Teacher",
-    message: "I need my teacher.",
-    twoWord: "Need teacher",
+    message: "Teacher!",
     category: "people",
-    color: "#9B59B6", // Purple
+    color: "#FF9800",
+    translations: {
+      en: "Teacher",
+      hi: "शिक्षक",
+      es: "Maestro",
+      fr: "Enseignant",
+      zh: "老师"
+    }
   },
   {
     id: "brother",
@@ -778,6 +1074,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Want brother",
     category: "people",
     color: "#3498DB", // Blue
+    translations: {
+      en: "Brother",
+      hi: "भाई",
+      es: "Hermano",
+      fr: "Frère",
+      zh: "兄弟"
+    }
   },
   {
     id: "sister",
@@ -824,34 +1127,58 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
   {
     id: "home",
     text: "Home",
-    message: "I want to go home.",
-    twoWord: "Go home",
+    message: "I want to go home!",
     category: "places",
-    color: "#2ECC71", // Green
+    color: "#4CAF50",
+    translations: {
+      en: "Home",
+      hi: "घर",
+      es: "Casa",
+      fr: "Maison",
+      zh: "家"
+    }
   },
   {
     id: "school",
     text: "School",
-    message: "I want to go to school.",
-    twoWord: "Go school",
+    message: "I want to go to school!",
     category: "places",
-    color: "#3498DB", // Blue
+    color: "#2196F3",
+    translations: {
+      en: "School",
+      hi: "स्कूल",
+      es: "Escuela",
+      fr: "École",
+      zh: "学校"
+    }
   },
   {
     id: "park",
     text: "Park",
-    message: "I want to go to the park.",
-    twoWord: "Go park",
+    message: "I want to go to the park!",
     category: "places",
-    color: "#98D8C8", // Mint green
+    color: "#4CAF50",
+    translations: {
+      en: "Park",
+      hi: "पार्क",
+      es: "Parque",
+      fr: "Parc",
+      zh: "公园"
+    }
   },
   {
     id: "store",
     text: "Store",
-    message: "I want to go to the store.",
-    twoWord: "Go store",
+    message: "I want to go to the store!",
     category: "places",
-    color: "#FFB347", // Orange
+    color: "#FF9800",
+    translations: {
+      en: "Store",
+      hi: "दुकान",
+      es: "Tienda",
+      fr: "Magasin",
+      zh: "商店"
+    }
   },
   {
     id: "playground",
@@ -868,6 +1195,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Go restaurant",
     category: "places",
     color: "#E74C3C", // Red
+    translations: {
+      en: "Restaurant",
+      hi: "रेस्तरां",
+      es: "Restaurante",
+      fr: "Restaurant",
+      zh: "餐厅",
+    },
   },
   {
     id: "mcdonalds",
@@ -876,6 +1210,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Go McDonald's",
     category: "places",
     color: "#F39C12", // Orange
+    translations: {
+      en: "McDonald's",
+      hi: "मैकडॉनल्ड्स",
+      es: "McDonald's",
+      fr: "McDonald's",
+      zh: "麦当劳",
+    },
   },
   {
     id: "hospital",
@@ -884,6 +1225,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Go hospital",
     category: "places",
     color: "#E74C3C", // Red
+    translations: {
+      en: "Hospital",
+      hi: "अस्पताल",
+      es: "Hospital",
+      fr: "Hôpital",
+      zh: "医院",
+    },
   },
   {
     id: "library",
@@ -892,6 +1240,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Go library",
     category: "places",
     color: "#9B59B6", // Purple
+    translations: {
+      en: "Library",
+      hi: "पुस्तकालय",
+      es: "Biblioteca",
+      fr: "Bibliothèque",
+      zh: "图书馆",
+    },
   },
   {
     id: "beach",
@@ -900,6 +1255,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Go beach",
     category: "places",
     color: "#F1C40F", // Yellow
+    translations: {
+      en: "Beach",
+      hi: "समुद्र तट",
+      es: "Playa",
+      fr: "Plage",
+      zh: "海滩",
+    },
   },
 
   // Weather
@@ -910,6 +1272,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Is sunny",
     category: "weather",
     color: "#F1C40F", // Yellow
+    translations: {
+      en: "Sunny",
+      hi: "धूप",
+      es: "Soleado",
+      fr: "Ensoleillé",
+      zh: "晴天",
+    },
   },
   {
     id: "rainy",
@@ -918,6 +1287,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Is raining",
     category: "weather",
     color: "#3498DB", // Blue
+    translations: {
+      en: "Rainy",
+      hi: "बारिश",
+      es: "Lluvioso",
+      fr: "Pluvieux",
+      zh: "雨天",
+    },
   },
   {
     id: "snowy",
@@ -926,6 +1302,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Is snowing",
     category: "weather",
     color: "#FFFFFF", // White
+    translations: {
+      en: "Snowy",
+      hi: "बर्फ",
+      es: "Nevado",
+      fr: "Neigeux",
+      zh: "雪天",
+    },
   },
   {
     id: "cloudy",
@@ -934,6 +1317,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Is cloudy",
     category: "weather",
     color: "#95A5A6", // Gray
+    translations: {
+      en: "Cloudy",
+      hi: "बादल",
+      es: "Nublado",
+      fr: "Nuageux",
+      zh: "多云",
+    },
   },
   {
     id: "windy",
@@ -942,6 +1332,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Is windy",
     category: "weather",
     color: "#98D8C8", // Mint green
+    translations: {
+      en: "Windy",
+      hi: "हवा",
+      es: "Ventoso",
+      fr: "Venteux",
+      zh: "有风",
+    },
   },
 ];
 
@@ -955,6 +1352,7 @@ export const DEFAULT_VOCABULARY: VocabularyItem[] = BUTTON_TEMPLATES.map(
     category: template.category,
     color: template.color,
     size: "medium" as const,
+    translations: template.translations,
   })
 );
 
@@ -1037,3 +1435,12 @@ export const getSuggestedCategoriesForAge = (age: number): string[] => {
     return ["greetings", "needs", "emotions", "food", "food-choices", "activities", "people", "places", "daily-items", "weather"];
   }
 };
+
+// Language options
+export const SUPPORTED_LANGUAGES = [
+  { code: "en", name: "English", nativeName: "English" },
+  { code: "hi", name: "Hindi", nativeName: "हिंदी" },
+  { code: "es", name: "Spanish", nativeName: "Español" },
+  { code: "fr", name: "French", nativeName: "Français" },
+  { code: "zh", name: "Chinese", nativeName: "中文" }
+];

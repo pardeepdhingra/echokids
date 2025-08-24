@@ -22,6 +22,7 @@ import {
   DEFAULT_CATEGORIES,
   updateVoiceOptions,
   getDefaultVoice,
+  SUPPORTED_LANGUAGES,
 } from "../constants";
 import { saveSettings, loadSettings } from "../utils/storage";
 import { speak, getAvailableVoices } from "../utils/tts";
@@ -44,11 +45,13 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
     enableChildFilter: false,
     textSize: "medium",
     hiddenCategories: [],
+    language: "en",
   });
   const [isLocked, setIsLocked] = useState(false);
   const [showVoiceModal, setShowVoiceModal] = useState(false);
   const [selectedVoiceCategory, setSelectedVoiceCategory] = useState("all");
   const [selectedLanguage, setSelectedLanguage] = useState("all");
+  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
   const [availableVoices, setAvailableVoices] = useState<
     Array<{ identifier: string; name: string }>
   >([]);
@@ -675,20 +678,67 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
         )}
 
         {renderSettingItem(
+          "Language",
+          "Choose the language for vocabulary buttons",
+          <View style={styles.dropdownContainer}>
+            <TouchableOpacity
+              style={styles.dropdownButton}
+              onPress={() => setShowLanguageDropdown(!showLanguageDropdown)}
+            >
+              <Text style={styles.dropdownButtonText}>
+                {SUPPORTED_LANGUAGES.find(lang => lang.code === settings.language)?.nativeName || "Select Language"}
+              </Text>
+              <Text style={styles.dropdownArrow}>
+                {showLanguageDropdown ? "▲" : "▼"}
+              </Text>
+            </TouchableOpacity>
+            
+            {showLanguageDropdown && (
+              <View style={styles.dropdownList}>
+                <ScrollView showsVerticalScrollIndicator={false}>
+                  {SUPPORTED_LANGUAGES.map((lang) => (
+                    <TouchableOpacity
+                      key={lang.code}
+                      style={[
+                        styles.dropdownItem,
+                        settings.language === lang.code && styles.dropdownItemActive,
+                      ]}
+                      onPress={() => {
+                        handleSettingChange("language", lang.code);
+                        setShowLanguageDropdown(false);
+                      }}
+                    >
+                      <Text
+                        style={[
+                          styles.dropdownItemText,
+                          settings.language === lang.code && styles.dropdownItemTextActive,
+                        ]}
+                      >
+                        {lang.nativeName} ({lang.name})
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </ScrollView>
+              </View>
+            )}
+          </View>
+        )}
+
+        {renderSettingItem(
           "Text Size",
-          "Adjust text size on buttons",
-          <View style={styles.textSizeContainer}>
+          "Adjust the size of text on buttons",
+          <View style={styles.buttonGroup}>
             <TouchableOpacity
               style={[
-                styles.textSizeButton,
-                settings.textSize === "small" && styles.textSizeButtonActive,
+                styles.sizeButton,
+                settings.textSize === "small" && styles.sizeButtonActive,
               ]}
               onPress={() => handleSettingChange("textSize", "small")}
             >
               <Text
                 style={[
-                  styles.textSizeButtonText,
-                  settings.textSize === "small" && styles.textSizeButtonTextActive,
+                  styles.sizeButtonText,
+                  settings.textSize === "small" && styles.sizeButtonTextActive,
                 ]}
               >
                 Small
@@ -696,15 +746,15 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             </TouchableOpacity>
             <TouchableOpacity
               style={[
-                styles.textSizeButton,
-                settings.textSize === "medium" && styles.textSizeButtonActive,
+                styles.sizeButton,
+                settings.textSize === "medium" && styles.sizeButtonActive,
               ]}
               onPress={() => handleSettingChange("textSize", "medium")}
             >
               <Text
                 style={[
-                  styles.textSizeButtonText,
-                  settings.textSize === "medium" && styles.textSizeButtonTextActive,
+                  styles.sizeButtonText,
+                  settings.textSize === "medium" && styles.sizeButtonTextActive,
                 ]}
               >
                 Medium
@@ -712,34 +762,18 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             </TouchableOpacity>
             <TouchableOpacity
               style={[
-                styles.textSizeButton,
-                settings.textSize === "large" && styles.textSizeButtonActive,
+                styles.sizeButton,
+                settings.textSize === "large" && styles.sizeButtonActive,
               ]}
               onPress={() => handleSettingChange("textSize", "large")}
             >
               <Text
                 style={[
-                  styles.textSizeButtonText,
-                  settings.textSize === "large" && styles.textSizeButtonTextActive,
+                  styles.sizeButtonText,
+                  settings.textSize === "large" && styles.sizeButtonTextActive,
                 ]}
               >
                 Large
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                styles.textSizeButton,
-                settings.textSize === "extra-large" && styles.textSizeButtonActive,
-              ]}
-              onPress={() => handleSettingChange("textSize", "extra-large")}
-            >
-              <Text
-                style={[
-                  styles.textSizeButtonText,
-                  settings.textSize === "extra-large" && styles.textSizeButtonTextActive,
-                ]}
-              >
-                Extra Large
               </Text>
             </TouchableOpacity>
           </View>
@@ -1302,5 +1336,92 @@ const styles = StyleSheet.create({
   },
   categoryToggleIcon: {
     fontSize: 16,
+  },
+  buttonGroup: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 8,
+  },
+  sizeButton: {
+    flex: 1,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    backgroundColor: COLORS.background,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    alignItems: "center",
+  },
+  sizeButtonActive: {
+    backgroundColor: COLORS.primary,
+    borderColor: COLORS.primary,
+  },
+  sizeButtonText: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: COLORS.text,
+  },
+  sizeButtonTextActive: {
+    color: COLORS.surface,
+    fontWeight: "600",
+  },
+  dropdownContainer: {
+    position: "relative",
+    zIndex: 1000,
+  },
+  dropdownButton: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    backgroundColor: COLORS.background,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+  },
+  dropdownButtonText: {
+    fontSize: 16,
+    color: COLORS.text,
+    fontWeight: "500",
+  },
+  dropdownArrow: {
+    fontSize: 12,
+    color: COLORS.textSecondary,
+  },
+  dropdownList: {
+    position: "absolute",
+    top: "100%",
+    left: 0,
+    right: 0,
+    backgroundColor: COLORS.surface,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    marginTop: 4,
+    maxHeight: 200,
+    zIndex: 1001,
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  dropdownItem: {
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+  },
+  dropdownItemActive: {
+    backgroundColor: COLORS.primary,
+  },
+  dropdownItemText: {
+    fontSize: 14,
+    color: COLORS.text,
+  },
+  dropdownItemTextActive: {
+    color: COLORS.surface,
+    fontWeight: "600",
   },
 });

@@ -9,6 +9,13 @@ export interface VocabularyItem {
   color?: string;
   size?: "small" | "medium" | "large";
   position?: { x: number; y: number };
+  translations?: {
+    en: string;
+    hi: string;
+    es: string;
+    fr: string;
+    zh: string;
+  };
 }
 
 export interface AppSettings {
@@ -24,6 +31,8 @@ export interface AppSettings {
   hiddenCategories: string[];
   childAge?: number;
   hasShownAgePrompt?: boolean;
+  iconSystem?: "emoji" | "icon";
+  language: "en" | "hi" | "es" | "fr" | "zh";
 }
 
 export interface Category {
@@ -44,8 +53,15 @@ export interface ButtonTemplate {
   id: string;
   text: string;
   message: string;
-  twoWord?: string;
   category: string;
-  image?: string;
   color: string;
+  image?: string;
+  twoWord?: string;
+  translations?: {
+    en: string;
+    hi: string;
+    es: string;
+    fr: string;
+    zh: string;
+  };
 }
