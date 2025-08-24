@@ -10,6 +10,7 @@ import {
   Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
 import { VocabularyItem, AppSettings } from "../types";
 import { COLORS } from "../constants";
 import { VocabularyGrid } from "../components/VocabularyGrid";
@@ -39,9 +40,12 @@ export const ChildVocabularyScreen: React.FC<ChildVocabularyScreenProps> = ({
   const [currentMathQuestion, setCurrentMathQuestion] = useState("");
   const correctAnswerRef = useRef<number>(0);
 
-  useEffect(() => {
-    loadData();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      console.log("🔄 Child screen focused - reloading data");
+      loadData();
+    }, [])
+  );
 
   const loadData = async () => {
     const [vocabData, settingsData, favoritesData] = await Promise.all([

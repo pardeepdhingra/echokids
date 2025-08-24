@@ -9,6 +9,7 @@ import {
   ScrollView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
 import { VocabularyItem, AppSettings, Category } from "../types";
 import { COLORS, BUTTON_TEMPLATES } from "../constants";
 import { VocabularyGrid } from "../components/VocabularyGrid";
@@ -47,9 +48,12 @@ export const ParentVocabularyScreen: React.FC<ParentVocabularyScreenProps> = ({
   const [editingItem, setEditingItem] = useState<VocabularyItem | undefined>();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
-  useEffect(() => {
-    loadData();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      console.log("🔄 Parent screen focused - reloading data");
+      loadData();
+    }, [])
+  );
 
   const loadData = async () => {
     const [vocabData, settingsData, categoriesData, favoritesData] =
