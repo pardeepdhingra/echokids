@@ -32,6 +32,8 @@ const ICON_MAP: { [key: string]: string } = {
   goodbye: "hand-right",
   "thank you": "heart",
   please: "heart-outline",
+  "happy birthday": "gift",
+  "i love you": "heart",
 
   // Food & Drink
   food: "restaurant",
@@ -60,25 +62,34 @@ const ICON_MAP: { [key: string]: string } = {
   "all done": "checkmark",
   book: "book",
 
-  // People
-  mom: "person",
-  dad: "person",
-  friend: "people",
-  teacher: "school",
+      // People
+    mom: "person",
+    dad: "person",
+    friend: "people",
+    teacher: "school",
+    brother: "person",
+    sister: "person",
+    grandpa: "person",
+    grandma: "person",
+    uncle: "person",
+    aunt: "person",
 
   // Places
   home: "home",
   school: "school",
   park: "leaf",
   store: "storefront",
+  playground: "happy",
 };
 
 // Emoji fallback mapping
 const EMOJI_MAP: { [key: string]: string } = {
   hello: "👋",
-  goodbye: "👋",
+  goodbye: "👋👋",
   "thank you": "❤️",
   please: "🙏",
+  "happy birthday": "🎂",
+  "i love you": "💕",
   food: "🍽️",
   hungry: "🍕",
   water: "💧",
@@ -102,10 +113,17 @@ const EMOJI_MAP: { [key: string]: string } = {
   dad: "👨",
   friend: "👫",
   teacher: "👩‍🏫",
+  brother: "👦",
+  sister: "👧",
+  grandpa: "👴",
+  grandma: "👵",
+  uncle: "👨‍🦱",
+  aunt: "👩‍🦰",
   home: "🏠",
   school: "🏫",
   park: "🌳",
   store: "🏪",
+  playground: "🎪",
 };
 
 const getIconForText = (text: string): string => {
@@ -134,16 +152,16 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
   const totalGaps = gridSize - 1; // Number of gaps in a row
   const availableWidth = width - screenPadding * 2 - totalGaps * gapSize;
 
-  // Dynamic sizing based on grid size - larger buttons for smaller grids
+  // Dynamic sizing based on grid size - smaller buttons for better layout
   let maxItemSize;
   if (gridSize === 1) {
-    maxItemSize = Math.min(availableWidth, 250); // Very large for 1x1
+    maxItemSize = Math.min(availableWidth, 200); // Large for 1x1
   } else if (gridSize === 2) {
-    maxItemSize = Math.min(availableWidth / gridSize, 180); // Extra large for 2x2
+    maxItemSize = Math.min(availableWidth / gridSize, 150); // Large for 2x2
   } else if (gridSize === 3) {
-    maxItemSize = Math.min(availableWidth / gridSize, 140); // Medium-large for 3x3
+    maxItemSize = Math.min(availableWidth / gridSize, 120); // Medium for 3x3
   } else {
-    maxItemSize = Math.min(availableWidth / gridSize, 120); // Standard for 4x4 and 5x5
+    maxItemSize = Math.min(availableWidth / gridSize, 100); // Smaller for 4x4 and 5x5
   }
 
   const itemSize = maxItemSize;
@@ -276,13 +294,11 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
   };
 
   const renderGridItem = (item: VocabularyItem, index: number) => {
-    const isLastInRow = (index + 1) % gridSize === 0;
-    const isLastRow = index >= vocabulary.length - gridSize;
     const buttonSize = getButtonSize(item);
     const buttonColor = getButtonColor(item);
     const iconName = getIconForText(item.text);
 
-    console.log(`Item: ${item.text}, Icon: ${iconName}`); // Debug log
+
 
     const isPressed = pressedItemId === item.id;
 
@@ -294,8 +310,6 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
           {
             width: buttonSize,
             height: buttonSize,
-            marginRight: isLastInRow ? 0 : 8,
-            marginBottom: isLastRow ? 0 : 8,
             backgroundColor: isPressed ? themeColors.surface : buttonColor,
             borderRadius: isChildMode ? 25 : 15,
             borderWidth: isChildMode ? 3 : 2,
@@ -310,14 +324,14 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
         activeOpacity={0.8}
       >
         <View
-          style={[
-            styles.itemContent,
-            {
-              padding: settings.showText ? (isChildMode ? 6 : 8) : 0, // No padding when text is hidden
-              justifyContent: settings.showText ? "center" : "center",
-              alignItems: "center",
-            },
-          ]}
+                      style={[
+              styles.itemContent,
+              {
+                padding: settings.showText ? (isChildMode ? 12 : 15) : 0, // Much more padding for better spacing
+                justifyContent: settings.showText ? "space-between" : "center",
+                alignItems: "center",
+              },
+            ]}
         >
           {settings.showText ? (
             // Text mode - icon with text below
@@ -326,20 +340,30 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
                 style={[
                   styles.itemIcon,
                   {
-                    width: buttonSize * (isChildMode ? 0.5 : 0.6),
-                    height: buttonSize * (isChildMode ? 0.4 : 0.5),
-                    backgroundColor: themeColors.surface,
-                    borderRadius: 12,
+                    width: buttonSize * 0.6,
+                    height: buttonSize * 0.6,
+                    borderRadius: 20,
                     justifyContent: "center",
                     alignItems: "center",
-                    marginBottom: isChildMode ? 4 : 6,
+                    marginBottom: isChildMode ? 2 : 4,
+                    shadowColor: "#000",
+                    shadowOffset: {
+                      width: 0,
+                      height: 3,
+                    },
+                    shadowOpacity: 0.3,
+                    shadowRadius: 6,
+                    elevation: 8,
                   },
                 ]}
               >
                 <Text
                   style={{
-                    fontSize: Math.min(buttonSize * 0.25, 32),
+                    fontSize: Math.min(buttonSize * 0.4, 50),
                     textAlign: "center",
+                    textShadowColor: "rgba(0,0,0,0.3)",
+                    textShadowOffset: { width: 1, height: 1 },
+                    textShadowRadius: 2,
                   }}
                 >
                   {getEmojiForText(item.text)}
@@ -350,16 +374,26 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
                 style={[
                   styles.itemLabel,
                   {
-                    fontSize: Math.min(
-                      isChildMode ? 14 : 12,
-                      buttonSize * 0.12
-                    ),
+                    fontSize: (() => {
+                      const baseSize = Math.min(
+                        isChildMode ? 12 : 10,
+                        buttonSize * 0.1
+                      );
+                      switch (settings.textSize) {
+                        case "small":
+                          return baseSize * 0.8;
+                        case "large":
+                          return baseSize * 1.2;
+                        default: // medium
+                          return baseSize;
+                      }
+                    })(),
                     color: themeColors.surface,
                     fontWeight: isChildMode ? "800" : "700",
                     textShadowColor: "rgba(0,0,0,0.3)",
                     textShadowOffset: { width: 1, height: 1 },
                     textShadowRadius: 2,
-                    width: buttonSize * 0.85,
+                    width: buttonSize * 0.75,
                     textAlign: "center",
                   },
                 ]}
@@ -386,7 +420,7 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
             >
               <Text
                 style={{
-                  fontSize: Math.min(buttonSize * 0.6, 80), // Much larger emoji
+                  fontSize: Math.min(buttonSize * 0.5, 60), // Smaller emoji
                   textAlign: "center",
                 }}
               >
@@ -442,8 +476,9 @@ const styles = StyleSheet.create({
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "flex-start",
+    justifyContent: "space-between",
     alignItems: "flex-start",
+    gap: 8,
   },
   gridItem: {
     justifyContent: "center",

@@ -10,6 +10,7 @@ import {
   Modal,
 } from "react-native";
 import * as Localization from "expo-localization";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { AppSettings } from "../types";
 import {
@@ -39,6 +40,8 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
     buttonMode: "sentence",
     showText: true,
     theme: "colorful",
+    enableChildFilter: false,
+    textSize: "medium",
   });
   const [isLocked, setIsLocked] = useState(false);
   const [showVoiceModal, setShowVoiceModal] = useState(false);
@@ -642,6 +645,77 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
         )}
 
         {renderSettingItem(
+          "Text Size",
+          "Adjust text size on buttons",
+          <View style={styles.textSizeContainer}>
+            <TouchableOpacity
+              style={[
+                styles.textSizeButton,
+                settings.textSize === "small" && styles.textSizeButtonActive,
+              ]}
+              onPress={() => handleSettingChange("textSize", "small")}
+            >
+              <Text
+                style={[
+                  styles.textSizeButtonText,
+                  settings.textSize === "small" && styles.textSizeButtonTextActive,
+                ]}
+              >
+                Small
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.textSizeButton,
+                settings.textSize === "medium" && styles.textSizeButtonActive,
+              ]}
+              onPress={() => handleSettingChange("textSize", "medium")}
+            >
+              <Text
+                style={[
+                  styles.textSizeButtonText,
+                  settings.textSize === "medium" && styles.textSizeButtonTextActive,
+                ]}
+              >
+                Medium
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.textSizeButton,
+                settings.textSize === "large" && styles.textSizeButtonActive,
+              ]}
+              onPress={() => handleSettingChange("textSize", "large")}
+            >
+              <Text
+                style={[
+                  styles.textSizeButtonText,
+                  settings.textSize === "large" && styles.textSizeButtonTextActive,
+                ]}
+              >
+                Large
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {renderSettingItem(
+          "Child Mode Filter",
+          "Enable category filter in child mode",
+          <View style={styles.switchContainer}>
+            <Switch
+              value={settings.enableChildFilter}
+              onValueChange={(value) => handleSettingChange("enableChildFilter", value)}
+              trackColor={{ false: COLORS.border, true: COLORS.primary }}
+              thumbColor={COLORS.surface}
+            />
+            <Text style={styles.switchLabel}>
+              {settings.enableChildFilter ? "Enabled" : "Disabled"}
+            </Text>
+          </View>
+        )}
+
+        {renderSettingItem(
           "App Lock",
           "Prevent child from editing boards",
           <View style={styles.switchContainer}>
@@ -675,6 +749,42 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           <Text style={{ fontSize: 20, color: COLORS.warning }}>📱</Text>
           <Text style={[styles.dangerButtonText, { color: COLORS.warning }]}>
             Reset to 3x3 Grid
+          </Text>
+        </TouchableOpacity>
+
+
+
+        <TouchableOpacity 
+          style={[styles.dangerButton, { backgroundColor: COLORS.warning + "20" }]} 
+          onPress={async () => {
+            Alert.alert(
+              "Reset Vocabulary to Default",
+              "This will reset all vocabulary buttons to the default set including the new family member buttons (Brother, Sister, Grandpa, Grandma, Uncle, Aunt). This action cannot be undone. Continue?",
+              [
+                { text: "Cancel", style: "cancel" },
+                {
+                  text: "Reset Vocabulary",
+                  style: "destructive",
+                  onPress: async () => {
+                    try {
+                      // Clear the saved vocabulary completely
+                      await AsyncStorage.removeItem("echo_kids_vocabulary");
+                      Alert.alert(
+                        "Vocabulary Reset Complete", 
+                        "Vocabulary has been reset to default. The new family member buttons are now available!"
+                      );
+                    } catch (error) {
+                      Alert.alert("Error", "Failed to reset vocabulary. Please try again.");
+                    }
+                  },
+                },
+              ]
+            );
+          }}
+        >
+          <Text style={{ fontSize: 20, color: COLORS.warning }}>🔄</Text>
+          <Text style={[styles.dangerButtonText, { color: COLORS.warning }]}>
+            Reset Vocabulary to Default
           </Text>
         </TouchableOpacity>
 
@@ -948,6 +1058,34 @@ const styles = StyleSheet.create({
   },
   categoryChipTextActive: {
     color: COLORS.surface,
+  },
+  textSizeContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 8,
+  },
+  textSizeButton: {
+    flex: 1,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    backgroundColor: COLORS.background,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    alignItems: "center",
+  },
+  textSizeButtonActive: {
+    backgroundColor: COLORS.primary,
+    borderColor: COLORS.primary,
+  },
+  textSizeButtonText: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: COLORS.text,
+  },
+  textSizeButtonTextActive: {
+    color: COLORS.surface,
+    fontWeight: "600",
   },
   voiceList: {
     padding: 20,

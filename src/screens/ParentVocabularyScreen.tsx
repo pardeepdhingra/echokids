@@ -11,7 +11,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
 import { VocabularyItem, AppSettings, Category } from "../types";
-import { COLORS, BUTTON_TEMPLATES } from "../constants";
+import { COLORS } from "../constants";
 import { VocabularyGrid } from "../components/VocabularyGrid";
 import { AddEditItemModal } from "../components/AddEditItemModal";
 import {
@@ -41,6 +41,8 @@ export const ParentVocabularyScreen: React.FC<ParentVocabularyScreenProps> = ({
     buttonMode: "sentence",
     showText: true,
     theme: "colorful",
+    enableChildFilter: false,
+    textSize: "medium",
   });
   const [categories, setCategories] = useState<Category[]>([]);
   const [favorites, setFavorites] = useState<VocabularyItem[]>([]);
@@ -55,6 +57,10 @@ export const ParentVocabularyScreen: React.FC<ParentVocabularyScreenProps> = ({
     }, [])
   );
 
+
+
+
+
   const loadData = async () => {
     const [vocabData, settingsData, categoriesData, favoritesData] =
       await Promise.all([
@@ -63,6 +69,8 @@ export const ParentVocabularyScreen: React.FC<ParentVocabularyScreenProps> = ({
         loadCategories(),
         loadFavorites(),
       ]);
+
+
 
     setVocabulary(vocabData);
     setSettings(settingsData);
@@ -164,27 +172,7 @@ export const ParentVocabularyScreen: React.FC<ParentVocabularyScreenProps> = ({
     );
   };
 
-  const handleAddFromTemplates = async () => {
-    console.log("📋 Add from Templates button pressed - adding all templates");
 
-    // Create new items from all templates
-    const newItems = BUTTON_TEMPLATES.map((template, index) => ({
-      id: Date.now().toString() + index,
-      text: template.text,
-      message: template.message,
-      image: template.image,
-      category: template.category,
-      color: template.color,
-      size: "medium" as const,
-      isFavorite: false,
-    }));
-
-    const updatedVocabulary = [...vocabulary, ...newItems];
-    setVocabulary(updatedVocabulary);
-    await saveVocabulary(updatedVocabulary);
-
-    console.log(`📋 Added ${newItems.length} templates to vocabulary`);
-  };
 
   const filteredVocabulary =
     selectedCategory === "all"
@@ -288,12 +276,6 @@ export const ParentVocabularyScreen: React.FC<ParentVocabularyScreenProps> = ({
       </View>
 
       <View style={styles.fabContainer}>
-        <TouchableOpacity
-          style={styles.fabSecondary}
-          onPress={handleAddFromTemplates}
-        >
-          <Text style={{ fontSize: 20, color: COLORS.surface }}>📋</Text>
-        </TouchableOpacity>
         <TouchableOpacity style={styles.fabPrimary} onPress={handleAddItem}>
           <Text style={{ fontSize: 30, color: COLORS.surface }}>➕</Text>
         </TouchableOpacity>
@@ -365,9 +347,9 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 20,
     marginRight: 8,
-    backgroundColor: COLORS.background,
+    backgroundColor: "#000000",
     borderWidth: 1,
-    borderColor: COLORS.border,
+    borderColor: "#000000",
   },
   categoryChipActive: {
     backgroundColor: COLORS.primary,
@@ -376,7 +358,7 @@ const styles = StyleSheet.create({
   categoryChipText: {
     fontSize: 14,
     fontWeight: "500",
-    color: COLORS.text,
+    color: "#FFFFFF",
   },
   categoryChipTextActive: {
     color: COLORS.surface,

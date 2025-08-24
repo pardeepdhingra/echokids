@@ -471,9 +471,11 @@ const getEmojiForText = (text: string): string => {
   const EMOJI_MAP: { [key: string]: string } = {
     // Greetings
     hello: "👋",
-    goodbye: "👋",
-    "thank you": "🙏",
+    goodbye: "👋👋",
+    "thank you": "❤️",
     please: "🙏",
+    "happy birthday": "🎂",
+    "i love you": "💕",
 
     // Food & Drink
     food: "🍕",
@@ -507,12 +509,19 @@ const getEmojiForText = (text: string): string => {
     dad: "👨",
     friend: "👥",
     teacher: "👩‍🏫",
+    brother: "👦",
+    sister: "👧",
+    grandpa: "👴",
+    grandma: "👵",
+    uncle: "👨‍🦱",
+    aunt: "👩‍🦰",
 
     // Places
     home: "🏠",
     school: "🏫",
     park: "🌳",
     store: "🏪",
+    playground: "🎪",
   };
 
   const lowerText = text.toLowerCase();

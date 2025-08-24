@@ -18,6 +18,8 @@ export interface AppSettings {
   buttonMode: "one-word" | "sentence";
   showText: boolean;
   theme: "default" | "colorful" | "minimal";
+  enableChildFilter: boolean;
+  textSize: "small" | "medium" | "large";
 }
 
 export interface Category {

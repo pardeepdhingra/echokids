@@ -31,6 +31,8 @@ export const FavoritesScreen: React.FC<FavoritesScreenProps> = ({
     buttonMode: "sentence",
     showText: true,
     theme: "colorful",
+    enableChildFilter: false,
+    textSize: "medium",
   });
 
   useFocusEffect(

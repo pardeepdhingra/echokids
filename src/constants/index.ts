@@ -13,6 +13,8 @@ export const DEFAULT_SETTINGS: AppSettings = {
   buttonMode: "sentence",
   showText: true,
   theme: "colorful",
+  enableChildFilter: false,
+  textSize: "medium",
 };
 
 // This will be populated dynamically with available voices
@@ -155,6 +157,20 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     message: "Please help me.",
     category: "greetings",
     color: "#F1C40F", // Yellow
+  },
+  {
+    id: "happy-birthday",
+    text: "Happy Birthday",
+    message: "Happy Birthday!",
+    category: "greetings",
+    color: "#FF69B4", // Hot pink
+  },
+  {
+    id: "i-love-you",
+    text: "I love you",
+    message: "I love you!",
+    category: "greetings",
+    color: "#E91E63", // Deep pink
   },
 
   // Food & Drink
@@ -327,6 +343,48 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     category: "people",
     color: "#9B59B6", // Purple
   },
+  {
+    id: "brother",
+    text: "Brother",
+    message: "I want to see my brother.",
+    category: "people",
+    color: "#3498DB", // Blue
+  },
+  {
+    id: "sister",
+    text: "Sister",
+    message: "I want to see my sister.",
+    category: "people",
+    color: "#E91E63", // Pink
+  },
+  {
+    id: "grandpa",
+    text: "Grandpa",
+    message: "I want to see my grandpa.",
+    category: "people",
+    color: "#8E44AD", // Purple
+  },
+  {
+    id: "grandma",
+    text: "Grandma",
+    message: "I want to see my grandma.",
+    category: "people",
+    color: "#E67E22", // Orange
+  },
+  {
+    id: "uncle",
+    text: "Uncle",
+    message: "I want to see my uncle.",
+    category: "people",
+    color: "#2ECC71", // Green
+  },
+  {
+    id: "aunt",
+    text: "Aunt",
+    message: "I want to see my aunt.",
+    category: "people",
+    color: "#F39C12", // Yellow
+  },
 
   // Places
   {
@@ -356,6 +414,13 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     message: "I want to go to the store.",
     category: "places",
     color: "#FFB347", // Orange
+  },
+  {
+    id: "playground",
+    text: "Playground",
+    message: "I want to go to the playground.",
+    category: "places",
+    color: "#FF6B6B", // Coral red
   },
 ];
 
