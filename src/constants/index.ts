@@ -425,6 +425,6 @@ export const COLORS = {
   },
 };
 
-export const GRID_SIZES = [2, 3, 4, 5, 6];
+export const GRID_SIZES = [1, 2, 3, 4, 5];
 export const BUTTON_SIZES = ["small", "medium", "large"];
 export const THEMES = ["default", "colorful", "minimal"];

@@ -133,7 +133,20 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
   const gapSize = 8; // Gap between items
   const totalGaps = gridSize - 1; // Number of gaps in a row
   const availableWidth = width - screenPadding * 2 - totalGaps * gapSize;
-  const itemSize = Math.min(availableWidth / gridSize, 120); // Max size of 120px
+
+  // Dynamic sizing based on grid size - larger buttons for smaller grids
+  let maxItemSize;
+  if (gridSize === 1) {
+    maxItemSize = Math.min(availableWidth, 250); // Very large for 1x1
+  } else if (gridSize === 2) {
+    maxItemSize = Math.min(availableWidth / gridSize, 180); // Extra large for 2x2
+  } else if (gridSize === 3) {
+    maxItemSize = Math.min(availableWidth / gridSize, 140); // Medium-large for 3x3
+  } else {
+    maxItemSize = Math.min(availableWidth / gridSize, 120); // Standard for 4x4 and 5x5
+  }
+
+  const itemSize = maxItemSize;
 
   const handleItemPress = async (item: VocabularyItem) => {
     console.log("🎯 Item pressed:", item.text);
@@ -299,56 +312,87 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
         <View
           style={[
             styles.itemContent,
-            { padding: isChildMode ? 6 : 8 }, // Less padding in child mode for more text space
+            {
+              padding: settings.showText ? (isChildMode ? 6 : 8) : 0, // No padding when text is hidden
+              justifyContent: settings.showText ? "center" : "center",
+              alignItems: "center",
+            },
           ]}
         >
-          <View
-            style={[
-              styles.itemIcon,
-              {
-                width: buttonSize * (isChildMode ? 0.5 : 0.6), // Smaller icon in child mode
-                height: buttonSize * (isChildMode ? 0.4 : 0.5), // Smaller icon in child mode
-                backgroundColor: themeColors.surface,
-                borderRadius: 12,
-                justifyContent: "center",
-                alignItems: "center",
-                marginBottom: isChildMode ? 4 : 6, // Less margin in child mode
-              },
-            ]}
-          >
-            {/* Use emojis for reliable display */}
-            <Text
-              style={{
-                fontSize: Math.min(buttonSize * 0.25, 32),
-                textAlign: "center",
-              }}
-            >
-              {getEmojiForText(item.text)}
-            </Text>
-          </View>
+          {settings.showText ? (
+            // Text mode - icon with text below
+            <>
+              <View
+                style={[
+                  styles.itemIcon,
+                  {
+                    width: buttonSize * (isChildMode ? 0.5 : 0.6),
+                    height: buttonSize * (isChildMode ? 0.4 : 0.5),
+                    backgroundColor: themeColors.surface,
+                    borderRadius: 12,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginBottom: isChildMode ? 4 : 6,
+                  },
+                ]}
+              >
+                <Text
+                  style={{
+                    fontSize: Math.min(buttonSize * 0.25, 32),
+                    textAlign: "center",
+                  }}
+                >
+                  {getEmojiForText(item.text)}
+                </Text>
+              </View>
 
-          {settings.showText && (
-            <Text
+              <Text
+                style={[
+                  styles.itemLabel,
+                  {
+                    fontSize: Math.min(
+                      isChildMode ? 14 : 12,
+                      buttonSize * 0.12
+                    ),
+                    color: themeColors.surface,
+                    fontWeight: isChildMode ? "800" : "700",
+                    textShadowColor: "rgba(0,0,0,0.3)",
+                    textShadowOffset: { width: 1, height: 1 },
+                    textShadowRadius: 2,
+                    width: buttonSize * 0.85,
+                    textAlign: "center",
+                  },
+                ]}
+                numberOfLines={isChildMode ? 2 : 1}
+                adjustsFontSizeToFit={true}
+                minimumFontScale={isChildMode ? 0.6 : 0.8}
+                ellipsizeMode="tail"
+              >
+                {item.text}
+              </Text>
+            </>
+          ) : (
+            // Image-only mode - large emoji covering the entire button
+            <View
               style={[
-                styles.itemLabel,
+                styles.fullSizeIcon,
                 {
-                  fontSize: Math.min(isChildMode ? 14 : 12, buttonSize * 0.12),
-                  color: themeColors.surface,
-                  fontWeight: isChildMode ? "800" : "700",
-                  textShadowColor: "rgba(0,0,0,0.3)",
-                  textShadowOffset: { width: 1, height: 1 },
-                  textShadowRadius: 2,
-                  width: buttonSize * 0.85, // Fixed width instead of maxWidth
-                  textAlign: "center",
+                  width: buttonSize * 0.8,
+                  height: buttonSize * 0.8,
+                  justifyContent: "center",
+                  alignItems: "center",
                 },
               ]}
-              numberOfLines={isChildMode ? 2 : 1}
-              adjustsFontSizeToFit={true}
-              minimumFontScale={isChildMode ? 0.6 : 0.8}
-              ellipsizeMode="tail"
             >
-              {item.text}
-            </Text>
+              <Text
+                style={{
+                  fontSize: Math.min(buttonSize * 0.6, 80), // Much larger emoji
+                  textAlign: "center",
+                }}
+              >
+                {getEmojiForText(item.text)}
+              </Text>
+            </View>
           )}
 
           {!isChildMode && onToggleFavorite && (
@@ -421,6 +465,10 @@ const styles = StyleSheet.create({
   },
   itemIcon: {
     marginBottom: 8,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  fullSizeIcon: {
     justifyContent: "center",
     alignItems: "center",
   },
