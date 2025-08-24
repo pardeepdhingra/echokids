@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "Echo Kids",
+    "slug": "echo-kids",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/echo-kids-logo.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/echo-kids-logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#F8F9FF"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.echokids.app",
+      "buildNumber": "1",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "Echo Kids uses the microphone for voice input and TTS functionality.",
+        "NSPhotoLibraryUsageDescription": "Echo Kids accesses your photo library to add custom images to vocabulary buttons.",
+        "NSCameraUsageDescription": "Echo Kids uses the camera to take photos for vocabulary buttons.",
+        "NSSpeechRecognitionUsageDescription": "Echo Kids uses speech recognition for voice input features."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.echokids.app"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
