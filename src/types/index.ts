@@ -20,7 +20,7 @@ export interface AppSettings {
   showText: boolean;
   theme: "default" | "colorful" | "minimal";
   enableChildFilter: boolean;
-  textSize: "small" | "medium" | "large" | "extra-large";
+  textSize: "small" | "medium" | "large";
   hiddenCategories: string[];
   childAge?: number;
   hasShownAgePrompt?: boolean;

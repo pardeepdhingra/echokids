@@ -169,6 +169,10 @@ const EMOJI_MAP: { [key: string]: string } = {
   grapes: "🍇",
   strawberry: "🍓",
   watermelon: "🍉",
+  chips: "🍟",
+  "ice-cream": "🍦",
+  chocolate: "🍫",
+  cookies: "🍪",
   bathroom: "🚽",
   help: "🆘",
   tired: "😴",
@@ -497,8 +501,6 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
                           return baseSize * (gridSize <= 3 ? 0.9 : 0.8) * sizeMultiplier;
                         case "large":
                           return baseSize * (gridSize <= 3 ? 1.6 : 1.5) * sizeMultiplier;
-                        case "extra-large":
-                          return baseSize * (gridSize <= 3 ? 1.5 : 1.4) * sizeMultiplier;
                         default: // medium
                           return baseSize * (gridSize <= 3 ? 1.1 : 1.0) * sizeMultiplier;
                       }

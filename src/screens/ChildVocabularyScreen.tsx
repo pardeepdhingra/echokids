@@ -181,9 +181,14 @@ export const ChildVocabularyScreen: React.FC<ChildVocabularyScreenProps> = ({
   const renderCategoryFilter = () => {
     if (!settings.enableChildFilter) return null;
     
+    const visibleCategories = categories.filter((category) => 
+      !(settings.hiddenCategories || []).includes(category.id)
+    );
+    
     return (
       <View style={styles.categoryFilter}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <Text style={styles.filterLabel}>Filter by Category:</Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll}>
           <TouchableOpacity
             style={[
               styles.categoryChip,
@@ -200,29 +205,27 @@ export const ChildVocabularyScreen: React.FC<ChildVocabularyScreenProps> = ({
               All
             </Text>
           </TouchableOpacity>
-          {categories
-            .filter((category) => !(settings.hiddenCategories || []).includes(category.id))
-            .map((category) => (
-              <TouchableOpacity
-                key={category.id}
+          {visibleCategories.map((category) => (
+            <TouchableOpacity
+              key={category.id}
+              style={[
+                styles.categoryChip,
+                { backgroundColor: category.color },
+                selectedCategory === category.id && styles.categoryChipActive,
+              ]}
+              onPress={() => setSelectedCategory(category.id)}
+            >
+              <Text
                 style={[
-                  styles.categoryChip,
-                  { backgroundColor: category.color },
-                  selectedCategory === category.id && styles.categoryChipActive,
+                  styles.categoryChipText,
+                  selectedCategory === category.id &&
+                    styles.categoryChipTextActive,
                 ]}
-                onPress={() => setSelectedCategory(category.id)}
               >
-                <Text
-                  style={[
-                    styles.categoryChipText,
-                    selectedCategory === category.id &&
-                      styles.categoryChipTextActive,
-                  ]}
-                >
-                  {category.name}
-                </Text>
-              </TouchableOpacity>
-            ))}
+                {category.name}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </ScrollView>
       </View>
     );
@@ -406,6 +409,16 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
   },
+  filterLabel: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: COLORS.text,
+    marginBottom: 8,
+  },
+  filterScroll: {
+    flexGrow: 0,
+  },
+
   categoryChip: {
     paddingHorizontal: 16,
     paddingVertical: 8,
