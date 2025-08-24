@@ -195,11 +195,18 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
       await speak(textToSpeak, ttsSettings);
       console.log("✅ TTS completed successfully");
     } catch (error) {
-      console.log("🎤 TTS failed, trying beep fallback");
+      console.log("🎤 TTS failed, trying beep fallback:", error);
       try {
         await playBeep();
+        console.log("✅ Beep fallback successful");
       } catch (beepError) {
-        console.log("🎤 Both TTS and beep failed");
+        console.log("🎤 Both TTS and beep failed, using vibration only");
+        // Last resort: just vibration
+        try {
+          Vibration.vibrate([100, 200, 100]);
+        } catch (vibrationError) {
+          console.log("🎤 All feedback methods failed");
+        }
       }
     }
 

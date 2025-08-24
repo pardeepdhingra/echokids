@@ -7,7 +7,7 @@ import {
 
 export const DEFAULT_SETTINGS: AppSettings = {
   gridSize: 3,
-  ttsVoice: "com.apple.voice.compact.en-US.Samantha", // iOS system voice
+  ttsVoice: "en-US", // Use language code instead of specific voice ID
   volume: 1.0,
   speechRate: 0.8,
   buttonMode: "sentence",

@@ -2,37 +2,56 @@ import * as Speech from "expo-speech";
 import { Audio } from "expo-av";
 import { Vibration } from "react-native";
 
-// Initialize audio session for iOS
+let audioInitialized = false;
+
 const initializeAudio = async () => {
+  if (audioInitialized) {
+    return;
+  }
+
   try {
     console.log("🔊 Initializing audio session...");
+    
+    // Try the most basic and compatible audio mode first
     await Audio.setAudioModeAsync({
       allowsRecordingIOS: false,
-      staysActiveInBackground: true,
+      staysActiveInBackground: false,
       playsInSilentModeIOS: true,
-      shouldDuckAndroid: true,
-      playThroughEarpieceAndroid: false,
-      interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-      interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
     });
-    console.log("✅ Audio session initialized successfully");
+    
+    console.log("✅ Basic audio session initialized successfully");
+    audioInitialized = true;
   } catch (error) {
-    console.error("❌ Audio session init failed:", error);
-    // Try alternative audio mode
+    console.error("❌ Basic audio session init failed:", error);
+    
     try {
-      console.log("🔊 Trying alternative audio mode...");
+      console.log("🔊 Trying minimal audio mode...");
       await Audio.setAudioModeAsync({
         allowsRecordingIOS: false,
-        staysActiveInBackground: true,
         playsInSilentModeIOS: true,
         shouldDuckAndroid: false,
-        playThroughEarpieceAndroid: false,
-        interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-        interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
       });
-      console.log("✅ Alternative audio session initialized");
+      
+      console.log("✅ Minimal audio session initialized");
+      audioInitialized = true;
     } catch (altError) {
-      console.error("❌ Alternative audio session also failed:", altError);
+      console.error("❌ Minimal audio session failed:", altError);
+      
+      try {
+        console.log("🔊 Trying Android-compatible mode...");
+        await Audio.setAudioModeAsync({
+          allowsRecordingIOS: false,
+          shouldDuckAndroid: false,
+          playThroughEarpieceAndroid: false,
+        });
+        
+        console.log("✅ Android-compatible audio session initialized");
+        audioInitialized = true;
+      } catch (minimalError) {
+        console.error("❌ All audio session attempts failed:", minimalError);
+        console.log("⚠️ Continuing without audio session - some devices might work anyway");
+        // Continue without audio session - some devices might work anyway
+      }
     }
   }
 };
@@ -41,51 +60,70 @@ export const speak = async (text: string, settings: any) => {
   console.log("🎤 SPEAK CALLED:", { text, settings });
 
   try {
-    // Initialize audio session first
     await initializeAudio();
 
     // Stop any current speech first
-    await Speech.stop();
+    try {
+      await Speech.stop();
+    } catch (stopError) {
+      console.log("⚠️ Speech.stop() failed (this is often normal):", stopError);
+    }
 
-    // Build TTS options with voice selection
+    // Build TTS options with minimal configuration
     const ttsOptions: any = {
       language: "en-US",
       volume: settings.volume || 1.0,
       rate: settings.speechRate || 0.8,
     };
 
-    // Try with voice parameter first
-    if (settings.ttsVoice && (settings.ttsVoice.includes("com.apple.ttsbundle") || settings.ttsVoice.includes("com.apple.voice"))) {
+    // Only add voice if it's a valid iOS voice identifier
+    if (settings.ttsVoice && 
+        (settings.ttsVoice.includes("com.apple.ttsbundle") || 
+         settings.ttsVoice.includes("com.apple.voice") ||
+         settings.ttsVoice.includes("en-US"))) {
       ttsOptions.voice = settings.ttsVoice;
-      console.log("🎤 Using iOS voice:", settings.ttsVoice);
+      console.log("🎤 Using voice:", settings.ttsVoice);
     } else {
       console.log("🎤 Using default voice");
     }
 
-    console.log("🎤 Calling Speech.speak with text:", text);
-    console.log("🎤 TTS options:", ttsOptions);
+    console.log("🎤 Calling Speech.speak with options:", ttsOptions);
     
+    // Try TTS with voice first
     try {
       await Speech.speak(text, ttsOptions);
-      console.log("🎤 TTS completed successfully");
+      console.log("✅ TTS completed successfully");
+      return;
     } catch (voiceError) {
-      console.log("🎤 Voice TTS failed, trying without voice parameter...");
+      console.log("🎤 Voice TTS failed, trying without voice parameter:", voiceError);
+      
       // Try without voice parameter
       const fallbackOptions = {
         language: "en-US",
         volume: settings.volume || 1.0,
         rate: settings.speechRate || 0.8,
       };
+      
       await Speech.speak(text, fallbackOptions);
-      console.log("🎤 Fallback TTS completed successfully");
+      console.log("✅ Fallback TTS completed successfully");
+      return;
     }
   } catch (error) {
     console.error("❌ TTS failed:", error);
+    
+    // Try to play a simple beep as fallback
     try {
       console.log("🔇 Falling back to beep...");
       await playBeep();
     } catch (beepError) {
       console.error("❌ Beep also failed:", beepError);
+      // Last resort: try vibration
+      try {
+        Vibration.vibrate([100, 200, 100]);
+        console.log("📳 Using vibration as final fallback");
+      } catch (vibrationError) {
+        console.error("❌ All audio feedback methods failed");
+      }
     }
   }
 };
@@ -114,19 +152,22 @@ export const getAvailableVoices = async () => {
   }
 };
 
-// Test function to verify TTS is working
 export const testTTS = async () => {
   try {
     console.log("🎤 Starting TTS test...");
     await initializeAudio();
-    await Speech.stop();
+    
+    try {
+      await Speech.stop();
+    } catch (stopError) {
+      console.log("⚠️ Speech.stop() failed during test:", stopError);
+    }
 
     console.log("🎤 Testing basic TTS...");
     await Speech.speak("Hello, this is a TTS test", {
       language: "en-US",
       volume: 1.0,
       rate: 0.8,
-      voice: "com.apple.voice.compact.en-US.Samantha",
     });
 
     console.log("✅ TTS test completed successfully");
@@ -137,7 +178,6 @@ export const testTTS = async () => {
   }
 };
 
-// Test device vibration
 export const testVibration = () => {
   console.log("📳 Testing vibration...");
   try {
@@ -150,14 +190,13 @@ export const testVibration = () => {
   }
 };
 
-// Test if device can play any audio at all
 export const testDeviceAudio = async () => {
   console.log("🔊 Testing device audio capability...");
 
   try {
     await initializeAudio();
 
-    // Try to play a very simple sound
+    // Try to play a simple sound
     const { sound } = await Audio.Sound.createAsync(
       { uri: "https://www.soundjay.com/misc/sounds/fail-buzzer-01.wav" },
       {
@@ -170,7 +209,7 @@ export const testDeviceAudio = async () => {
 
     console.log("✅ Device audio test: Sound created");
 
-    // Wait longer for this test
+    // Wait for sound to finish
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     await sound.unloadAsync();
@@ -182,14 +221,31 @@ export const testDeviceAudio = async () => {
   }
 };
 
-// Simple beep sound that should work on iOS
+export const testSimpleTTS = async () => {
+  console.log("🎤 Testing simple TTS without audio session...");
+  
+  try {
+    // Try TTS without any audio session setup
+    await Speech.speak("Test", {
+      language: "en-US",
+      volume: 1.0,
+      rate: 0.8,
+    });
+    
+    console.log("✅ Simple TTS test passed");
+    return true;
+  } catch (error) {
+    console.error("❌ Simple TTS test failed:", error);
+    return false;
+  }
+};
+
 export const playBeep = async () => {
   console.log("🔊 Playing beep sound...");
 
   try {
     await initializeAudio();
 
-    // Use the working audio source from the device test
     const { sound } = await Audio.Sound.createAsync(
       { uri: "https://www.soundjay.com/misc/sounds/fail-buzzer-01.wav" },
       {
@@ -214,15 +270,12 @@ export const playBeep = async () => {
   }
 };
 
-// Test if audio is working at all (not just TTS)
 export const testAudio = async () => {
   console.log("🔊 Testing basic audio functionality...");
 
-  // Initialize audio session first
-  await initializeAudio();
-
   try {
-    // Test if we can play a simple beep sound
+    await initializeAudio();
+
     const { sound } = await Audio.Sound.createAsync(
       { uri: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" },
       {
@@ -242,6 +295,42 @@ export const testAudio = async () => {
     return true;
   } catch (error) {
     console.error("❌ Audio test failed:", error);
+    return false;
+  }
+};
+
+export const testAudioSession = async () => {
+  console.log("🔊 Testing audio session specifically...");
+  
+  try {
+    const { Audio } = await import("expo-av");
+    
+    // Test 1: Basic audio session
+    try {
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: false,
+        playsInSilentModeIOS: true,
+      });
+      console.log("✅ Basic audio session test passed");
+    } catch (error) {
+      console.error("❌ Basic audio session test failed:", error);
+    }
+    
+    // Test 2: Check if we can create a sound object
+    try {
+      const { sound } = await Audio.Sound.createAsync(
+        { uri: "https://www.soundjay.com/misc/sounds/fail-buzzer-01.wav" },
+        { shouldPlay: false }
+      );
+      await sound.unloadAsync();
+      console.log("✅ Sound creation test passed");
+    } catch (error) {
+      console.error("❌ Sound creation test failed:", error);
+    }
+    
+    return true;
+  } catch (error) {
+    console.error("❌ Audio session test failed:", error);
     return false;
   }
 };

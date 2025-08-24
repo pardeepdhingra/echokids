@@ -495,6 +495,69 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             >
               <Text style={styles.testButtonText}>🧪 Test TTS</Text>
             </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.testButton, { marginTop: 8 }]}
+              onPress={async () => {
+                console.log("🎤 Testing simple TTS...");
+                try {
+                  const { testSimpleTTS } = await import("../utils/tts");
+                  const result = await testSimpleTTS();
+
+                  Alert.alert(
+                    "Simple TTS Test",
+                    result ? "Simple TTS is working!" : "Simple TTS failed."
+                  );
+                } catch (error) {
+                  Alert.alert("Simple TTS Test", "Simple TTS test failed.");
+                }
+              }}
+            >
+              <Text style={styles.testButtonText}>🎤 Test Simple TTS</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.testButton, { marginTop: 8 }]}
+              onPress={async () => {
+                console.log("🔊 Testing audio system...");
+                try {
+                  const {
+                    testAudio,
+                    testTTS,
+                    testVibration,
+                    testAudioSession,
+                  } = await import("../utils/tts");
+
+                  const results = await Promise.allSettled([
+                    testAudioSession(),
+                    testAudio(),
+                    testTTS(),
+                    Promise.resolve(testVibration()),
+                  ]);
+
+                  const sessionResult =
+                    results[0].status === "fulfilled" && results[0].value;
+                  const audioResult =
+                    results[1].status === "fulfilled" && results[1].value;
+                  const ttsResult =
+                    results[2].status === "fulfilled" && results[2].value;
+                  const vibrationResult =
+                    results[3].status === "fulfilled" && results[3].value;
+
+                  Alert.alert(
+                    "Audio System Test",
+                    `Session: ${sessionResult ? "✅" : "❌"}\nAudio: ${audioResult ? "✅" : "❌"}\nTTS: ${ttsResult ? "✅" : "❌"}\nVibration: ${vibrationResult ? "✅" : "❌"}`
+                  );
+                } catch (error) {
+                  Alert.alert(
+                    "Test Failed",
+                    "Could not run audio system test."
+                  );
+                }
+              }}
+            >
+              <Text style={styles.testButtonText}>🔊 Test Audio System</Text>
+            </TouchableOpacity>
           </View>
         )}
 

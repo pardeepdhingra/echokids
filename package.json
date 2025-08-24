@@ -21,7 +21,8 @@
     "dev:build": "node scripts/dev-workflow.js build",
     "dev:clean": "node scripts/dev-workflow.js clean",
     "dev:doctor": "node scripts/dev-workflow.js doctor",
-    "dev:pre-push": "node scripts/dev-workflow.js pre-push"
+    "dev:pre-push": "node scripts/dev-workflow.js pre-push",
+    "test:audio": "node scripts/test-audio.js"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.0",
