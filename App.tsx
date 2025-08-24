@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { Audio } from "expo-av";
 import { ParentVocabularyScreen } from "./src/screens/ParentVocabularyScreen";
 import { ChildVocabularyScreen } from "./src/screens/ChildVocabularyScreen";
 import { SettingsScreen } from "./src/screens/SettingsScreen";
@@ -13,15 +14,14 @@ export default function App() {
   useEffect(() => {
     const initializeAudio = async () => {
       try {
-        const { Audio } = await import("expo-av");
         console.log("🔊 Initializing app audio session...");
-        
+
         await Audio.setAudioModeAsync({
           allowsRecordingIOS: false,
           staysActiveInBackground: false,
           playsInSilentModeIOS: true,
         });
-        
+
         console.log("✅ App audio session initialized");
       } catch (error) {
         console.error("❌ App audio initialization failed:", error);
