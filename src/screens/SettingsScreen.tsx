@@ -19,6 +19,7 @@ import {
   VOICE_OPTIONS,
   VOICE_CATEGORIES,
   BUTTON_SIZES,
+  DEFAULT_CATEGORIES,
   updateVoiceOptions,
   getDefaultVoice,
 } from "../constants";
@@ -42,6 +43,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
     theme: "colorful",
     enableChildFilter: false,
     textSize: "medium",
+    hiddenCategories: [],
   });
   const [isLocked, setIsLocked] = useState(false);
   const [showVoiceModal, setShowVoiceModal] = useState(false);
@@ -366,7 +368,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
       <ScrollView style={styles.content}>
         {renderSettingItem(
           "Button Mode",
-          "Choose between one-word or sentence mode",
+          "Choose between one-word, two-word, or sentence mode",
           <View style={styles.modeButtons}>
             <TouchableOpacity
               style={[
@@ -394,6 +396,34 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
                 ]}
               >
                 One Word
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.modeButton,
+                settings.buttonMode === "two-word" && styles.modeButtonActive,
+              ]}
+              onPress={() => handleSettingChange("buttonMode", "two-word")}
+            >
+              <Text
+                style={{
+                  fontSize: 24,
+                  color:
+                    settings.buttonMode === "two-word"
+                      ? COLORS.surface
+                      : COLORS.primary,
+                }}
+              >
+                📋
+              </Text>
+              <Text
+                style={[
+                  styles.modeButtonText,
+                  settings.buttonMode === "two-word" &&
+                    styles.modeButtonTextActive,
+                ]}
+              >
+                Two Words
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -731,6 +761,68 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           </View>
         )}
 
+        {renderSettingItem(
+          "Category Management",
+          "Hide categories to simplify vocabulary for your child",
+          <View style={styles.categoryManagementContainer}>
+            {DEFAULT_CATEGORIES.map((category) => {
+              const isHidden = (settings.hiddenCategories || []).includes(category.id);
+              return (
+                <TouchableOpacity
+                  key={category.id}
+                  style={[
+                    styles.categoryToggleButton,
+                    isHidden && styles.categoryToggleButtonHidden,
+                  ]}
+                  onPress={() => {
+                    const currentHiddenCategories = settings.hiddenCategories || [];
+                    const newHiddenCategories = isHidden
+                      ? currentHiddenCategories.filter((id) => id !== category.id)
+                      : [...currentHiddenCategories, category.id];
+                    console.log("🔧 Settings: Toggling category", {
+                      category: category.name,
+                      isHidden,
+                      currentHiddenCategories,
+                      newHiddenCategories
+                    });
+                    handleSettingChange("hiddenCategories", newHiddenCategories);
+                  }}
+                >
+                  <View style={styles.categoryToggleContent}>
+                    <View
+                      style={[
+                        styles.categoryColorIndicator,
+                        { backgroundColor: category.color },
+                      ]}
+                    />
+                    <Text
+                      style={[
+                        styles.categoryToggleText,
+                        isHidden && styles.categoryToggleTextHidden,
+                      ]}
+                    >
+                      {category.name}
+                    </Text>
+                  </View>
+                  <View style={styles.categoryToggleStatus}>
+                    <Text
+                      style={[
+                        styles.categoryToggleStatusText,
+                        isHidden && styles.categoryToggleStatusTextHidden,
+                      ]}
+                    >
+                      {isHidden ? "Hidden" : "Visible"}
+                    </Text>
+                    <Text style={styles.categoryToggleIcon}>
+                      {isHidden ? "👁️‍🗨️" : "👁️"}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        )}
+
         <TouchableOpacity
           style={[
             styles.dangerButton,
@@ -857,7 +949,7 @@ const styles = StyleSheet.create({
   },
   modeButton: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
     padding: 16,
@@ -872,10 +964,11 @@ const styles = StyleSheet.create({
     borderColor: COLORS.primary,
   },
   modeButtonText: {
-    marginLeft: 8,
+    marginTop: 8,
     fontSize: 14,
     fontWeight: "500",
     color: COLORS.text,
+    textAlign: "center",
   },
   modeButtonTextActive: {
     color: COLORS.surface,
@@ -1141,5 +1234,57 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "600",
     color: COLORS.primary,
+  },
+  categoryManagementContainer: {
+    gap: 8,
+  },
+  categoryToggleButton: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 12,
+    borderRadius: 8,
+    backgroundColor: COLORS.background,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+  },
+  categoryToggleButtonHidden: {
+    backgroundColor: COLORS.border,
+    borderColor: COLORS.textSecondary,
+  },
+  categoryToggleContent: {
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 1,
+  },
+  categoryColorIndicator: {
+    width: 16,
+    height: 16,
+    borderRadius: 8,
+    marginRight: 12,
+  },
+  categoryToggleText: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: COLORS.text,
+  },
+  categoryToggleTextHidden: {
+    color: COLORS.textSecondary,
+  },
+  categoryToggleStatus: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  categoryToggleStatusText: {
+    fontSize: 14,
+    color: COLORS.success,
+    fontWeight: "500",
+  },
+  categoryToggleStatusTextHidden: {
+    color: COLORS.textSecondary,
+  },
+  categoryToggleIcon: {
+    fontSize: 16,
   },
 });

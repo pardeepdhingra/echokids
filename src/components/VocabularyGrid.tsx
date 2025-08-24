@@ -41,6 +41,18 @@ const ICON_MAP: { [key: string]: string } = {
   water: "water",
   thirsty: "cafe",
   milk: "cafe",
+  sandwich: "restaurant",
+  burger: "restaurant",
+  pizza: "restaurant",
+  spaghetti: "restaurant",
+  "cold drink": "cafe",
+  juice: "cafe",
+  apple: "restaurant",
+  banana: "restaurant",
+  orange: "restaurant",
+  grapes: "restaurant",
+  strawberry: "restaurant",
+  watermelon: "restaurant",
 
   // Basic Needs
   bathroom: "medical",
@@ -54,6 +66,8 @@ const ICON_MAP: { [key: string]: string } = {
   angry: "flash",
   scared: "warning",
   excited: "star",
+  cold: "thermometer",
+  hot: "flame",
 
   // Activities
   play: "play",
@@ -80,6 +94,13 @@ const ICON_MAP: { [key: string]: string } = {
   park: "leaf",
   store: "storefront",
   playground: "happy",
+
+  // Weather
+  sunny: "sunny",
+  rainy: "rainy",
+  snowy: "snow",
+  cloudy: "cloudy",
+  windy: "leaf",
 };
 
 // Emoji fallback mapping
@@ -95,6 +116,18 @@ const EMOJI_MAP: { [key: string]: string } = {
   water: "💧",
   thirsty: "🥤",
   milk: "🥛",
+  sandwich: "🥪",
+  burger: "🍔",
+  pizza: "🍕",
+  spaghetti: "🍝",
+  "cold drink": "🥤",
+  juice: "🧃",
+  apple: "🍎",
+  banana: "🍌",
+  orange: "🍊",
+  grapes: "🍇",
+  strawberry: "🍓",
+  watermelon: "🍉",
   bathroom: "🚽",
   help: "🆘",
   tired: "😴",
@@ -104,6 +137,8 @@ const EMOJI_MAP: { [key: string]: string } = {
   angry: "😠",
   scared: "😨",
   excited: "🎉",
+  cold: "🥶",
+  hot: "🥵",
   play: "🎮",
   stop: "🛑",
   more: "➕",
@@ -124,6 +159,13 @@ const EMOJI_MAP: { [key: string]: string } = {
   park: "🌳",
   store: "🏪",
   playground: "🎪",
+
+  // Weather
+  sunny: "☀️",
+  rainy: "🌧️",
+  snowy: "❄️",
+  cloudy: "☁️",
+  windy: "💨",
 };
 
 const getIconForText = (text: string): string => {
@@ -182,10 +224,17 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
       console.log("📳 Vibration failed:", vibrationError);
     }
 
-    const textToSpeak =
-      settings.buttonMode === "sentence" && item.message
-        ? item.message
-        : item.text;
+    const textToSpeak = (() => {
+      switch (settings.buttonMode) {
+        case "sentence":
+          return item.message || item.text;
+        case "two-word":
+          return item.twoWord || item.text;
+        case "one-word":
+        default:
+          return item.text;
+      }
+    })();
 
     console.log("🎤 Button Mode Debug:", {
       buttonMode: settings.buttonMode,
@@ -379,13 +428,19 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
                         isChildMode ? 12 : 10,
                         buttonSize * 0.1
                       );
+                      // Reduce font size for longer texts
+                      const textLength = item.text.length;
+                      let sizeMultiplier = 1;
+                      if (textLength > 10) sizeMultiplier = 0.8;
+                      if (textLength > 15) sizeMultiplier = 0.7;
+                      
                       switch (settings.textSize) {
                         case "small":
-                          return baseSize * 0.8;
+                          return baseSize * 0.8 * sizeMultiplier;
                         case "large":
-                          return baseSize * 1.2;
+                          return baseSize * 1.2 * sizeMultiplier;
                         default: // medium
-                          return baseSize;
+                          return baseSize * sizeMultiplier;
                       }
                     })(),
                     color: themeColors.surface,
@@ -393,13 +448,13 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
                     textShadowColor: "rgba(0,0,0,0.3)",
                     textShadowOffset: { width: 1, height: 1 },
                     textShadowRadius: 2,
-                    width: buttonSize * 0.75,
+                    width: buttonSize * 0.9,
                     textAlign: "center",
                   },
                 ]}
                 numberOfLines={isChildMode ? 2 : 1}
                 adjustsFontSizeToFit={true}
-                minimumFontScale={isChildMode ? 0.6 : 0.8}
+                minimumFontScale={isChildMode ? 0.5 : 0.7}
                 ellipsizeMode="tail"
               >
                 {item.text}
@@ -476,7 +531,7 @@ const styles = StyleSheet.create({
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
     alignItems: "flex-start",
     gap: 8,
   },

@@ -21,7 +21,7 @@ interface AddEditItemModalProps {
   onSave: (item: VocabularyItem) => void;
   item?: VocabularyItem;
   categories: Array<{ id: string; name: string; color: string }>;
-  buttonMode: "one-word" | "sentence";
+  buttonMode: "one-word" | "two-word" | "sentence";
 }
 
 export const AddEditItemModal: React.FC<AddEditItemModalProps> = ({
@@ -483,6 +483,18 @@ const getEmojiForText = (text: string): string => {
     water: "💧",
     thirsty: "🥤",
     milk: "🥛",
+    sandwich: "🥪",
+    burger: "🍔",
+    pizza: "🍕",
+    spaghetti: "🍝",
+    "cold drink": "🥤",
+    juice: "🧃",
+    apple: "🍎",
+    banana: "🍌",
+    orange: "🍊",
+    grapes: "🍇",
+    strawberry: "🍓",
+    watermelon: "🍉",
 
     // Basic Needs
     bathroom: "🚽",
@@ -496,6 +508,8 @@ const getEmojiForText = (text: string): string => {
     angry: "😠",
     scared: "😨",
     excited: "🤩",
+    cold: "🥶",
+    hot: "🥵",
 
     // Activities
     play: "🎮",
@@ -522,6 +536,13 @@ const getEmojiForText = (text: string): string => {
     park: "🌳",
     store: "🏪",
     playground: "🎪",
+
+    // Weather
+    sunny: "☀️",
+    rainy: "🌧️",
+    snowy: "❄️",
+    cloudy: "☁️",
+    windy: "💨",
   };
 
   const lowerText = text.toLowerCase();

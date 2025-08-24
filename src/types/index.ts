@@ -2,6 +2,7 @@ export interface VocabularyItem {
   id: string;
   text: string;
   message?: string;
+  twoWord?: string;
   image?: string;
   isFavorite: boolean;
   category?: string;
@@ -15,11 +16,12 @@ export interface AppSettings {
   ttsVoice: string;
   volume: number;
   speechRate: number;
-  buttonMode: "one-word" | "sentence";
+  buttonMode: "one-word" | "two-word" | "sentence";
   showText: boolean;
   theme: "default" | "colorful" | "minimal";
   enableChildFilter: boolean;
   textSize: "small" | "medium" | "large";
+  hiddenCategories: string[];
 }
 
 export interface Category {
@@ -40,6 +42,7 @@ export interface ButtonTemplate {
   id: string;
   text: string;
   message: string;
+  twoWord?: string;
   category: string;
   image?: string;
   color: string;

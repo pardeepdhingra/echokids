@@ -10,11 +10,12 @@ export const DEFAULT_SETTINGS: AppSettings = {
   ttsVoice: "en-US", // Use language code instead of specific voice ID
   volume: 1.0,
   speechRate: 0.8,
-  buttonMode: "sentence",
+  buttonMode: "two-word",
   showText: true,
   theme: "colorful",
   enableChildFilter: false,
   textSize: "medium",
+  hiddenCategories: [],
 };
 
 // This will be populated dynamically with available voices
@@ -134,6 +135,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "hello",
     text: "Hello",
     message: "Hello, how are you?",
+    twoWord: "Hello there",
     category: "greetings",
     color: "#FF6B9D", // Bright pink
   },
@@ -141,6 +143,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "goodbye",
     text: "Goodbye",
     message: "Goodbye, see you later.",
+    twoWord: "Goodbye now",
     category: "greetings",
     color: "#4ECDC4", // Turquoise
   },
@@ -148,6 +151,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "thank-you",
     text: "Thank you",
     message: "Thank you very much.",
+    twoWord: "Thank you",
     category: "greetings",
     color: "#9B59B6", // Purple
   },
@@ -155,6 +159,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "please",
     text: "Please",
     message: "Please help me.",
+    twoWord: "Please help",
     category: "greetings",
     color: "#F1C40F", // Yellow
   },
@@ -162,6 +167,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "happy-birthday",
     text: "Happy Birthday",
     message: "Happy Birthday!",
+    twoWord: "Happy Birthday",
     category: "greetings",
     color: "#FF69B4", // Hot pink
   },
@@ -169,6 +175,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "i-love-you",
     text: "I love you",
     message: "I love you!",
+    twoWord: "I love",
     category: "greetings",
     color: "#E91E63", // Deep pink
   },
@@ -178,6 +185,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "food",
     text: "Food",
     message: "I want food.",
+    twoWord: "Want food",
     category: "food",
     color: "#FFB347", // Warm orange
   },
@@ -185,6 +193,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "hungry",
     text: "Hungry",
     message: "I am hungry.",
+    twoWord: "Am hungry",
     category: "food",
     color: "#E67E22", // Dark orange
   },
@@ -192,6 +201,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "water",
     text: "Water",
     message: "I want water.",
+    twoWord: "Want water",
     category: "food",
     color: "#45B7D1", // Sky blue
   },
@@ -199,6 +209,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "thirsty",
     text: "Thirsty",
     message: "I am thirsty.",
+    twoWord: "Am thirsty",
     category: "food",
     color: "#3498DB", // Blue
   },
@@ -206,8 +217,105 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "milk",
     text: "Milk",
     message: "I want milk.",
+    twoWord: "Want milk",
     category: "food",
     color: "#98D8C8", // Mint green
+  },
+  {
+    id: "sandwich",
+    text: "Sandwich",
+    message: "I want a sandwich.",
+    twoWord: "Want sandwich",
+    category: "food",
+    color: "#F39C12", // Orange
+  },
+  {
+    id: "burger",
+    text: "Burger",
+    message: "I want a burger.",
+    twoWord: "Want burger",
+    category: "food",
+    color: "#E67E22", // Dark orange
+  },
+  {
+    id: "pizza",
+    text: "Pizza",
+    message: "I want pizza.",
+    twoWord: "Want pizza",
+    category: "food",
+    color: "#E74C3C", // Red
+  },
+  {
+    id: "spaghetti",
+    text: "Spaghetti",
+    message: "I want spaghetti.",
+    twoWord: "Want spaghetti",
+    category: "food",
+    color: "#FF6B9D", // Pink
+  },
+  {
+    id: "cold-drink",
+    text: "Cold Drink",
+    message: "I want a cold drink.",
+    twoWord: "Want drink",
+    category: "food",
+    color: "#3498DB", // Blue
+  },
+  {
+    id: "juice",
+    text: "Juice",
+    message: "I want juice.",
+    twoWord: "Want juice",
+    category: "food",
+    color: "#FFB347", // Warm orange
+  },
+  {
+    id: "apple",
+    text: "Apple",
+    message: "I want an apple.",
+    twoWord: "Want apple",
+    category: "food",
+    color: "#E74C3C", // Red
+  },
+  {
+    id: "banana",
+    text: "Banana",
+    message: "I want a banana.",
+    twoWord: "Want banana",
+    category: "food",
+    color: "#F1C40F", // Yellow
+  },
+  {
+    id: "orange",
+    text: "Orange",
+    message: "I want an orange.",
+    twoWord: "Want orange",
+    category: "food",
+    color: "#FF8C00", // Dark orange
+  },
+  {
+    id: "grapes",
+    text: "Grapes",
+    message: "I want grapes.",
+    twoWord: "Want grapes",
+    category: "food",
+    color: "#8E44AD", // Purple
+  },
+  {
+    id: "strawberry",
+    text: "Strawberry",
+    message: "I want strawberries.",
+    twoWord: "Want strawberries",
+    category: "food",
+    color: "#E91E63", // Pink
+  },
+  {
+    id: "watermelon",
+    text: "Watermelon",
+    message: "I want watermelon.",
+    twoWord: "Want watermelon",
+    category: "food",
+    color: "#2ECC71", // Green
   },
 
   // Basic Needs
@@ -215,6 +323,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "bathroom",
     text: "Bathroom",
     message: "I need to use the bathroom.",
+    twoWord: "Need bathroom",
     category: "needs",
     color: "#E74C3C", // Red
   },
@@ -222,6 +331,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "help",
     text: "Help",
     message: "I need help.",
+    twoWord: "Need help",
     category: "needs",
     color: "#F39C12", // Orange
   },
@@ -229,6 +339,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "tired",
     text: "Tired",
     message: "I am tired.",
+    twoWord: "Am tired",
     category: "needs",
     color: "#8E44AD", // Purple
   },
@@ -236,6 +347,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "sleep",
     text: "Sleep",
     message: "I want to sleep.",
+    twoWord: "Want sleep",
     category: "needs",
     color: "#2C3E50", // Dark blue
   },
@@ -245,6 +357,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "happy",
     text: "Happy",
     message: "I am happy.",
+    twoWord: "Am happy",
     category: "emotions",
     color: "#F1C40F", // Yellow
   },
@@ -252,6 +365,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "sad",
     text: "Sad",
     message: "I am sad.",
+    twoWord: "Am sad",
     category: "emotions",
     color: "#3498DB", // Blue
   },
@@ -259,6 +373,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "angry",
     text: "Angry",
     message: "I am angry.",
+    twoWord: "Am angry",
     category: "emotions",
     color: "#E74C3C", // Red
   },
@@ -266,6 +381,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "scared",
     text: "Scared",
     message: "I am scared.",
+    twoWord: "Am scared",
     category: "emotions",
     color: "#8E44AD", // Purple
   },
@@ -273,8 +389,25 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "excited",
     text: "Excited",
     message: "I am excited!",
+    twoWord: "Am excited",
     category: "emotions",
     color: "#FF6B9D", // Pink
+  },
+  {
+    id: "cold",
+    text: "Cold",
+    message: "I am cold.",
+    twoWord: "Am cold",
+    category: "emotions",
+    color: "#3498DB", // Blue
+  },
+  {
+    id: "hot",
+    text: "Hot",
+    message: "I am hot.",
+    twoWord: "Am hot",
+    category: "emotions",
+    color: "#E74C3C", // Red
   },
 
   // Activities
@@ -282,6 +415,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "play",
     text: "Play",
     message: "I want to play.",
+    twoWord: "Want play",
     category: "activities",
     color: "#2ECC71", // Green
   },
@@ -289,6 +423,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "stop",
     text: "Stop",
     message: "Please stop.",
+    twoWord: "Please stop",
     category: "activities",
     color: "#E74C3C", // Red
   },
@@ -296,6 +431,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "more",
     text: "More",
     message: "I want more.",
+    twoWord: "Want more",
     category: "activities",
     color: "#F39C12", // Orange
   },
@@ -303,6 +439,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "all-done",
     text: "All Done",
     message: "I am all done.",
+    twoWord: "All done",
     category: "activities",
     color: "#9B59B6", // Purple
   },
@@ -310,6 +447,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "book",
     text: "Book",
     message: "I want to read a book.",
+    twoWord: "Want book",
     category: "activities",
     color: "#45B7D1", // Sky blue
   },
@@ -319,6 +457,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "mom",
     text: "Mom",
     message: "I want my mom.",
+    twoWord: "Want mom",
     category: "people",
     color: "#FF6B9D", // Pink
   },
@@ -326,6 +465,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "dad",
     text: "Dad",
     message: "I want my dad.",
+    twoWord: "Want dad",
     category: "people",
     color: "#4ECDC4", // Turquoise
   },
@@ -333,6 +473,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "friend",
     text: "Friend",
     message: "I want to see my friend.",
+    twoWord: "Want friend",
     category: "people",
     color: "#F1C40F", // Yellow
   },
@@ -340,6 +481,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "teacher",
     text: "Teacher",
     message: "I need my teacher.",
+    twoWord: "Need teacher",
     category: "people",
     color: "#9B59B6", // Purple
   },
@@ -347,6 +489,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "brother",
     text: "Brother",
     message: "I want to see my brother.",
+    twoWord: "Want brother",
     category: "people",
     color: "#3498DB", // Blue
   },
@@ -354,6 +497,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "sister",
     text: "Sister",
     message: "I want to see my sister.",
+    twoWord: "Want sister",
     category: "people",
     color: "#E91E63", // Pink
   },
@@ -361,6 +505,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "grandpa",
     text: "Grandpa",
     message: "I want to see my grandpa.",
+    twoWord: "Want grandpa",
     category: "people",
     color: "#8E44AD", // Purple
   },
@@ -368,6 +513,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "grandma",
     text: "Grandma",
     message: "I want to see my grandma.",
+    twoWord: "Want grandma",
     category: "people",
     color: "#E67E22", // Orange
   },
@@ -375,6 +521,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "uncle",
     text: "Uncle",
     message: "I want to see my uncle.",
+    twoWord: "Want uncle",
     category: "people",
     color: "#2ECC71", // Green
   },
@@ -382,6 +529,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "aunt",
     text: "Aunt",
     message: "I want to see my aunt.",
+    twoWord: "Want aunt",
     category: "people",
     color: "#F39C12", // Yellow
   },
@@ -391,6 +539,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "home",
     text: "Home",
     message: "I want to go home.",
+    twoWord: "Go home",
     category: "places",
     color: "#2ECC71", // Green
   },
@@ -398,6 +547,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "school",
     text: "School",
     message: "I want to go to school.",
+    twoWord: "Go school",
     category: "places",
     color: "#3498DB", // Blue
   },
@@ -405,6 +555,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "park",
     text: "Park",
     message: "I want to go to the park.",
+    twoWord: "Go park",
     category: "places",
     color: "#98D8C8", // Mint green
   },
@@ -412,6 +563,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "store",
     text: "Store",
     message: "I want to go to the store.",
+    twoWord: "Go store",
     category: "places",
     color: "#FFB347", // Orange
   },
@@ -419,8 +571,51 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "playground",
     text: "Playground",
     message: "I want to go to the playground.",
+    twoWord: "Go playground",
     category: "places",
     color: "#FF6B6B", // Coral red
+  },
+
+  // Weather
+  {
+    id: "sunny",
+    text: "Sunny",
+    message: "It is sunny today.",
+    twoWord: "Is sunny",
+    category: "weather",
+    color: "#F1C40F", // Yellow
+  },
+  {
+    id: "rainy",
+    text: "Rainy",
+    message: "It is raining.",
+    twoWord: "Is raining",
+    category: "weather",
+    color: "#3498DB", // Blue
+  },
+  {
+    id: "snowy",
+    text: "Snowy",
+    message: "It is snowing.",
+    twoWord: "Is snowing",
+    category: "weather",
+    color: "#FFFFFF", // White
+  },
+  {
+    id: "cloudy",
+    text: "Cloudy",
+    message: "It is cloudy.",
+    twoWord: "Is cloudy",
+    category: "weather",
+    color: "#95A5A6", // Gray
+  },
+  {
+    id: "windy",
+    text: "Windy",
+    message: "It is windy.",
+    twoWord: "Is windy",
+    category: "weather",
+    color: "#98D8C8", // Mint green
   },
 ];
 
@@ -429,6 +624,7 @@ export const DEFAULT_VOCABULARY: VocabularyItem[] = BUTTON_TEMPLATES.map(
     id: (index + 1).toString(),
     text: template.text,
     message: template.message,
+    twoWord: template.twoWord,
     isFavorite: false,
     category: template.category,
     color: template.color,
@@ -444,6 +640,7 @@ export const DEFAULT_CATEGORIES: Category[] = [
   { id: "activities", name: "Activities", color: "#2ECC71", icon: "play" },
   { id: "people", name: "People", color: "#4ECDC4", icon: "people" },
   { id: "places", name: "Places", color: "#3498DB", icon: "location" },
+  { id: "weather", name: "Weather", color: "#45B7D1", icon: "partly-sunny" },
 ];
 
 export const COLORS = {

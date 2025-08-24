@@ -35,6 +35,7 @@ export const ChildVocabularyScreen: React.FC<ChildVocabularyScreenProps> = ({
     theme: "colorful",
     enableChildFilter: false,
     textSize: "medium",
+    hiddenCategories: [],
   });
   const [favorites, setFavorites] = useState<VocabularyItem[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -52,6 +53,16 @@ export const ChildVocabularyScreen: React.FC<ChildVocabularyScreenProps> = ({
     }, [])
   );
 
+  // Also reload data when the screen comes into focus from navigation
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      console.log("🔄 Child screen navigation focus - reloading data");
+      loadData();
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
   const loadData = async () => {
     const [vocabData, settingsData, favoritesData, categoriesData] = await Promise.all([
       loadVocabulary(),
@@ -59,6 +70,9 @@ export const ChildVocabularyScreen: React.FC<ChildVocabularyScreenProps> = ({
       loadFavorites(),
       loadCategories(),
     ]);
+
+    console.log("🔄 Child: Loading data - settings:", settingsData);
+    console.log("🔄 Child: Hidden categories:", settingsData.hiddenCategories);
 
     setVocabulary(vocabData);
     setSettings(settingsData);
@@ -125,17 +139,33 @@ export const ChildVocabularyScreen: React.FC<ChildVocabularyScreenProps> = ({
 
   const displayVocabulary = showFavorites ? favorites : vocabulary;
   
-  const filteredVocabulary = settings.enableChildFilter && selectedCategory !== "all"
-    ? displayVocabulary.filter((item) => item.category === selectedCategory)
-    : displayVocabulary;
+  const filteredVocabulary = (() => {
+    console.log("🔄 Child: Filtering vocabulary - hidden categories:", settings.hiddenCategories);
+    console.log("🔄 Child: Total vocabulary items:", displayVocabulary.length);
+    
+    // First, filter out items from hidden categories
+    let filtered = displayVocabulary.filter(
+      (item) => !(settings.hiddenCategories || []).includes(item.category || "")
+    );
+
+    console.log("🔄 Child: After hiding categories:", filtered.length);
+
+    // Then apply category filter if enabled
+    if (settings.enableChildFilter && selectedCategory !== "all") {
+      filtered = filtered.filter((item) => item.category === selectedCategory);
+    }
+
+    console.log("🔄 Child: Final filtered count:", filtered.length);
+    return filtered;
+  })();
 
   const renderModeIndicator = () => (
     <View style={styles.modeIndicator}>
       <Text style={{ fontSize: 20, color: COLORS.surface }}>
-        {settings.buttonMode === "sentence" ? "💬" : "📝"}
+        {settings.buttonMode === "sentence" ? "💬" : settings.buttonMode === "two-word" ? "📋" : "📝"}
       </Text>
       <Text style={styles.modeText}>
-        {settings.buttonMode === "sentence" ? "Talk Mode" : "Word Mode"}
+        {settings.buttonMode === "sentence" ? "Talk Mode" : settings.buttonMode === "two-word" ? "Two-Word Mode" : "Word Mode"}
       </Text>
     </View>
   );
@@ -162,27 +192,29 @@ export const ChildVocabularyScreen: React.FC<ChildVocabularyScreenProps> = ({
               All
             </Text>
           </TouchableOpacity>
-          {categories.map((category) => (
-            <TouchableOpacity
-              key={category.id}
-              style={[
-                styles.categoryChip,
-                { backgroundColor: category.color },
-                selectedCategory === category.id && styles.categoryChipActive,
-              ]}
-              onPress={() => setSelectedCategory(category.id)}
-            >
-              <Text
+          {categories
+            .filter((category) => !(settings.hiddenCategories || []).includes(category.id))
+            .map((category) => (
+              <TouchableOpacity
+                key={category.id}
                 style={[
-                  styles.categoryChipText,
-                  selectedCategory === category.id &&
-                    styles.categoryChipTextActive,
+                  styles.categoryChip,
+                  { backgroundColor: category.color },
+                  selectedCategory === category.id && styles.categoryChipActive,
                 ]}
+                onPress={() => setSelectedCategory(category.id)}
               >
-                {category.name}
-              </Text>
-            </TouchableOpacity>
-          ))}
+                <Text
+                  style={[
+                    styles.categoryChipText,
+                    selectedCategory === category.id &&
+                      styles.categoryChipTextActive,
+                  ]}
+                >
+                  {category.name}
+                </Text>
+              </TouchableOpacity>
+            ))}
         </ScrollView>
       </View>
     );

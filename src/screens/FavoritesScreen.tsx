@@ -33,6 +33,7 @@ export const FavoritesScreen: React.FC<FavoritesScreenProps> = ({
     theme: "colorful",
     enableChildFilter: false,
     textSize: "medium",
+    hiddenCategories: [],
   });
 
   useFocusEffect(

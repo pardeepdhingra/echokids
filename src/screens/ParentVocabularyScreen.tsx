@@ -43,6 +43,7 @@ export const ParentVocabularyScreen: React.FC<ParentVocabularyScreenProps> = ({
     theme: "colorful",
     enableChildFilter: false,
     textSize: "medium",
+    hiddenCategories: [],
   });
   const [categories, setCategories] = useState<Category[]>([]);
   const [favorites, setFavorites] = useState<VocabularyItem[]>([]);
@@ -70,7 +71,8 @@ export const ParentVocabularyScreen: React.FC<ParentVocabularyScreenProps> = ({
         loadFavorites(),
       ]);
 
-
+    console.log("🔄 Parent: Loading data - settings:", settingsData);
+    console.log("🔄 Parent: Hidden categories:", settingsData.hiddenCategories);
 
     setVocabulary(vocabData);
     setSettings(settingsData);
@@ -174,10 +176,19 @@ export const ParentVocabularyScreen: React.FC<ParentVocabularyScreenProps> = ({
 
 
 
-  const filteredVocabulary =
-    selectedCategory === "all"
-      ? vocabulary
-      : vocabulary.filter((item) => item.category === selectedCategory);
+  const filteredVocabulary = (() => {
+    // First, filter out items from hidden categories
+    let filtered = vocabulary.filter(
+      (item) => !(settings.hiddenCategories || []).includes(item.category || "")
+    );
+
+    // Then apply category filter if selected
+    if (selectedCategory !== "all") {
+      filtered = filtered.filter((item) => item.category === selectedCategory);
+    }
+
+    return filtered;
+  })();
 
   const renderCategoryFilter = () => (
     <View style={styles.categoryFilter}>
@@ -198,27 +209,29 @@ export const ParentVocabularyScreen: React.FC<ParentVocabularyScreenProps> = ({
             All
           </Text>
         </TouchableOpacity>
-        {categories.map((category) => (
-          <TouchableOpacity
-            key={category.id}
-            style={[
-              styles.categoryChip,
-              { backgroundColor: category.color },
-              selectedCategory === category.id && styles.categoryChipActive,
-            ]}
-            onPress={() => setSelectedCategory(category.id)}
-          >
-            <Text
+        {categories
+          .filter((category) => !(settings.hiddenCategories || []).includes(category.id))
+          .map((category) => (
+            <TouchableOpacity
+              key={category.id}
               style={[
-                styles.categoryChipText,
-                selectedCategory === category.id &&
-                  styles.categoryChipTextActive,
+                styles.categoryChip,
+                { backgroundColor: category.color },
+                selectedCategory === category.id && styles.categoryChipActive,
               ]}
+              onPress={() => setSelectedCategory(category.id)}
             >
-              {category.name}
-            </Text>
-          </TouchableOpacity>
-        ))}
+              <Text
+                style={[
+                  styles.categoryChipText,
+                  selectedCategory === category.id &&
+                    styles.categoryChipTextActive,
+                ]}
+              >
+                {category.name}
+              </Text>
+            </TouchableOpacity>
+          ))}
       </ScrollView>
     </View>
   );
@@ -226,10 +239,10 @@ export const ParentVocabularyScreen: React.FC<ParentVocabularyScreenProps> = ({
   const renderModeIndicator = () => (
     <View style={styles.modeIndicator}>
       <Text style={{ fontSize: 16, color: COLORS.primary }}>
-        {settings.buttonMode === "sentence" ? "💬" : "📝"}
+        {settings.buttonMode === "sentence" ? "💬" : settings.buttonMode === "two-word" ? "📋" : "📝"}
       </Text>
       <Text style={styles.modeText}>
-        {settings.buttonMode === "sentence" ? "Sentence Mode" : "One Word Mode"}
+        {settings.buttonMode === "sentence" ? "Sentence Mode" : settings.buttonMode === "two-word" ? "Two-Word Mode" : "One Word Mode"}
       </Text>
     </View>
   );
