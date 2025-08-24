@@ -94,23 +94,31 @@ export const ChildVocabularyScreen: React.FC<ChildVocabularyScreenProps> = ({
   };
 
   const generateMathQuestion = () => {
-    const num1 = Math.floor(Math.random() * 10) + 1;
-    const num2 = Math.floor(Math.random() * 10) + 1;
     const operators = ["+", "-", "×"];
     const operator = operators[Math.floor(Math.random() * operators.length)];
 
-    let answer;
+    let num1, num2, answer;
+    
     switch (operator) {
       case "+":
+        num1 = Math.floor(Math.random() * 10) + 1;
+        num2 = Math.floor(Math.random() * 10) + 1;
         answer = num1 + num2;
         break;
       case "-":
+        // Ensure first number is larger than second for positive results
+        num1 = Math.floor(Math.random() * 10) + 5; // Start from 5 to ensure we have room for subtraction
+        num2 = Math.floor(Math.random() * num1) + 1; // Second number is always smaller than first
         answer = num1 - num2;
         break;
       case "×":
+        num1 = Math.floor(Math.random() * 10) + 1;
+        num2 = Math.floor(Math.random() * 10) + 1;
         answer = num1 * num2;
         break;
       default:
+        num1 = Math.floor(Math.random() * 10) + 1;
+        num2 = Math.floor(Math.random() * 10) + 1;
         answer = num1 + num2;
     }
 
