@@ -20,8 +20,10 @@ export interface AppSettings {
   showText: boolean;
   theme: "default" | "colorful" | "minimal";
   enableChildFilter: boolean;
-  textSize: "small" | "medium" | "large";
+  textSize: "small" | "medium" | "large" | "extra-large";
   hiddenCategories: string[];
+  childAge?: number;
+  hasShownAgePrompt?: boolean;
 }
 
 export interface Category {

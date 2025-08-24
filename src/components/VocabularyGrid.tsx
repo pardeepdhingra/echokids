@@ -61,6 +61,10 @@ const ICON_MAP: { [key: string]: string } = {
   grapes: "restaurant",
   strawberry: "restaurant",
   watermelon: "restaurant",
+  chips: "restaurant",
+  "ice-cream": "restaurant",
+  chocolate: "restaurant",
+  cookies: "restaurant",
 
   // Basic Needs
   bathroom: "medical",
@@ -76,6 +80,9 @@ const ICON_MAP: { [key: string]: string } = {
   excited: "star",
   cold: "thermometer",
   hot: "flame",
+  surprised: "star",
+  confused: "help-circle",
+  proud: "star",
 
   // Activities
   play: "play",
@@ -83,6 +90,9 @@ const ICON_MAP: { [key: string]: string } = {
   more: "add",
   "all done": "checkmark",
   book: "book",
+  cycling: "bicycle",
+  scooter: "bicycle",
+  tv: "tv",
 
       // People
     mom: "person",
@@ -104,19 +114,19 @@ const ICON_MAP: { [key: string]: string } = {
   playground: "happy",
   restaurant: "restaurant",
   "mcdonald's": "restaurant",
-  soap: "construct",
-  shampoo: "construct",
-  spoon: "construct",
-  fork: "construct",
-  knife: "construct",
-  scissors: "construct",
-  shower: "construct",
-  bath: "construct",
-  clothes: "construct",
-  "wet nappy": "construct",
-  "dirty nappy": "construct",
-  clean: "construct",
-  dirty: "construct",
+  hospital: "medical",
+  library: "library",
+  beach: "umbrella",
+  soap: "water",
+  shampoo: "water",
+  spoon: "restaurant",
+  fork: "restaurant",
+  knife: "restaurant",
+  scissors: "cut",
+  toothbrush: "medical",
+  towel: "water",
+  paper: "document",
+  pencil: "create",
 
   // Weather
   sunny: "sunny",
@@ -240,16 +250,18 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
   const totalGaps = gridSize - 1; // Number of gaps in a row
   const availableWidth = width - screenPadding * 2 - totalGaps * gapSize;
 
-  // Dynamic sizing based on grid size - smaller buttons for better layout
+  // Dynamic sizing based on grid size - larger buttons for smaller grids
   let maxItemSize;
   if (gridSize === 1) {
-    maxItemSize = Math.min(availableWidth, 200); // Large for 1x1
+    maxItemSize = Math.min(availableWidth, 250); // Very large for 1x1
   } else if (gridSize === 2) {
-    maxItemSize = Math.min(availableWidth / gridSize, 150); // Large for 2x2
+    maxItemSize = Math.min(availableWidth / gridSize, 180); // Large for 2x2
   } else if (gridSize === 3) {
-    maxItemSize = Math.min(availableWidth / gridSize, 120); // Medium for 3x3
+    maxItemSize = Math.min(availableWidth / gridSize, 140); // Medium for 3x3
+  } else if (gridSize === 4) {
+    maxItemSize = Math.min(availableWidth / gridSize, 110); // Smaller for 4x4
   } else {
-    maxItemSize = Math.min(availableWidth / gridSize, 100); // Smaller for 4x4 and 5x5
+    maxItemSize = Math.min(availableWidth / gridSize, 90); // Smallest for 5x5
   }
 
   const itemSize = maxItemSize;
@@ -435,8 +447,8 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
                 style={[
                   styles.itemIcon,
                   {
-                    width: buttonSize * 0.6,
-                    height: buttonSize * 0.6,
+                    width: buttonSize * (gridSize <= 3 ? 0.7 : 0.6),
+                    height: buttonSize * (gridSize <= 3 ? 0.7 : 0.6),
                     borderRadius: 20,
                     justifyContent: "center",
                     alignItems: "center",
@@ -454,7 +466,7 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
               >
                 <Text
                   style={{
-                    fontSize: Math.min(buttonSize * 0.4, 50),
+                    fontSize: Math.min(buttonSize * (gridSize <= 3 ? 0.5 : 0.4), gridSize <= 3 ? 70 : 50),
                     textAlign: "center",
                     textShadowColor: "rgba(0,0,0,0.3)",
                     textShadowOffset: { width: 1, height: 1 },
@@ -472,7 +484,7 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
                     fontSize: (() => {
                       const baseSize = Math.min(
                         isChildMode ? 12 : 10,
-                        buttonSize * 0.1
+                        buttonSize * (gridSize <= 3 ? 0.12 : 0.1)
                       );
                       // Reduce font size for longer texts
                       const textLength = item.text.length;
@@ -482,11 +494,13 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
                       
                       switch (settings.textSize) {
                         case "small":
-                          return baseSize * 0.8 * sizeMultiplier;
+                          return baseSize * (gridSize <= 3 ? 0.9 : 0.8) * sizeMultiplier;
                         case "large":
-                          return baseSize * 1.2 * sizeMultiplier;
+                          return baseSize * (gridSize <= 3 ? 1.6 : 1.5) * sizeMultiplier;
+                        case "extra-large":
+                          return baseSize * (gridSize <= 3 ? 1.5 : 1.4) * sizeMultiplier;
                         default: // medium
-                          return baseSize * sizeMultiplier;
+                          return baseSize * (gridSize <= 3 ? 1.1 : 1.0) * sizeMultiplier;
                       }
                     })(),
                     color: themeColors.surface,

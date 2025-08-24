@@ -503,6 +503,10 @@ const getEmojiForText = (text: string): string => {
     grapes: "🍇",
     strawberry: "🍓",
     watermelon: "🍉",
+    chips: "🍟",
+    "ice-cream": "🍦",
+    chocolate: "🍫",
+    cookies: "🍪",
 
     // Basic Needs
     bathroom: "🚽",
@@ -518,6 +522,9 @@ const getEmojiForText = (text: string): string => {
     excited: "🤩",
     cold: "🥶",
     hot: "🥵",
+    surprised: "😲",
+    confused: "😕",
+    proud: "😌",
 
     // Activities
     play: "🎮",
@@ -525,6 +532,9 @@ const getEmojiForText = (text: string): string => {
     more: "➕",
     "all done": "✅",
     book: "📚",
+    cycling: "🚴",
+    scooter: "🛴",
+    tv: "📺",
 
     // People
     mom: "👩",
@@ -546,19 +556,19 @@ const getEmojiForText = (text: string): string => {
     playground: "🎪",
     restaurant: "🍽️",
     "mcdonald's": "🍔",
+    hospital: "🏥",
+    library: "📚",
+    beach: "🏖️",
     soap: "🧼",
     shampoo: "🧴",
     spoon: "🥄",
     fork: "🍴",
     knife: "🔪",
     scissors: "✂️",
-    shower: "🚿",
-    bath: "🛁",
-    clothes: "👕",
-    "wet nappy": "🩲",
-    "dirty nappy": "🩲",
-    clean: "🧼",
-    dirty: "💩",
+    toothbrush: "🪥",
+    towel: "🛁",
+    paper: "📄",
+    pencil: "✏️",
 
     // Weather
     sunny: "☀️",

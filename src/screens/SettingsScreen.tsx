@@ -726,6 +726,22 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
                 Large
               </Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.textSizeButton,
+                settings.textSize === "extra-large" && styles.textSizeButtonActive,
+              ]}
+              onPress={() => handleSettingChange("textSize", "extra-large")}
+            >
+              <Text
+                style={[
+                  styles.textSizeButtonText,
+                  settings.textSize === "extra-large" && styles.textSizeButtonTextActive,
+                ]}
+              >
+                Extra Large
+              </Text>
+            </TouchableOpacity>
           </View>
         )}
 

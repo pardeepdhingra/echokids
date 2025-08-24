@@ -14,8 +14,10 @@ export const DEFAULT_SETTINGS: AppSettings = {
   showText: true,
   theme: "colorful",
   enableChildFilter: false,
-  textSize: "medium",
+  textSize: "large",
   hiddenCategories: [],
+  childAge: undefined,
+  hasShownAgePrompt: false,
 };
 
 // This will be populated dynamically with available voices
@@ -175,7 +177,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     id: "i-love-you",
     text: "I love you",
     message: "I love you!",
-    twoWord: "I love",
+    twoWord: "I love you!",
     category: "greetings",
     color: "#E91E63", // Deep pink
   },
@@ -1016,3 +1018,22 @@ export const COLORS = {
 export const GRID_SIZES = [1, 2, 3, 4, 5];
 export const BUTTON_SIZES = ["small", "medium", "large"];
 export const THEMES = ["default", "colorful", "minimal"];
+
+export const getSuggestedCategoriesForAge = (age: number): string[] => {
+  if (age <= 2) {
+    // Very young children: basic needs, simple emotions, basic food
+    return ["greetings", "needs", "emotions", "food"];
+  } else if (age <= 4) {
+    // Toddlers: add activities, people, basic places
+    return ["greetings", "needs", "emotions", "food", "activities", "people"];
+  } else if (age <= 6) {
+    // Preschool: add places, daily items
+    return ["greetings", "needs", "emotions", "food", "activities", "people", "places", "daily-items"];
+  } else if (age <= 8) {
+    // Early school: add food choices, weather
+    return ["greetings", "needs", "emotions", "food", "food-choices", "activities", "people", "places", "daily-items", "weather"];
+  } else {
+    // Older children: all categories
+    return ["greetings", "needs", "emotions", "food", "food-choices", "activities", "people", "places", "daily-items", "weather"];
+  }
+};
