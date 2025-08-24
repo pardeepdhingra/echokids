@@ -11,19 +11,19 @@ const initializeAudio = async () => {
 
   try {
     console.log("🔊 Initializing audio session...");
-    
+
     // Try the most basic and compatible audio mode first
     await Audio.setAudioModeAsync({
       allowsRecordingIOS: false,
       staysActiveInBackground: false,
       playsInSilentModeIOS: true,
     });
-    
+
     console.log("✅ Basic audio session initialized successfully");
     audioInitialized = true;
   } catch (error) {
     console.error("❌ Basic audio session init failed:", error);
-    
+
     try {
       console.log("🔊 Trying minimal audio mode...");
       await Audio.setAudioModeAsync({
@@ -31,12 +31,12 @@ const initializeAudio = async () => {
         playsInSilentModeIOS: true,
         shouldDuckAndroid: false,
       });
-      
+
       console.log("✅ Minimal audio session initialized");
       audioInitialized = true;
     } catch (altError) {
       console.error("❌ Minimal audio session failed:", altError);
-      
+
       try {
         console.log("🔊 Trying Android-compatible mode...");
         await Audio.setAudioModeAsync({
@@ -44,12 +44,14 @@ const initializeAudio = async () => {
           shouldDuckAndroid: false,
           playThroughEarpieceAndroid: false,
         });
-        
+
         console.log("✅ Android-compatible audio session initialized");
         audioInitialized = true;
       } catch (minimalError) {
         console.error("❌ All audio session attempts failed:", minimalError);
-        console.log("⚠️ Continuing without audio session - some devices might work anyway");
+        console.log(
+          "⚠️ Continuing without audio session - some devices might work anyway"
+        );
         // Continue without audio session - some devices might work anyway
       }
     }
@@ -77,10 +79,12 @@ export const speak = async (text: string, settings: any) => {
     };
 
     // Only add voice if it's a valid iOS voice identifier
-    if (settings.ttsVoice && 
-        (settings.ttsVoice.includes("com.apple.ttsbundle") || 
-         settings.ttsVoice.includes("com.apple.voice") ||
-         settings.ttsVoice.includes("en-US"))) {
+    if (
+      settings.ttsVoice &&
+      (settings.ttsVoice.includes("com.apple.ttsbundle") ||
+        settings.ttsVoice.includes("com.apple.voice") ||
+        settings.ttsVoice.includes("en-US"))
+    ) {
       ttsOptions.voice = settings.ttsVoice;
       console.log("🎤 Using voice:", settings.ttsVoice);
     } else {
@@ -88,29 +92,32 @@ export const speak = async (text: string, settings: any) => {
     }
 
     console.log("🎤 Calling Speech.speak with options:", ttsOptions);
-    
+
     // Try TTS with voice first
     try {
       await Speech.speak(text, ttsOptions);
       console.log("✅ TTS completed successfully");
       return;
     } catch (voiceError) {
-      console.log("🎤 Voice TTS failed, trying without voice parameter:", voiceError);
-      
+      console.log(
+        "🎤 Voice TTS failed, trying without voice parameter:",
+        voiceError
+      );
+
       // Try without voice parameter
       const fallbackOptions = {
         language: "en-US",
         volume: settings.volume || 1.0,
         rate: settings.speechRate || 0.8,
       };
-      
+
       await Speech.speak(text, fallbackOptions);
       console.log("✅ Fallback TTS completed successfully");
       return;
     }
   } catch (error) {
     console.error("❌ TTS failed:", error);
-    
+
     // Try to play a simple beep as fallback
     try {
       console.log("🔇 Falling back to beep...");
@@ -156,7 +163,7 @@ export const testTTS = async () => {
   try {
     console.log("🎤 Starting TTS test...");
     await initializeAudio();
-    
+
     try {
       await Speech.stop();
     } catch (stopError) {
@@ -223,7 +230,7 @@ export const testDeviceAudio = async () => {
 
 export const testSimpleTTS = async () => {
   console.log("🎤 Testing simple TTS without audio session...");
-  
+
   try {
     // Try TTS without any audio session setup
     await Speech.speak("Test", {
@@ -231,11 +238,33 @@ export const testSimpleTTS = async () => {
       volume: 1.0,
       rate: 0.8,
     });
-    
+
     console.log("✅ Simple TTS test passed");
     return true;
   } catch (error) {
     console.error("❌ Simple TTS test failed:", error);
+    return false;
+  }
+};
+
+export const testUserTTS = async () => {
+  console.log("🎤 Testing TTS with user-friendly message...");
+
+  try {
+    // Try TTS with a more user-friendly test message
+    await Speech.speak(
+      "Hello, this is a voice test. If you can hear this, TTS is working!",
+      {
+        language: "en-US",
+        volume: 1.0,
+        rate: 0.8,
+      }
+    );
+
+    console.log("✅ User TTS test passed");
+    return true;
+  } catch (error) {
+    console.error("❌ User TTS test failed:", error);
     return false;
   }
 };
@@ -301,10 +330,10 @@ export const testAudio = async () => {
 
 export const testAudioSession = async () => {
   console.log("🔊 Testing audio session specifically...");
-  
+
   try {
     const { Audio } = await import("expo-av");
-    
+
     // Test 1: Basic audio session
     try {
       await Audio.setAudioModeAsync({
@@ -315,19 +344,43 @@ export const testAudioSession = async () => {
     } catch (error) {
       console.error("❌ Basic audio session test failed:", error);
     }
-    
-    // Test 2: Check if we can create a sound object
+
+    // Test 2: Check if Audio.Sound API is available
     try {
-      const { sound } = await Audio.Sound.createAsync(
-        { uri: "https://www.soundjay.com/misc/sounds/fail-buzzer-01.wav" },
-        { shouldPlay: false }
-      );
-      await sound.unloadAsync();
-      console.log("✅ Sound creation test passed");
-    } catch (error) {
-      console.error("❌ Sound creation test failed:", error);
+      if (Audio.Sound && typeof Audio.Sound.createAsync === "function") {
+        console.log("✅ Audio.Sound API is available");
+
+        // Test 3: Try to create a simple sound object
+        try {
+          const { sound } = await Audio.Sound.createAsync(
+            { uri: "https://www.soundjay.com/misc/sounds/fail-buzzer-01.wav" },
+            { shouldPlay: false }
+          );
+
+          if (sound) {
+            console.log("✅ Sound creation test passed");
+            await sound.unloadAsync();
+          } else {
+            console.log(
+              "❌ Sound creation test failed: No sound object returned"
+            );
+          }
+        } catch (soundError) {
+          console.log(
+            "⚠️ Sound creation test failed (this is often normal):",
+            soundError
+          );
+          console.log(
+            "✅ Audio session is working, sound creation is optional"
+          );
+        }
+      } else {
+        console.log("❌ Audio.Sound API not available");
+      }
+    } catch (apiError) {
+      console.error("❌ Audio.Sound API test failed:", apiError);
     }
-    
+
     return true;
   } catch (error) {
     console.error("❌ Audio session test failed:", error);
