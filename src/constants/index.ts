@@ -317,6 +317,104 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     category: "food",
     color: "#2ECC71", // Green
   },
+  {
+    id: "chips",
+    text: "Chips",
+    message: "I want chips.",
+    twoWord: "Want chips",
+    category: "food",
+    color: "#F1C40F", // Yellow
+  },
+  {
+    id: "ice-cream",
+    text: "Ice Cream",
+    message: "I want ice cream.",
+    twoWord: "Want ice cream",
+    category: "food",
+    color: "#98D8C8", // Mint green
+  },
+  {
+    id: "chocolate",
+    text: "Chocolate",
+    message: "I want chocolate.",
+    twoWord: "Want chocolate",
+    category: "food",
+    color: "#8E44AD", // Purple
+  },
+  {
+    id: "cookies",
+    text: "Cookies",
+    message: "I want cookies.",
+    twoWord: "Want cookies",
+    category: "food",
+    color: "#D35400", // Dark orange
+  },
+  {
+    id: "breakfast",
+    text: "Breakfast",
+    message: "I want breakfast.",
+    twoWord: "Want breakfast",
+    category: "food",
+    color: "#FFB347", // Warm orange
+  },
+  {
+    id: "lunch",
+    text: "Lunch",
+    message: "I want lunch.",
+    twoWord: "Want lunch",
+    category: "food",
+    color: "#E67E22", // Dark orange
+  },
+  {
+    id: "dinner",
+    text: "Dinner",
+    message: "I want dinner.",
+    twoWord: "Want dinner",
+    category: "food",
+    color: "#D35400", // Darker orange
+  },
+
+  // Food Choices
+  {
+    id: "italian",
+    text: "Italian",
+    message: "I want Italian food.",
+    twoWord: "Want Italian",
+    category: "food-choices",
+    color: "#E74C3C", // Red
+  },
+  {
+    id: "indian",
+    text: "Indian",
+    message: "I want Indian food.",
+    twoWord: "Want Indian",
+    category: "food-choices",
+    color: "#FF6B9D", // Pink
+  },
+  {
+    id: "chinese",
+    text: "Chinese",
+    message: "I want Chinese food.",
+    twoWord: "Want Chinese",
+    category: "food-choices",
+    color: "#F39C12", // Orange
+  },
+  {
+    id: "thai",
+    text: "Thai",
+    message: "I want Thai food.",
+    twoWord: "Want Thai",
+    category: "food-choices",
+    color: "#E67E22", // Dark orange
+  },
+  {
+    id: "mexican",
+    text: "Mexican",
+    message: "I want Mexican food.",
+    twoWord: "Want Mexican",
+    category: "food-choices",
+    color: "#2ECC71", // Green
+  },
 
   // Basic Needs
   {
@@ -409,6 +507,46 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     category: "emotions",
     color: "#E74C3C", // Red
   },
+  {
+    id: "surprised",
+    text: "Surprised",
+    message: "I am surprised!",
+    twoWord: "Am surprised",
+    category: "emotions",
+    color: "#FF6B9D", // Pink
+  },
+  {
+    id: "confused",
+    text: "Confused",
+    message: "I am confused.",
+    twoWord: "Am confused",
+    category: "emotions",
+    color: "#9B59B6", // Purple
+  },
+  {
+    id: "proud",
+    text: "Proud",
+    message: "I am proud.",
+    twoWord: "Am proud",
+    category: "emotions",
+    color: "#F1C40F", // Yellow
+  },
+  {
+    id: "clean",
+    text: "Clean",
+    message: "I am clean.",
+    twoWord: "Am clean",
+    category: "emotions",
+    color: "#2ECC71", // Green
+  },
+  {
+    id: "dirty",
+    text: "Dirty",
+    message: "I am dirty.",
+    twoWord: "Am dirty",
+    category: "emotions",
+    color: "#8E44AD", // Purple
+  },
 
   // Activities
   {
@@ -450,6 +588,152 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     twoWord: "Want book",
     category: "activities",
     color: "#45B7D1", // Sky blue
+  },
+  {
+    id: "cycling",
+    text: "Cycling",
+    message: "I want to go cycling.",
+    twoWord: "Want cycling",
+    category: "activities",
+    color: "#2ECC71", // Green
+  },
+  {
+    id: "scooter",
+    text: "Scooter",
+    message: "I want to ride my scooter.",
+    twoWord: "Want scooter",
+    category: "activities",
+    color: "#F39C12", // Orange
+  },
+  {
+    id: "tv",
+    text: "TV",
+    message: "I want to watch TV.",
+    twoWord: "Want TV",
+    category: "activities",
+    color: "#9B59B6", // Purple
+  },
+
+  // Daily Items
+  {
+    id: "soap",
+    text: "Soap",
+    message: "I need soap.",
+    twoWord: "Need soap",
+    category: "daily-items",
+    color: "#98D8C8", // Mint green
+  },
+  {
+    id: "shampoo",
+    text: "Shampoo",
+    message: "I need shampoo.",
+    twoWord: "Need shampoo",
+    category: "daily-items",
+    color: "#45B7D1", // Sky blue
+  },
+  {
+    id: "spoon",
+    text: "Spoon",
+    message: "I need a spoon.",
+    twoWord: "Need spoon",
+    category: "daily-items",
+    color: "#F1C40F", // Yellow
+  },
+  {
+    id: "fork",
+    text: "Fork",
+    message: "I need a fork.",
+    twoWord: "Need fork",
+    category: "daily-items",
+    color: "#E67E22", // Dark orange
+  },
+  {
+    id: "knife",
+    text: "Knife",
+    message: "I need a knife.",
+    twoWord: "Need knife",
+    category: "daily-items",
+    color: "#95A5A6", // Gray
+  },
+  {
+    id: "scissors",
+    text: "Scissors",
+    message: "I need scissors.",
+    twoWord: "Need scissors",
+    category: "daily-items",
+    color: "#3498DB", // Blue
+  },
+  {
+    id: "toothbrush",
+    text: "Toothbrush",
+    message: "I need my toothbrush.",
+    twoWord: "Need toothbrush",
+    category: "daily-items",
+    color: "#45B7D1", // Sky blue
+  },
+  {
+    id: "towel",
+    text: "Towel",
+    message: "I need a towel.",
+    twoWord: "Need towel",
+    category: "daily-items",
+    color: "#98D8C8", // Mint green
+  },
+  {
+    id: "paper",
+    text: "Paper",
+    message: "I need paper.",
+    twoWord: "Need paper",
+    category: "daily-items",
+    color: "#F1C40F", // Yellow
+  },
+  {
+    id: "pencil",
+    text: "Pencil",
+    message: "I need a pencil.",
+    twoWord: "Need pencil",
+    category: "daily-items",
+    color: "#95A5A6", // Gray
+  },
+  {
+    id: "shower",
+    text: "Shower",
+    message: "I want to take a shower.",
+    twoWord: "Want shower",
+    category: "needs",
+    color: "#3498DB", // Blue
+  },
+  {
+    id: "bath",
+    text: "Bath",
+    message: "I want to take a bath.",
+    twoWord: "Want bath",
+    category: "needs",
+    color: "#45B7D1", // Sky blue
+  },
+  {
+    id: "clothes",
+    text: "Clothes",
+    message: "I need to change my clothes.",
+    twoWord: "Need clothes",
+    category: "needs",
+    color: "#9B59B6", // Purple
+  },
+  {
+    id: "wet-nappy",
+    text: "Wet Nappy",
+    message: "My nappy is wet.",
+    twoWord: "Wet nappy",
+    category: "needs",
+    color: "#98D8C8", // Mint green
+  },
+  {
+    id: "dirty-nappy",
+    text: "Dirty Nappy",
+    message: "My nappy is dirty.",
+    twoWord: "Dirty nappy",
+    category: "needs",
+    color: "#E67E22", // Dark orange
   },
 
   // People
@@ -575,6 +859,46 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
     category: "places",
     color: "#FF6B6B", // Coral red
   },
+  {
+    id: "restaurant",
+    text: "Restaurant",
+    message: "I want to go to a restaurant.",
+    twoWord: "Go restaurant",
+    category: "places",
+    color: "#E74C3C", // Red
+  },
+  {
+    id: "mcdonalds",
+    text: "McDonald's",
+    message: "I want to go to McDonald's.",
+    twoWord: "Go McDonald's",
+    category: "places",
+    color: "#F39C12", // Orange
+  },
+  {
+    id: "hospital",
+    text: "Hospital",
+    message: "I need to go to the hospital.",
+    twoWord: "Go hospital",
+    category: "places",
+    color: "#E74C3C", // Red
+  },
+  {
+    id: "library",
+    text: "Library",
+    message: "I want to go to the library.",
+    twoWord: "Go library",
+    category: "places",
+    color: "#9B59B6", // Purple
+  },
+  {
+    id: "beach",
+    text: "Beach",
+    message: "I want to go to the beach.",
+    twoWord: "Go beach",
+    category: "places",
+    color: "#F1C40F", // Yellow
+  },
 
   // Weather
   {
@@ -635,11 +959,13 @@ export const DEFAULT_VOCABULARY: VocabularyItem[] = BUTTON_TEMPLATES.map(
 export const DEFAULT_CATEGORIES: Category[] = [
   { id: "greetings", name: "Greetings", color: "#FF6B9D", icon: "hand-left" },
   { id: "food", name: "Food & Drink", color: "#FFB347", icon: "restaurant" },
+  { id: "food-choices", name: "Food Choices", color: "#E91E63", icon: "restaurant" },
   { id: "needs", name: "Basic Needs", color: "#E74C3C", icon: "help-circle" },
   { id: "emotions", name: "Emotions", color: "#F1C40F", icon: "heart" },
   { id: "activities", name: "Activities", color: "#2ECC71", icon: "play" },
   { id: "people", name: "People", color: "#4ECDC4", icon: "people" },
   { id: "places", name: "Places", color: "#3498DB", icon: "location" },
+  { id: "daily-items", name: "Daily Items", color: "#9B59B6", icon: "construct" },
   { id: "weather", name: "Weather", color: "#45B7D1", icon: "partly-sunny" },
 ];
 
