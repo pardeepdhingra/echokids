@@ -1,4 +1,5 @@
 import { ButtonTemplate } from "../../types";
+import { getTranslationsForWord } from "../translations";
 
 export const CLOTHING_VOCABULARY: ButtonTemplate[] = [
   // Tops
@@ -10,13 +11,7 @@ export const CLOTHING_VOCABULARY: ButtonTemplate[] = [
     category: "clothing",
     subCategory: "tops",
     color: "#9B59B6",
-    translations: {
-      en: "Shirt",
-      hi: "शर्ट",
-      es: "Camisa",
-      fr: "Chemise",
-      zh: "衬衫",
-    },
+    translations: getTranslationsForWord("shirt"),
   },
   {
     id: "dress",
@@ -26,13 +21,7 @@ export const CLOTHING_VOCABULARY: ButtonTemplate[] = [
     category: "clothing",
     subCategory: "tops",
     color: "#9B59B6",
-    translations: {
-      en: "Dress",
-      hi: "ड्रेस",
-      es: "Vestido",
-      fr: "Robe",
-      zh: "连衣裙",
-    },
+    translations: getTranslationsForWord("dress"),
   },
   {
     id: "jacket",
@@ -42,13 +31,7 @@ export const CLOTHING_VOCABULARY: ButtonTemplate[] = [
     category: "clothing",
     subCategory: "tops",
     color: "#9B59B6",
-    translations: {
-      en: "Jacket",
-      hi: "जैकेट",
-      es: "Chaqueta",
-      fr: "Veste",
-      zh: "夹克",
-    },
+    translations: getTranslationsForWord("jacket"),
   },
   {
     id: "coat",
@@ -58,13 +41,7 @@ export const CLOTHING_VOCABULARY: ButtonTemplate[] = [
     category: "clothing",
     subCategory: "tops",
     color: "#9B59B6",
-    translations: {
-      en: "Coat",
-      hi: "कोट",
-      es: "Abrigo",
-      fr: "Manteau",
-      zh: "外套",
-    },
+    translations: getTranslationsForWord("coat"),
   },
 
   // Bottoms
@@ -76,13 +53,7 @@ export const CLOTHING_VOCABULARY: ButtonTemplate[] = [
     category: "clothing",
     subCategory: "bottoms",
     color: "#9B59B6",
-    translations: {
-      en: "Pants",
-      hi: "पैंट",
-      es: "Pantalones",
-      fr: "Pantalon",
-      zh: "裤子",
-    },
+    translations: getTranslationsForWord("pants"),
   },
 
   // Accessories
@@ -94,13 +65,7 @@ export const CLOTHING_VOCABULARY: ButtonTemplate[] = [
     category: "clothing",
     subCategory: "accessories",
     color: "#9B59B6",
-    translations: {
-      en: "Shoes",
-      hi: "जूते",
-      es: "Zapatos",
-      fr: "Chaussures",
-      zh: "鞋子",
-    },
+    translations: getTranslationsForWord("shoes"),
   },
   {
     id: "socks",
@@ -110,13 +75,7 @@ export const CLOTHING_VOCABULARY: ButtonTemplate[] = [
     category: "clothing",
     subCategory: "accessories",
     color: "#9B59B6",
-    translations: {
-      en: "Socks",
-      hi: "मोज़े",
-      es: "Calcetines",
-      fr: "Chaussettes",
-      zh: "袜子",
-    },
+    translations: getTranslationsForWord("socks"),
   },
   {
     id: "hat",
@@ -126,12 +85,6 @@ export const CLOTHING_VOCABULARY: ButtonTemplate[] = [
     category: "clothing",
     subCategory: "accessories",
     color: "#9B59B6",
-    translations: {
-      en: "Hat",
-      hi: "टोपी",
-      es: "Sombrero",
-      fr: "Chapeau",
-      zh: "帽子",
-    },
+    translations: getTranslationsForWord("hat"),
   },
 ];

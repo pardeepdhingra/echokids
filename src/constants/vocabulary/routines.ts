@@ -1,4 +1,5 @@
 import { ButtonTemplate } from "../../types";
+import { getTranslationsForWord } from "../translations";
 
 export const ROUTINES_VOCABULARY: ButtonTemplate[] = [
   // Basic Needs
@@ -9,13 +10,7 @@ export const ROUTINES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Am hungry",
     category: "routines",
     color: "#E67E22",
-    translations: {
-      en: "Hungry",
-      hi: "भूखा",
-      es: "Hambriento",
-      fr: "Affamé",
-      zh: "饿了",
-    },
+    translations: getTranslationsForWord("hungry"),
   },
   {
     id: "thirsty",
@@ -24,13 +19,7 @@ export const ROUTINES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Am thirsty",
     category: "routines",
     color: "#E67E22",
-    translations: {
-      en: "Thirsty",
-      hi: "प्यासा",
-      es: "Sediento",
-      fr: "Assoiffé",
-      zh: "渴了",
-    },
+    translations: getTranslationsForWord("thirsty"),
   },
   {
     id: "sleepy",
@@ -39,13 +28,16 @@ export const ROUTINES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Am sleepy",
     category: "routines",
     color: "#E67E22",
-    translations: {
-      en: "Sleepy",
-      hi: "नींद आ रही",
-      es: "Somnoliento",
-      fr: "Somnolent",
-      zh: "困了",
-    },
+    translations: getTranslationsForWord("sleepy"),
+  },
+  {
+    id: "sleep",
+    text: "Sleep",
+    message: "I want to sleep.",
+    twoWord: "Want sleep",
+    category: "routines",
+    color: "#E67E22",
+    translations: getTranslationsForWord("sleep"),
   },
   {
     id: "bathroom-need",
@@ -54,13 +46,7 @@ export const ROUTINES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Need bathroom",
     category: "routines",
     color: "#E67E22",
-    translations: {
-      en: "Bathroom",
-      hi: "बाथरूम",
-      es: "Baño",
-      fr: "Toilettes",
-      zh: "厕所",
-    },
+    translations: getTranslationsForWord("bathroom-need"),
   },
   {
     id: "medicine",
@@ -69,13 +55,7 @@ export const ROUTINES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Need medicine",
     category: "routines",
     color: "#E67E22",
-    translations: {
-      en: "Medicine",
-      hi: "दवा",
-      es: "Medicina",
-      fr: "Médicament",
-      zh: "药",
-    },
+    translations: getTranslationsForWord("medicine"),
   },
   {
     id: "pain",
@@ -84,13 +64,7 @@ export const ROUTINES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Have pain",
     category: "routines",
     color: "#E67E22",
-    translations: {
-      en: "Pain",
-      hi: "दर्द",
-      es: "Dolor",
-      fr: "Douleur",
-      zh: "疼痛",
-    },
+    translations: getTranslationsForWord("pain"),
   },
   {
     id: "hurt",
@@ -99,13 +73,7 @@ export const ROUTINES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Am hurt",
     category: "routines",
     color: "#E67E22",
-    translations: {
-      en: "Hurt",
-      hi: "चोट",
-      es: "Herido",
-      fr: "Blessé",
-      zh: "受伤",
-    },
+    translations: getTranslationsForWord("hurt"),
   },
   {
     id: "help",
@@ -114,13 +82,7 @@ export const ROUTINES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Need help",
     category: "routines",
     color: "#E67E22",
-    translations: {
-      en: "Help",
-      hi: "मदद",
-      es: "Ayuda",
-      fr: "Aide",
-      zh: "帮助",
-    },
+    translations: getTranslationsForWord("help"),
   },
   {
     id: "stop",
@@ -129,13 +91,7 @@ export const ROUTINES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Stop",
     category: "routines",
     color: "#E67E22",
-    translations: {
-      en: "Stop",
-      hi: "रुको",
-      es: "Para",
-      fr: "Arrête",
-      zh: "停止",
-    },
+    translations: getTranslationsForWord("stop"),
   },
   {
     id: "wait",
@@ -144,13 +100,7 @@ export const ROUTINES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Wait",
     category: "routines",
     color: "#E67E22",
-    translations: {
-      en: "Wait",
-      hi: "रुको",
-      es: "Espera",
-      fr: "Attends",
-      zh: "等待",
-    },
+    translations: getTranslationsForWord("wait"),
   },
   {
     id: "finished",
@@ -159,13 +109,7 @@ export const ROUTINES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Am finished",
     category: "routines",
     color: "#E67E22",
-    translations: {
-      en: "Finished",
-      hi: "खत्म",
-      es: "Terminado",
-      fr: "Terminé",
-      zh: "完成了",
-    },
+    translations: getTranslationsForWord("finished"),
   },
   {
     id: "again",
@@ -174,13 +118,7 @@ export const ROUTINES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Again",
     category: "routines",
     color: "#E67E22",
-    translations: {
-      en: "Again",
-      hi: "फिर",
-      es: "Otra vez",
-      fr: "Encore",
-      zh: "再次",
-    },
+    translations: getTranslationsForWord("again"),
   },
   {
     id: "more",
@@ -189,13 +127,7 @@ export const ROUTINES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "More",
     category: "routines",
     color: "#E67E22",
-    translations: {
-      en: "More",
-      hi: "और",
-      es: "Más",
-      fr: "Plus",
-      zh: "更多",
-    },
+    translations: getTranslationsForWord("more"),
   },
   {
     id: "enough",
@@ -204,12 +136,6 @@ export const ROUTINES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Enough",
     category: "routines",
     color: "#E67E22",
-    translations: {
-      en: "Enough",
-      hi: "बस",
-      es: "Suficiente",
-      fr: "Assez",
-      zh: "够了",
-    },
+    translations: getTranslationsForWord("enough"),
   },
 ];

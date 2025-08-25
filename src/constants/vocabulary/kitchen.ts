@@ -1,4 +1,5 @@
 import { ButtonTemplate } from "../../types";
+import { getTranslationsForWord } from "../translations";
 
 export const KITCHEN_VOCABULARY: ButtonTemplate[] = [
   // Utensils
@@ -10,13 +11,7 @@ export const KITCHEN_VOCABULARY: ButtonTemplate[] = [
     category: "kitchen",
     subCategory: "utensils",
     color: "#FFB347",
-    translations: {
-      en: "Plate",
-      hi: "प्लेट",
-      es: "Plato",
-      fr: "Assiette",
-      zh: "盘子",
-    },
+    translations: getTranslationsForWord("plate"),
   },
   {
     id: "cup",
@@ -26,13 +21,7 @@ export const KITCHEN_VOCABULARY: ButtonTemplate[] = [
     category: "kitchen",
     subCategory: "utensils",
     color: "#FFB347",
-    translations: {
-      en: "Cup",
-      hi: "कप",
-      es: "Taza",
-      fr: "Tasse",
-      zh: "杯子",
-    },
+    translations: getTranslationsForWord("cup"),
   },
   {
     id: "spoon",
@@ -42,13 +31,7 @@ export const KITCHEN_VOCABULARY: ButtonTemplate[] = [
     category: "kitchen",
     subCategory: "utensils",
     color: "#FFB347",
-    translations: {
-      en: "Spoon",
-      hi: "चम्मच",
-      es: "Cuchara",
-      fr: "Cuillère",
-      zh: "勺子",
-    },
+    translations: getTranslationsForWord("spoon"),
   },
   {
     id: "fork",
@@ -58,13 +41,7 @@ export const KITCHEN_VOCABULARY: ButtonTemplate[] = [
     category: "kitchen",
     subCategory: "utensils",
     color: "#FFB347",
-    translations: {
-      en: "Fork",
-      hi: "कांटा",
-      es: "Tenedor",
-      fr: "Fourchette",
-      zh: "叉子",
-    },
+    translations: getTranslationsForWord("fork"),
   },
   {
     id: "knife",
@@ -74,13 +51,7 @@ export const KITCHEN_VOCABULARY: ButtonTemplate[] = [
     category: "kitchen",
     subCategory: "utensils",
     color: "#FFB347",
-    translations: {
-      en: "Knife",
-      hi: "चाकू",
-      es: "Cuchillo",
-      fr: "Couteau",
-      zh: "刀子",
-    },
+    translations: getTranslationsForWord("knife"),
   },
 
   // Containers
@@ -92,13 +63,7 @@ export const KITCHEN_VOCABULARY: ButtonTemplate[] = [
     category: "kitchen",
     subCategory: "containers",
     color: "#FFB347",
-    translations: {
-      en: "Bowl",
-      hi: "कटोरा",
-      es: "Tazón",
-      fr: "Bol",
-      zh: "碗",
-    },
+    translations: getTranslationsForWord("bowl"),
   },
   {
     id: "bottle",
@@ -108,12 +73,6 @@ export const KITCHEN_VOCABULARY: ButtonTemplate[] = [
     category: "kitchen",
     subCategory: "containers",
     color: "#FFB347",
-    translations: {
-      en: "Bottle",
-      hi: "बोतल",
-      es: "Botella",
-      fr: "Bouteille",
-      zh: "瓶子",
-    },
+    translations: getTranslationsForWord("bottle"),
   },
 ];

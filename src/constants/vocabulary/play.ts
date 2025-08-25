@@ -1,4 +1,5 @@
 import { ButtonTemplate } from "../../types";
+import { getTranslationsForWord } from "../translations";
 
 export const PLAY_VOCABULARY: ButtonTemplate[] = [
   // Basic Play
@@ -9,13 +10,7 @@ export const PLAY_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want play",
     category: "play",
     color: "#2ECC71",
-    translations: {
-      en: "Play",
-      hi: "खेलना",
-      es: "Jugar",
-      fr: "Jouer",
-      zh: "玩",
-    },
+    translations: getTranslationsForWord("play"),
   },
   {
     id: "toy",
@@ -24,13 +19,7 @@ export const PLAY_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want toy",
     category: "play",
     color: "#2ECC71",
-    translations: {
-      en: "Toy",
-      hi: "खिलौना",
-      es: "Juguete",
-      fr: "Jouet",
-      zh: "玩具",
-    },
+    translations: getTranslationsForWord("toy"),
   },
   {
     id: "game",
@@ -39,13 +28,7 @@ export const PLAY_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want game",
     category: "play",
     color: "#2ECC71",
-    translations: {
-      en: "Game",
-      hi: "खेल",
-      es: "Juego",
-      fr: "Jeu",
-      zh: "游戏",
-    },
+    translations: getTranslationsForWord("game"),
   },
   {
     id: "ball",
@@ -54,13 +37,7 @@ export const PLAY_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want ball",
     category: "play",
     color: "#2ECC71",
-    translations: {
-      en: "Ball",
-      hi: "गेंद",
-      es: "Pelota",
-      fr: "Balle",
-      zh: "球",
-    },
+    translations: getTranslationsForWord("ball"),
   },
   {
     id: "doll",
@@ -69,13 +46,7 @@ export const PLAY_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want doll",
     category: "play",
     color: "#2ECC71",
-    translations: {
-      en: "Doll",
-      hi: "गुड़िया",
-      es: "Muñeca",
-      fr: "Poupée",
-      zh: "娃娃",
-    },
+    translations: getTranslationsForWord("doll"),
   },
   {
     id: "blocks",
@@ -84,13 +55,7 @@ export const PLAY_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want blocks",
     category: "play",
     color: "#2ECC71",
-    translations: {
-      en: "Blocks",
-      hi: "ब्लॉक्स",
-      es: "Bloques",
-      fr: "Blocs",
-      zh: "积木",
-    },
+    translations: getTranslationsForWord("blocks"),
   },
   {
     id: "book",
@@ -99,13 +64,7 @@ export const PLAY_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want book",
     category: "play",
     color: "#2ECC71",
-    translations: {
-      en: "Book",
-      hi: "किताब",
-      es: "Libro",
-      fr: "Livre",
-      zh: "书",
-    },
+    translations: getTranslationsForWord("book"),
   },
   {
     id: "music",
@@ -114,13 +73,7 @@ export const PLAY_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want music",
     category: "play",
     color: "#2ECC71",
-    translations: {
-      en: "Music",
-      hi: "संगीत",
-      es: "Música",
-      fr: "Musique",
-      zh: "音乐",
-    },
+    translations: getTranslationsForWord("music"),
   },
   {
     id: "dance",
@@ -129,13 +82,7 @@ export const PLAY_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want dance",
     category: "play",
     color: "#2ECC71",
-    translations: {
-      en: "Dance",
-      hi: "नृत्य",
-      es: "Bailar",
-      fr: "Danser",
-      zh: "跳舞",
-    },
+    translations: getTranslationsForWord("dance"),
   },
   {
     id: "sing",
@@ -144,13 +91,7 @@ export const PLAY_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want sing",
     category: "play",
     color: "#2ECC71",
-    translations: {
-      en: "Sing",
-      hi: "गाना",
-      es: "Cantar",
-      fr: "Chanter",
-      zh: "唱歌",
-    },
+    translations: getTranslationsForWord("sing"),
   },
   {
     id: "draw",
@@ -159,13 +100,7 @@ export const PLAY_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want draw",
     category: "play",
     color: "#2ECC71",
-    translations: {
-      en: "Draw",
-      hi: "चित्र बनाना",
-      es: "Dibujar",
-      fr: "Dessiner",
-      zh: "画画",
-    },
+    translations: getTranslationsForWord("draw"),
   },
   {
     id: "paint",
@@ -174,13 +109,7 @@ export const PLAY_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want paint",
     category: "play",
     color: "#2ECC71",
-    translations: {
-      en: "Paint",
-      hi: "पेंट करना",
-      es: "Pintar",
-      fr: "Peindre",
-      zh: "绘画",
-    },
+    translations: getTranslationsForWord("paint"),
   },
   {
     id: "color",
@@ -189,13 +118,7 @@ export const PLAY_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want color",
     category: "play",
     color: "#2ECC71",
-    translations: {
-      en: "Color",
-      hi: "रंग भरना",
-      es: "Colorear",
-      fr: "Colorier",
-      zh: "涂色",
-    },
+    translations: getTranslationsForWord("color"),
   },
   {
     id: "swing",
@@ -204,13 +127,7 @@ export const PLAY_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want swing",
     category: "play",
     color: "#2ECC71",
-    translations: {
-      en: "Swing",
-      hi: "झूला",
-      es: "Columpio",
-      fr: "Balançoire",
-      zh: "秋千",
-    },
+    translations: getTranslationsForWord("swing"),
   },
   {
     id: "slide",
@@ -219,43 +136,25 @@ export const PLAY_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want slide",
     category: "play",
     color: "#2ECC71",
-    translations: {
-      en: "Slide",
-      hi: "स्लाइड",
-      es: "Tobogán",
-      fr: "Toboggan",
-      zh: "滑梯",
-    },
+    translations: getTranslationsForWord("slide"),
   },
   {
-    id: "tv",
+    id: "tv-play",
     text: "TV",
     message: "I want to watch TV.",
     twoWord: "Want TV",
     category: "play",
     color: "#2ECC71",
-    translations: {
-      en: "TV",
-      hi: "टीवी",
-      es: "TV",
-      fr: "TV",
-      zh: "电视",
-    },
+    translations: getTranslationsForWord("tv"),
   },
   {
-    id: "tablet",
+    id: "tablet-play",
     text: "Tablet",
     message: "I want the tablet.",
     twoWord: "Want tablet",
     category: "play",
     color: "#2ECC71",
-    translations: {
-      en: "Tablet",
-      hi: "टैबलेट",
-      es: "Tableta",
-      fr: "Tablette",
-      zh: "平板",
-    },
+    translations: getTranslationsForWord("tablet"),
   },
   {
     id: "puzzle",
@@ -264,13 +163,7 @@ export const PLAY_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want puzzle",
     category: "play",
     color: "#2ECC71",
-    translations: {
-      en: "Puzzle",
-      hi: "पज़ल",
-      es: "Rompecabezas",
-      fr: "Puzzle",
-      zh: "拼图",
-    },
+    translations: getTranslationsForWord("puzzle"),
   },
   {
     id: "ride",
@@ -279,13 +172,7 @@ export const PLAY_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want ride",
     category: "play",
     color: "#2ECC71",
-    translations: {
-      en: "Ride",
-      hi: "सवारी",
-      es: "Montar",
-      fr: "Monter",
-      zh: "骑",
-    },
+    translations: getTranslationsForWord("ride"),
   },
   {
     id: "run",
@@ -294,13 +181,7 @@ export const PLAY_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want run",
     category: "play",
     color: "#2ECC71",
-    translations: {
-      en: "Run",
-      hi: "दौड़ना",
-      es: "Correr",
-      fr: "Courir",
-      zh: "跑",
-    },
+    translations: getTranslationsForWord("run"),
   },
   {
     id: "jump",
@@ -309,12 +190,6 @@ export const PLAY_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want jump",
     category: "play",
     color: "#2ECC71",
-    translations: {
-      en: "Jump",
-      hi: "कूदना",
-      es: "Saltar",
-      fr: "Sauter",
-      zh: "跳",
-    },
+    translations: getTranslationsForWord("jump"),
   },
 ];

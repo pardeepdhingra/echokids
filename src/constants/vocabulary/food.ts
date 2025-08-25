@@ -1,4 +1,5 @@
 import { ButtonTemplate } from "../../types";
+import { getTranslationsForWord } from "../translations";
 
 export const FOOD_VOCABULARY: ButtonTemplate[] = [
   // Staples
@@ -10,13 +11,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "staples",
     color: "#E74C3C",
-    translations: {
-      en: "Rice",
-      hi: "चावल",
-      es: "Arroz",
-      fr: "Riz",
-      zh: "米饭",
-    },
+    translations: getTranslationsForWord("rice"),
   },
   {
     id: "bread",
@@ -26,13 +21,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "staples",
     color: "#E74C3C",
-    translations: {
-      en: "Bread",
-      hi: "रोटी",
-      es: "Pan",
-      fr: "Pain",
-      zh: "面包",
-    },
+    translations: getTranslationsForWord("bread"),
   },
   {
     id: "pasta",
@@ -42,13 +31,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "staples",
     color: "#E74C3C",
-    translations: {
-      en: "Pasta",
-      hi: "पास्ता",
-      es: "Pasta",
-      fr: "Pâtes",
-      zh: "意大利面",
-    },
+    translations: getTranslationsForWord("pasta"),
   },
   {
     id: "cereal",
@@ -58,13 +41,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "staples",
     color: "#E74C3C",
-    translations: {
-      en: "Cereal",
-      hi: "सीरियल",
-      es: "Cereal",
-      fr: "Céréales",
-      zh: "麦片",
-    },
+    translations: getTranslationsForWord("cereal"),
   },
   {
     id: "soup",
@@ -74,47 +51,29 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "staples",
     color: "#E74C3C",
-    translations: {
-      en: "Soup",
-      hi: "सूप",
-      es: "Sopa",
-      fr: "Soupe",
-      zh: "汤",
-    },
+    translations: getTranslationsForWord("soup"),
   },
 
   // Proteins
   {
-    id: "chicken",
+    id: "chicken-food",
     text: "Chicken",
     message: "I want chicken.",
     twoWord: "Want chicken",
     category: "food",
     subCategory: "proteins",
     color: "#E74C3C",
-    translations: {
-      en: "Chicken",
-      hi: "मुर्गा",
-      es: "Pollo",
-      fr: "Poulet",
-      zh: "鸡肉",
-    },
+    translations: getTranslationsForWord("chicken-food"),
   },
   {
-    id: "fish",
+    id: "fish-food",
     text: "Fish",
     message: "I want fish.",
     twoWord: "Want fish",
     category: "food",
     subCategory: "proteins",
     color: "#E74C3C",
-    translations: {
-      en: "Fish",
-      hi: "मछली",
-      es: "Pescado",
-      fr: "Poisson",
-      zh: "鱼",
-    },
+    translations: getTranslationsForWord("fish-food"),
   },
   {
     id: "egg",
@@ -124,13 +83,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "proteins",
     color: "#E74C3C",
-    translations: {
-      en: "Egg",
-      hi: "अंडा",
-      es: "Huevo",
-      fr: "Œuf",
-      zh: "鸡蛋",
-    },
+    translations: getTranslationsForWord("egg"),
   },
   {
     id: "meat",
@@ -140,13 +93,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "proteins",
     color: "#E74C3C",
-    translations: {
-      en: "Meat",
-      hi: "मांस",
-      es: "Carne",
-      fr: "Viande",
-      zh: "肉",
-    },
+    translations: getTranslationsForWord("meat"),
   },
   {
     id: "beans",
@@ -156,13 +103,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "proteins",
     color: "#E74C3C",
-    translations: {
-      en: "Beans",
-      hi: "बीन्स",
-      es: "Frijoles",
-      fr: "Haricots",
-      zh: "豆子",
-    },
+    translations: getTranslationsForWord("beans"),
   },
   {
     id: "cheese",
@@ -172,13 +113,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "proteins",
     color: "#E74C3C",
-    translations: {
-      en: "Cheese",
-      hi: "पनीर",
-      es: "Queso",
-      fr: "Fromage",
-      zh: "奶酪",
-    },
+    translations: getTranslationsForWord("cheese"),
   },
 
   // Fruits
@@ -190,13 +125,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "fruits",
     color: "#E74C3C",
-    translations: {
-      en: "Apple",
-      hi: "सेब",
-      es: "Manzana",
-      fr: "Pomme",
-      zh: "苹果",
-    },
+    translations: getTranslationsForWord("apple"),
   },
   {
     id: "banana",
@@ -206,29 +135,17 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "fruits",
     color: "#E74C3C",
-    translations: {
-      en: "Banana",
-      hi: "केला",
-      es: "Plátano",
-      fr: "Banane",
-      zh: "香蕉",
-    },
+    translations: getTranslationsForWord("banana"),
   },
   {
-    id: "orange",
+    id: "orange-fruit",
     text: "Orange",
     message: "I want an orange.",
     twoWord: "Want orange",
     category: "food",
     subCategory: "fruits",
     color: "#E74C3C",
-    translations: {
-      en: "Orange",
-      hi: "संतरा",
-      es: "Naranja",
-      fr: "Orange",
-      zh: "橙子",
-    },
+    translations: getTranslationsForWord("orange-fruit"),
   },
   {
     id: "grape",
@@ -238,13 +155,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "fruits",
     color: "#E74C3C",
-    translations: {
-      en: "Grape",
-      hi: "अंगूर",
-      es: "Uva",
-      fr: "Raisin",
-      zh: "葡萄",
-    },
+    translations: getTranslationsForWord("grape"),
   },
   {
     id: "mango",
@@ -254,13 +165,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "fruits",
     color: "#E74C3C",
-    translations: {
-      en: "Mango",
-      hi: "आम",
-      es: "Mango",
-      fr: "Mangue",
-      zh: "芒果",
-    },
+    translations: getTranslationsForWord("mango"),
   },
   {
     id: "strawberry",
@@ -270,13 +175,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "fruits",
     color: "#E74C3C",
-    translations: {
-      en: "Strawberry",
-      hi: "स्ट्रॉबेरी",
-      es: "Fresa",
-      fr: "Fraise",
-      zh: "草莓",
-    },
+    translations: getTranslationsForWord("strawberry"),
   },
   {
     id: "watermelon",
@@ -286,13 +185,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "fruits",
     color: "#E74C3C",
-    translations: {
-      en: "Watermelon",
-      hi: "तरबूज",
-      es: "Sandía",
-      fr: "Pastèque",
-      zh: "西瓜",
-    },
+    translations: getTranslationsForWord("watermelon"),
   },
 
   // Vegetables
@@ -304,13 +197,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "vegetables",
     color: "#E74C3C",
-    translations: {
-      en: "Carrot",
-      hi: "गाजर",
-      es: "Zanahoria",
-      fr: "Carotte",
-      zh: "胡萝卜",
-    },
+    translations: getTranslationsForWord("carrot"),
   },
   {
     id: "potato",
@@ -320,13 +207,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "vegetables",
     color: "#E74C3C",
-    translations: {
-      en: "Potato",
-      hi: "आलू",
-      es: "Papa",
-      fr: "Pomme de terre",
-      zh: "土豆",
-    },
+    translations: getTranslationsForWord("potato"),
   },
   {
     id: "tomato",
@@ -336,13 +217,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "vegetables",
     color: "#E74C3C",
-    translations: {
-      en: "Tomato",
-      hi: "टमाटर",
-      es: "Tomate",
-      fr: "Tomate",
-      zh: "西红柿",
-    },
+    translations: getTranslationsForWord("tomato"),
   },
   {
     id: "cucumber",
@@ -352,13 +227,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "vegetables",
     color: "#E74C3C",
-    translations: {
-      en: "Cucumber",
-      hi: "खीरा",
-      es: "Pepino",
-      fr: "Concombre",
-      zh: "黄瓜",
-    },
+    translations: getTranslationsForWord("cucumber"),
   },
   {
     id: "corn",
@@ -368,13 +237,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "vegetables",
     color: "#E74C3C",
-    translations: {
-      en: "Corn",
-      hi: "मक्का",
-      es: "Maíz",
-      fr: "Maïs",
-      zh: "玉米",
-    },
+    translations: getTranslationsForWord("corn"),
   },
   {
     id: "peas",
@@ -384,13 +247,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "vegetables",
     color: "#E74C3C",
-    translations: {
-      en: "Peas",
-      hi: "मटर",
-      es: "Guisantes",
-      fr: "Pois",
-      zh: "豌豆",
-    },
+    translations: getTranslationsForWord("peas"),
   },
   {
     id: "broccoli",
@@ -400,13 +257,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "vegetables",
     color: "#E74C3C",
-    translations: {
-      en: "Broccoli",
-      hi: "ब्रोकोली",
-      es: "Brócoli",
-      fr: "Brocoli",
-      zh: "西兰花",
-    },
+    translations: getTranslationsForWord("broccoli"),
   },
 
   // Snacks
@@ -418,13 +269,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "snacks",
     color: "#E74C3C",
-    translations: {
-      en: "Cookie",
-      hi: "कुकी",
-      es: "Galleta",
-      fr: "Biscuit",
-      zh: "饼干",
-    },
+    translations: getTranslationsForWord("cookie"),
   },
   {
     id: "candy",
@@ -434,13 +279,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "snacks",
     color: "#E74C3C",
-    translations: {
-      en: "Candy",
-      hi: "कैंडी",
-      es: "Dulce",
-      fr: "Bonbon",
-      zh: "糖果",
-    },
+    translations: getTranslationsForWord("candy"),
   },
   {
     id: "chips",
@@ -450,13 +289,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "snacks",
     color: "#E74C3C",
-    translations: {
-      en: "Chips",
-      hi: "चिप्स",
-      es: "Papas fritas",
-      fr: "Chips",
-      zh: "薯片",
-    },
+    translations: getTranslationsForWord("chips"),
   },
   {
     id: "cake",
@@ -466,13 +299,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "snacks",
     color: "#E74C3C",
-    translations: {
-      en: "Cake",
-      hi: "केक",
-      es: "Pastel",
-      fr: "Gâteau",
-      zh: "蛋糕",
-    },
+    translations: getTranslationsForWord("cake"),
   },
   {
     id: "ice-cream",
@@ -482,13 +309,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "snacks",
     color: "#E74C3C",
-    translations: {
-      en: "Ice Cream",
-      hi: "आइसक्रीम",
-      es: "Helado",
-      fr: "Crème glacée",
-      zh: "冰淇淋",
-    },
+    translations: getTranslationsForWord("ice-cream"),
   },
   {
     id: "popcorn",
@@ -498,13 +319,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "snacks",
     color: "#E74C3C",
-    translations: {
-      en: "Popcorn",
-      hi: "पॉपकॉर्न",
-      es: "Palomitas",
-      fr: "Pop-corn",
-      zh: "爆米花",
-    },
+    translations: getTranslationsForWord("popcorn"),
   },
 
   // Drinks
@@ -516,13 +331,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "drinks",
     color: "#E74C3C",
-    translations: {
-      en: "Water",
-      hi: "पानी",
-      es: "Agua",
-      fr: "Eau",
-      zh: "水",
-    },
+    translations: getTranslationsForWord("water"),
   },
   {
     id: "milk",
@@ -532,13 +341,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "drinks",
     color: "#E74C3C",
-    translations: {
-      en: "Milk",
-      hi: "दूध",
-      es: "Leche",
-      fr: "Lait",
-      zh: "牛奶",
-    },
+    translations: getTranslationsForWord("milk"),
   },
   {
     id: "juice",
@@ -548,13 +351,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "drinks",
     color: "#E74C3C",
-    translations: {
-      en: "Juice",
-      hi: "जूस",
-      es: "Jugo",
-      fr: "Jus",
-      zh: "果汁",
-    },
+    translations: getTranslationsForWord("juice"),
   },
   {
     id: "tea",
@@ -564,13 +361,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "drinks",
     color: "#E74C3C",
-    translations: {
-      en: "Tea",
-      hi: "चाय",
-      es: "Té",
-      fr: "Thé",
-      zh: "茶",
-    },
+    translations: getTranslationsForWord("tea"),
   },
   {
     id: "coffee",
@@ -580,13 +371,7 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "drinks",
     color: "#E74C3C",
-    translations: {
-      en: "Coffee",
-      hi: "कॉफी",
-      es: "Café",
-      fr: "Café",
-      zh: "咖啡",
-    },
+    translations: getTranslationsForWord("coffee"),
   },
   {
     id: "soda",
@@ -596,12 +381,6 @@ export const FOOD_VOCABULARY: ButtonTemplate[] = [
     category: "food",
     subCategory: "drinks",
     color: "#E74C3C",
-    translations: {
-      en: "Soda",
-      hi: "सोडा",
-      es: "Refresco",
-      fr: "Soda",
-      zh: "汽水",
-    },
+    translations: getTranslationsForWord("soda"),
   },
 ];

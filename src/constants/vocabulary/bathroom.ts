@@ -1,4 +1,5 @@
 import { ButtonTemplate } from "../../types";
+import { getTranslationsForWord } from "../translations";
 
 export const BATHROOM_VOCABULARY: ButtonTemplate[] = [
   // Fixtures
@@ -10,13 +11,7 @@ export const BATHROOM_VOCABULARY: ButtonTemplate[] = [
     category: "bathroom",
     subCategory: "fixtures",
     color: "#45B7D1",
-    translations: {
-      en: "Toilet",
-      hi: "शौचालय",
-      es: "Baño",
-      fr: "Toilettes",
-      zh: "厕所",
-    },
+    translations: getTranslationsForWord("toilet"),
   },
   {
     id: "sink",
@@ -26,13 +21,7 @@ export const BATHROOM_VOCABULARY: ButtonTemplate[] = [
     category: "bathroom",
     subCategory: "fixtures",
     color: "#45B7D1",
-    translations: {
-      en: "Sink",
-      hi: "सिंक",
-      es: "Lavabo",
-      fr: "Lavabo",
-      zh: "水槽",
-    },
+    translations: getTranslationsForWord("sink"),
   },
   {
     id: "shower",
@@ -42,13 +31,7 @@ export const BATHROOM_VOCABULARY: ButtonTemplate[] = [
     category: "bathroom",
     subCategory: "fixtures",
     color: "#45B7D1",
-    translations: {
-      en: "Shower",
-      hi: "शॉवर",
-      es: "Ducha",
-      fr: "Douche",
-      zh: "淋浴",
-    },
+    translations: getTranslationsForWord("shower"),
   },
   {
     id: "bath",
@@ -58,13 +41,7 @@ export const BATHROOM_VOCABULARY: ButtonTemplate[] = [
     category: "bathroom",
     subCategory: "fixtures",
     color: "#45B7D1",
-    translations: {
-      en: "Bath",
-      hi: "स्नान",
-      es: "Baño",
-      fr: "Bain",
-      zh: "浴缸",
-    },
+    translations: getTranslationsForWord("bath"),
   },
 
   // Hygiene
@@ -76,13 +53,7 @@ export const BATHROOM_VOCABULARY: ButtonTemplate[] = [
     category: "bathroom",
     subCategory: "hygiene",
     color: "#45B7D1",
-    translations: {
-      en: "Soap",
-      hi: "साबुन",
-      es: "Jabón",
-      fr: "Savon",
-      zh: "肥皂",
-    },
+    translations: getTranslationsForWord("soap"),
   },
   {
     id: "towel",
@@ -92,13 +63,7 @@ export const BATHROOM_VOCABULARY: ButtonTemplate[] = [
     category: "bathroom",
     subCategory: "hygiene",
     color: "#45B7D1",
-    translations: {
-      en: "Towel",
-      hi: "तौलिया",
-      es: "Toalla",
-      fr: "Serviette",
-      zh: "毛巾",
-    },
+    translations: getTranslationsForWord("towel"),
   },
   {
     id: "toothbrush",
@@ -108,13 +73,7 @@ export const BATHROOM_VOCABULARY: ButtonTemplate[] = [
     category: "bathroom",
     subCategory: "hygiene",
     color: "#45B7D1",
-    translations: {
-      en: "Toothbrush",
-      hi: "टूथब्रश",
-      es: "Cepillo de dientes",
-      fr: "Brosse à dents",
-      zh: "牙刷",
-    },
+    translations: getTranslationsForWord("toothbrush"),
   },
   {
     id: "toothpaste",
@@ -124,12 +83,6 @@ export const BATHROOM_VOCABULARY: ButtonTemplate[] = [
     category: "bathroom",
     subCategory: "hygiene",
     color: "#45B7D1",
-    translations: {
-      en: "Toothpaste",
-      hi: "टूथपेस्ट",
-      es: "Pasta de dientes",
-      fr: "Dentifrice",
-      zh: "牙膏",
-    },
+    translations: getTranslationsForWord("toothpaste"),
   },
 ];

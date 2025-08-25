@@ -1,4 +1,5 @@
 import { ButtonTemplate } from "../../types";
+import { getTranslationsForWord } from "../translations";
 
 export const HOME_VOCABULARY: ButtonTemplate[] = [
   // Furniture
@@ -10,13 +11,7 @@ export const HOME_VOCABULARY: ButtonTemplate[] = [
     category: "home",
     subCategory: "furniture",
     color: "#4ECDC4",
-    translations: {
-      en: "House",
-      hi: "घर",
-      es: "Casa",
-      fr: "Maison",
-      zh: "房子",
-    },
+    translations: getTranslationsForWord("house"),
   },
   {
     id: "bed",
@@ -26,13 +21,7 @@ export const HOME_VOCABULARY: ButtonTemplate[] = [
     category: "home",
     subCategory: "furniture",
     color: "#4ECDC4",
-    translations: {
-      en: "Bed",
-      hi: "बिस्तर",
-      es: "Cama",
-      fr: "Lit",
-      zh: "床",
-    },
+    translations: getTranslationsForWord("bed"),
   },
   {
     id: "chair",
@@ -42,13 +31,7 @@ export const HOME_VOCABULARY: ButtonTemplate[] = [
     category: "home",
     subCategory: "furniture",
     color: "#4ECDC4",
-    translations: {
-      en: "Chair",
-      hi: "कुर्सी",
-      es: "Silla",
-      fr: "Chaise",
-      zh: "椅子",
-    },
+    translations: getTranslationsForWord("chair"),
   },
   {
     id: "table",
@@ -58,13 +41,7 @@ export const HOME_VOCABULARY: ButtonTemplate[] = [
     category: "home",
     subCategory: "furniture",
     color: "#4ECDC4",
-    translations: {
-      en: "Table",
-      hi: "मेज़",
-      es: "Mesa",
-      fr: "Table",
-      zh: "桌子",
-    },
+    translations: getTranslationsForWord("table"),
   },
 
   // Electronics
@@ -76,13 +53,7 @@ export const HOME_VOCABULARY: ButtonTemplate[] = [
     category: "home",
     subCategory: "electronics",
     color: "#4ECDC4",
-    translations: {
-      en: "TV",
-      hi: "टीवी",
-      es: "TV",
-      fr: "TV",
-      zh: "电视",
-    },
+    translations: getTranslationsForWord("tv"),
   },
   {
     id: "phone",
@@ -92,13 +63,7 @@ export const HOME_VOCABULARY: ButtonTemplate[] = [
     category: "home",
     subCategory: "electronics",
     color: "#4ECDC4",
-    translations: {
-      en: "Phone",
-      hi: "फ़ोन",
-      es: "Teléfono",
-      fr: "Téléphone",
-      zh: "电话",
-    },
+    translations: getTranslationsForWord("phone"),
   },
   {
     id: "computer",
@@ -108,13 +73,7 @@ export const HOME_VOCABULARY: ButtonTemplate[] = [
     category: "home",
     subCategory: "electronics",
     color: "#4ECDC4",
-    translations: {
-      en: "Computer",
-      hi: "कंप्यूटर",
-      es: "Computadora",
-      fr: "Ordinateur",
-      zh: "电脑",
-    },
+    translations: getTranslationsForWord("computer"),
   },
 
   // Rooms
@@ -126,13 +85,7 @@ export const HOME_VOCABULARY: ButtonTemplate[] = [
     category: "home",
     subCategory: "rooms",
     color: "#4ECDC4",
-    translations: {
-      en: "Light",
-      hi: "लाइट",
-      es: "Luz",
-      fr: "Lumière",
-      zh: "灯",
-    },
+    translations: getTranslationsForWord("light"),
   },
   {
     id: "door",
@@ -142,13 +95,7 @@ export const HOME_VOCABULARY: ButtonTemplate[] = [
     category: "home",
     subCategory: "rooms",
     color: "#4ECDC4",
-    translations: {
-      en: "Door",
-      hi: "दरवाज़ा",
-      es: "Puerta",
-      fr: "Porte",
-      zh: "门",
-    },
+    translations: getTranslationsForWord("door"),
   },
   {
     id: "window",
@@ -158,12 +105,6 @@ export const HOME_VOCABULARY: ButtonTemplate[] = [
     category: "home",
     subCategory: "rooms",
     color: "#4ECDC4",
-    translations: {
-      en: "Window",
-      hi: "खिड़की",
-      es: "Ventana",
-      fr: "Fenêtre",
-      zh: "窗户",
-    },
+    translations: getTranslationsForWord("window"),
   },
 ];

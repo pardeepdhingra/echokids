@@ -11,6 +11,11 @@ import { ANIMALS_VOCABULARY } from "./animals";
 import { COLORS_SHAPES_VOCABULARY } from "./colors-shapes";
 import { NUMBERS_TIME_VOCABULARY } from "./numbers-time";
 import { SCHOOL_VOCABULARY } from "./school";
+import { PRONOUNS_VOCABULARY } from "./pronouns";
+import { VERBS_VOCABULARY } from "./verbs";
+import { DESCRIPTORS_VOCABULARY } from "./descriptors";
+import { SOCIAL_VOCABULARY } from "./social";
+import { QUESTIONS_VOCABULARY } from "./questions";
 
 // Import existing vocabulary from the old system (legacy templates)
 import { BUTTON_TEMPLATES } from "../legacy-templates";
@@ -29,6 +34,11 @@ const CATEGORY_VOCABULARY: { [key: string]: ButtonTemplate[] } = {
   "colors-shapes": COLORS_SHAPES_VOCABULARY,
   "numbers-time": NUMBERS_TIME_VOCABULARY,
   school: SCHOOL_VOCABULARY,
+  pronouns: PRONOUNS_VOCABULARY,
+  verbs: VERBS_VOCABULARY,
+  descriptors: DESCRIPTORS_VOCABULARY,
+  social: SOCIAL_VOCABULARY,
+  questions: QUESTIONS_VOCABULARY,
 };
 
 // Legacy vocabulary (from old system)
@@ -47,6 +57,11 @@ const LEGACY_VOCABULARY = BUTTON_TEMPLATES.filter(
       "colors-shapes",
       "numbers-time",
       "school",
+      "pronouns",
+      "verbs",
+      "descriptors",
+      "social",
+      "questions",
     ].includes(template.category)
 );
 

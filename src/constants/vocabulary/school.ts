@@ -1,4 +1,5 @@
 import { ButtonTemplate } from "../../types";
+import { getTranslationsForWord } from "../translations";
 
 export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
   // School Items
@@ -9,13 +10,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "My teacher",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Teacher",
-      hi: "शिक्षक",
-      es: "Maestro",
-      fr: "Enseignant",
-      zh: "老师",
-    },
+    translations: getTranslationsForWord("teacher"),
   },
   {
     id: "student",
@@ -24,13 +19,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Am student",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Student",
-      hi: "छात्र",
-      es: "Estudiante",
-      fr: "Étudiant",
-      zh: "学生",
-    },
+    translations: getTranslationsForWord("student"),
   },
   {
     id: "book-school",
@@ -39,13 +28,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Need book",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Book",
-      hi: "किताब",
-      es: "Libro",
-      fr: "Livre",
-      zh: "书",
-    },
+    translations: getTranslationsForWord("book-school"),
   },
   {
     id: "paper",
@@ -54,13 +37,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Need paper",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Paper",
-      hi: "कागज",
-      es: "Papel",
-      fr: "Papier",
-      zh: "纸",
-    },
+    translations: getTranslationsForWord("paper"),
   },
   {
     id: "pencil",
@@ -69,13 +46,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Need pencil",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Pencil",
-      hi: "पेंसिल",
-      es: "Lápiz",
-      fr: "Crayon",
-      zh: "铅笔",
-    },
+    translations: getTranslationsForWord("pencil"),
   },
   {
     id: "pen",
@@ -84,13 +55,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Need pen",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Pen",
-      hi: "कलम",
-      es: "Bolígrafo",
-      fr: "Stylo",
-      zh: "钢笔",
-    },
+    translations: getTranslationsForWord("pen"),
   },
   {
     id: "eraser",
@@ -99,13 +64,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Need eraser",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Eraser",
-      hi: "रबर",
-      es: "Borrador",
-      fr: "Gomme",
-      zh: "橡皮",
-    },
+    translations: getTranslationsForWord("eraser"),
   },
   {
     id: "bag",
@@ -114,13 +73,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Need bag",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Bag",
-      hi: "बैग",
-      es: "Bolsa",
-      fr: "Sac",
-      zh: "书包",
-    },
+    translations: getTranslationsForWord("bag"),
   },
   {
     id: "desk",
@@ -129,13 +82,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Need desk",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Desk",
-      hi: "डेस्क",
-      es: "Escritorio",
-      fr: "Bureau",
-      zh: "桌子",
-    },
+    translations: getTranslationsForWord("desk"),
   },
   {
     id: "chair-school",
@@ -144,13 +91,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Need chair",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Chair",
-      hi: "कुर्सी",
-      es: "Silla",
-      fr: "Chaise",
-      zh: "椅子",
-    },
+    translations: getTranslationsForWord("chair-school"),
   },
   {
     id: "board",
@@ -159,13 +100,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "See board",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Board",
-      hi: "बोर्ड",
-      es: "Pizarra",
-      fr: "Tableau",
-      zh: "黑板",
-    },
+    translations: getTranslationsForWord("board"),
   },
   // School Actions
   {
@@ -175,13 +110,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want read",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Read",
-      hi: "पढ़ना",
-      es: "Leer",
-      fr: "Lire",
-      zh: "读",
-    },
+    translations: getTranslationsForWord("read"),
   },
   {
     id: "write",
@@ -190,13 +119,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want write",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Write",
-      hi: "लिखना",
-      es: "Escribir",
-      fr: "Écrire",
-      zh: "写",
-    },
+    translations: getTranslationsForWord("write"),
   },
   {
     id: "draw-school",
@@ -205,13 +128,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want draw",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Draw",
-      hi: "चित्र बनाना",
-      es: "Dibujar",
-      fr: "Dessiner",
-      zh: "画画",
-    },
+    translations: getTranslationsForWord("draw-school"),
   },
   {
     id: "cut",
@@ -220,13 +137,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want cut",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Cut",
-      hi: "काटना",
-      es: "Cortar",
-      fr: "Couper",
-      zh: "剪",
-    },
+    translations: getTranslationsForWord("cut"),
   },
   {
     id: "glue",
@@ -235,13 +146,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want glue",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Glue",
-      hi: "चिपकाना",
-      es: "Pegar",
-      fr: "Coller",
-      zh: "粘",
-    },
+    translations: getTranslationsForWord("glue"),
   },
   {
     id: "count",
@@ -250,13 +155,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want count",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Count",
-      hi: "गिनना",
-      es: "Contar",
-      fr: "Compter",
-      zh: "数",
-    },
+    translations: getTranslationsForWord("count"),
   },
   {
     id: "answer",
@@ -265,13 +164,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want answer",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Answer",
-      hi: "जवाब",
-      es: "Responder",
-      fr: "Répondre",
-      zh: "回答",
-    },
+    translations: getTranslationsForWord("answer"),
   },
   {
     id: "listen",
@@ -280,13 +173,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want listen",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Listen",
-      hi: "सुनना",
-      es: "Escuchar",
-      fr: "Écouter",
-      zh: "听",
-    },
+    translations: getTranslationsForWord("listen"),
   },
   {
     id: "talk",
@@ -295,13 +182,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want talk",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Talk",
-      hi: "बात करना",
-      es: "Hablar",
-      fr: "Parler",
-      zh: "说话",
-    },
+    translations: getTranslationsForWord("talk"),
   },
   // Technology
   {
@@ -311,13 +192,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want phone",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Phone",
-      hi: "फोन",
-      es: "Teléfono",
-      fr: "Téléphone",
-      zh: "电话",
-    },
+    translations: getTranslationsForWord("phone"),
   },
   {
     id: "computer",
@@ -326,13 +201,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want computer",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Computer",
-      hi: "कंप्यूटर",
-      es: "Computadora",
-      fr: "Ordinateur",
-      zh: "电脑",
-    },
+    translations: getTranslationsForWord("computer"),
   },
   {
     id: "tablet-school",
@@ -341,13 +210,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want tablet",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Tablet",
-      hi: "टैबलेट",
-      es: "Tableta",
-      fr: "Tablette",
-      zh: "平板",
-    },
+    translations: getTranslationsForWord("tablet-school"),
   },
   {
     id: "tv-school",
@@ -356,13 +219,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want TV",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "TV",
-      hi: "टीवी",
-      es: "TV",
-      fr: "TV",
-      zh: "电视",
-    },
+    translations: getTranslationsForWord("tv-school"),
   },
   {
     id: "internet",
@@ -371,13 +228,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want internet",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Internet",
-      hi: "इंटरनेट",
-      es: "Internet",
-      fr: "Internet",
-      zh: "互联网",
-    },
+    translations: getTranslationsForWord("internet"),
   },
   {
     id: "video",
@@ -386,13 +237,7 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want video",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Video",
-      hi: "वीडियो",
-      es: "Video",
-      fr: "Vidéo",
-      zh: "视频",
-    },
+    translations: getTranslationsForWord("video"),
   },
   {
     id: "game-school",
@@ -401,12 +246,6 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Want game",
     category: "school",
     color: "#16A085",
-    translations: {
-      en: "Game",
-      hi: "खेल",
-      es: "Juego",
-      fr: "Jeu",
-      zh: "游戏",
-    },
+    translations: getTranslationsForWord("game-school"),
   },
 ];

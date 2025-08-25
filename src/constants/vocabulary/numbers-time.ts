@@ -1,4 +1,5 @@
 import { ButtonTemplate } from "../../types";
+import { getTranslationsForWord } from "../translations";
 
 export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
   // Numbers 1-20
@@ -9,13 +10,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "One",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "One",
-      hi: "एक",
-      es: "Uno",
-      fr: "Un",
-      zh: "一",
-    },
+    translations: getTranslationsForWord("one"),
   },
   {
     id: "two",
@@ -24,13 +19,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Two",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Two",
-      hi: "दो",
-      es: "Dos",
-      fr: "Deux",
-      zh: "二",
-    },
+    translations: getTranslationsForWord("two"),
   },
   {
     id: "three",
@@ -39,13 +28,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Three",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Three",
-      hi: "तीन",
-      es: "Tres",
-      fr: "Trois",
-      zh: "三",
-    },
+    translations: getTranslationsForWord("three"),
   },
   {
     id: "four",
@@ -54,13 +37,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Four",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Four",
-      hi: "चार",
-      es: "Cuatro",
-      fr: "Quatre",
-      zh: "四",
-    },
+    translations: getTranslationsForWord("four"),
   },
   {
     id: "five",
@@ -69,13 +46,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Five",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Five",
-      hi: "पांच",
-      es: "Cinco",
-      fr: "Cinq",
-      zh: "五",
-    },
+    translations: getTranslationsForWord("five"),
   },
   {
     id: "six",
@@ -84,13 +55,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Six",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Six",
-      hi: "छह",
-      es: "Seis",
-      fr: "Six",
-      zh: "六",
-    },
+    translations: getTranslationsForWord("six"),
   },
   {
     id: "seven",
@@ -99,13 +64,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Seven",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Seven",
-      hi: "सात",
-      es: "Siete",
-      fr: "Sept",
-      zh: "七",
-    },
+    translations: getTranslationsForWord("seven"),
   },
   {
     id: "eight",
@@ -114,13 +73,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Eight",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Eight",
-      hi: "आठ",
-      es: "Ocho",
-      fr: "Huit",
-      zh: "八",
-    },
+    translations: getTranslationsForWord("eight"),
   },
   {
     id: "nine",
@@ -129,13 +82,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Nine",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Nine",
-      hi: "नौ",
-      es: "Nueve",
-      fr: "Neuf",
-      zh: "九",
-    },
+    translations: getTranslationsForWord("nine"),
   },
   {
     id: "ten",
@@ -144,13 +91,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Ten",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Ten",
-      hi: "दस",
-      es: "Diez",
-      fr: "Dix",
-      zh: "十",
-    },
+    translations: getTranslationsForWord("ten"),
   },
   {
     id: "eleven",
@@ -159,13 +100,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Eleven",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Eleven",
-      hi: "ग्यारह",
-      es: "Once",
-      fr: "Onze",
-      zh: "十一",
-    },
+    translations: getTranslationsForWord("eleven"),
   },
   {
     id: "twelve",
@@ -174,13 +109,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Twelve",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Twelve",
-      hi: "बारह",
-      es: "Doce",
-      fr: "Douze",
-      zh: "十二",
-    },
+    translations: getTranslationsForWord("twelve"),
   },
   {
     id: "thirteen",
@@ -189,13 +118,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Thirteen",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Thirteen",
-      hi: "तेरह",
-      es: "Trece",
-      fr: "Treize",
-      zh: "十三",
-    },
+    translations: getTranslationsForWord("thirteen"),
   },
   {
     id: "fourteen",
@@ -204,13 +127,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Fourteen",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Fourteen",
-      hi: "चौदह",
-      es: "Catorce",
-      fr: "Quatorze",
-      zh: "十四",
-    },
+    translations: getTranslationsForWord("fourteen"),
   },
   {
     id: "fifteen",
@@ -219,13 +136,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Fifteen",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Fifteen",
-      hi: "पंद्रह",
-      es: "Quince",
-      fr: "Quinze",
-      zh: "十五",
-    },
+    translations: getTranslationsForWord("fifteen"),
   },
   {
     id: "sixteen",
@@ -234,13 +145,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Sixteen",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Sixteen",
-      hi: "सोलह",
-      es: "Dieciséis",
-      fr: "Seize",
-      zh: "十六",
-    },
+    translations: getTranslationsForWord("sixteen"),
   },
   {
     id: "seventeen",
@@ -249,13 +154,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Seventeen",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Seventeen",
-      hi: "सत्रह",
-      es: "Diecisiete",
-      fr: "Dix-sept",
-      zh: "十七",
-    },
+    translations: getTranslationsForWord("seventeen"),
   },
   {
     id: "eighteen",
@@ -264,13 +163,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Eighteen",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Eighteen",
-      hi: "अठारह",
-      es: "Dieciocho",
-      fr: "Dix-huit",
-      zh: "十八",
-    },
+    translations: getTranslationsForWord("eighteen"),
   },
   {
     id: "nineteen",
@@ -279,13 +172,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Nineteen",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Nineteen",
-      hi: "उन्नीस",
-      es: "Diecinueve",
-      fr: "Dix-neuf",
-      zh: "十九",
-    },
+    translations: getTranslationsForWord("nineteen"),
   },
   {
     id: "twenty",
@@ -294,13 +181,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Twenty",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Twenty",
-      hi: "बीस",
-      es: "Veinte",
-      fr: "Vingt",
-      zh: "二十",
-    },
+    translations: getTranslationsForWord("twenty"),
   },
   {
     id: "thirty",
@@ -309,13 +190,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Thirty",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Thirty",
-      hi: "तीस",
-      es: "Treinta",
-      fr: "Trente",
-      zh: "三十",
-    },
+    translations: getTranslationsForWord("thirty"),
   },
   {
     id: "forty",
@@ -324,13 +199,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Forty",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Forty",
-      hi: "चालीस",
-      es: "Cuarenta",
-      fr: "Quarante",
-      zh: "四十",
-    },
+    translations: getTranslationsForWord("forty"),
   },
   {
     id: "fifty",
@@ -339,13 +208,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Fifty",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Fifty",
-      hi: "पचास",
-      es: "Cincuenta",
-      fr: "Cinquante",
-      zh: "五十",
-    },
+    translations: getTranslationsForWord("fifty"),
   },
   {
     id: "hundred",
@@ -354,13 +217,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Hundred",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Hundred",
-      hi: "सौ",
-      es: "Cien",
-      fr: "Cent",
-      zh: "一百",
-    },
+    translations: getTranslationsForWord("hundred"),
   },
   // Time
   {
@@ -370,13 +227,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Good morning",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Morning",
-      hi: "सुबह",
-      es: "Mañana",
-      fr: "Matin",
-      zh: "早上",
-    },
+    translations: getTranslationsForWord("morning"),
   },
   {
     id: "afternoon",
@@ -385,13 +236,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Good afternoon",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Afternoon",
-      hi: "दोपहर",
-      es: "Tarde",
-      fr: "Après-midi",
-      zh: "下午",
-    },
+    translations: getTranslationsForWord("afternoon"),
   },
   {
     id: "evening",
@@ -400,13 +245,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Good evening",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Evening",
-      hi: "शाम",
-      es: "Noche",
-      fr: "Soir",
-      zh: "晚上",
-    },
+    translations: getTranslationsForWord("evening"),
   },
   {
     id: "night",
@@ -415,13 +254,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Good night",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Night",
-      hi: "रात",
-      es: "Noche",
-      fr: "Nuit",
-      zh: "夜晚",
-    },
+    translations: getTranslationsForWord("night"),
   },
   {
     id: "today",
@@ -430,13 +263,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Today",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Today",
-      hi: "आज",
-      es: "Hoy",
-      fr: "Aujourd'hui",
-      zh: "今天",
-    },
+    translations: getTranslationsForWord("today"),
   },
   {
     id: "tomorrow",
@@ -445,13 +272,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Tomorrow",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Tomorrow",
-      hi: "कल",
-      es: "Mañana",
-      fr: "Demain",
-      zh: "明天",
-    },
+    translations: getTranslationsForWord("tomorrow"),
   },
   {
     id: "yesterday",
@@ -460,13 +281,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Yesterday",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Yesterday",
-      hi: "कल",
-      es: "Ayer",
-      fr: "Hier",
-      zh: "昨天",
-    },
+    translations: getTranslationsForWord("yesterday"),
   },
   {
     id: "now",
@@ -475,13 +290,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Now",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Now",
-      hi: "अब",
-      es: "Ahora",
-      fr: "Maintenant",
-      zh: "现在",
-    },
+    translations: getTranslationsForWord("now"),
   },
   {
     id: "later",
@@ -490,13 +299,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Later",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Later",
-      hi: "बाद में",
-      es: "Más tarde",
-      fr: "Plus tard",
-      zh: "稍后",
-    },
+    translations: getTranslationsForWord("later"),
   },
   {
     id: "soon",
@@ -505,13 +308,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Soon",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Soon",
-      hi: "जल्द",
-      es: "Pronto",
-      fr: "Bientôt",
-      zh: "很快",
-    },
+    translations: getTranslationsForWord("soon"),
   },
   // Weather
   {
@@ -521,13 +318,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Sun shining",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Sun",
-      hi: "सूरज",
-      es: "Sol",
-      fr: "Soleil",
-      zh: "太阳",
-    },
+    translations: getTranslationsForWord("sun"),
   },
   {
     id: "rain",
@@ -536,13 +327,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Is raining",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Rain",
-      hi: "बारिश",
-      es: "Lluvia",
-      fr: "Pluie",
-      zh: "雨",
-    },
+    translations: getTranslationsForWord("rain"),
   },
   {
     id: "cloud",
@@ -551,13 +336,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Is cloudy",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Cloud",
-      hi: "बादल",
-      es: "Nube",
-      fr: "Nuage",
-      zh: "云",
-    },
+    translations: getTranslationsForWord("cloud"),
   },
   {
     id: "snow",
@@ -566,13 +345,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Is snowing",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Snow",
-      hi: "बर्फ",
-      es: "Nieve",
-      fr: "Neige",
-      zh: "雪",
-    },
+    translations: getTranslationsForWord("snow"),
   },
   {
     id: "hot",
@@ -581,13 +354,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Is hot",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Hot",
-      hi: "गर्म",
-      es: "Caliente",
-      fr: "Chaud",
-      zh: "热",
-    },
+    translations: getTranslationsForWord("hot"),
   },
   {
     id: "cold",
@@ -596,13 +363,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Is cold",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Cold",
-      hi: "ठंडा",
-      es: "Frío",
-      fr: "Froid",
-      zh: "冷",
-    },
+    translations: getTranslationsForWord("cold"),
   },
   {
     id: "windy",
@@ -611,13 +372,7 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Is windy",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Windy",
-      hi: "हवा",
-      es: "Ventoso",
-      fr: "Venteux",
-      zh: "有风",
-    },
+    translations: getTranslationsForWord("windy"),
   },
   {
     id: "storm",
@@ -626,12 +381,6 @@ export const NUMBERS_TIME_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Is storm",
     category: "numbers-time",
     color: "#2980B9",
-    translations: {
-      en: "Storm",
-      hi: "तूफान",
-      es: "Tormenta",
-      fr: "Tempête",
-      zh: "暴风雨",
-    },
+    translations: getTranslationsForWord("storm"),
   },
 ];

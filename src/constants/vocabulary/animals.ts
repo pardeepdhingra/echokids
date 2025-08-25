@@ -1,4 +1,5 @@
 import { ButtonTemplate } from "../../types";
+import { getTranslationsForWord } from "../translations";
 
 export const ANIMALS_VOCABULARY: ButtonTemplate[] = [
   // Domestic Animals
@@ -9,13 +10,7 @@ export const ANIMALS_VOCABULARY: ButtonTemplate[] = [
     twoWord: "See dog",
     category: "animals",
     color: "#8E44AD",
-    translations: {
-      en: "Dog",
-      hi: "कुत्ता",
-      es: "Perro",
-      fr: "Chien",
-      zh: "狗",
-    },
+    translations: getTranslationsForWord("dog"),
   },
   {
     id: "cat",
@@ -24,13 +19,7 @@ export const ANIMALS_VOCABULARY: ButtonTemplate[] = [
     twoWord: "See cat",
     category: "animals",
     color: "#8E44AD",
-    translations: {
-      en: "Cat",
-      hi: "बिल्ली",
-      es: "Gato",
-      fr: "Chat",
-      zh: "猫",
-    },
+    translations: getTranslationsForWord("cat"),
   },
   {
     id: "bird",
@@ -39,28 +28,16 @@ export const ANIMALS_VOCABULARY: ButtonTemplate[] = [
     twoWord: "See bird",
     category: "animals",
     color: "#8E44AD",
-    translations: {
-      en: "Bird",
-      hi: "पक्षी",
-      es: "Pájaro",
-      fr: "Oiseau",
-      zh: "鸟",
-    },
+    translations: getTranslationsForWord("bird"),
   },
   {
-    id: "fish",
+    id: "fish-animal",
     text: "Fish",
     message: "I see a fish.",
     twoWord: "See fish",
     category: "animals",
     color: "#8E44AD",
-    translations: {
-      en: "Fish",
-      hi: "मछली",
-      es: "Pez",
-      fr: "Poisson",
-      zh: "鱼",
-    },
+    translations: getTranslationsForWord("fish"),
   },
   {
     id: "horse",
@@ -69,13 +46,7 @@ export const ANIMALS_VOCABULARY: ButtonTemplate[] = [
     twoWord: "See horse",
     category: "animals",
     color: "#8E44AD",
-    translations: {
-      en: "Horse",
-      hi: "घोड़ा",
-      es: "Caballo",
-      fr: "Cheval",
-      zh: "马",
-    },
+    translations: getTranslationsForWord("horse"),
   },
   {
     id: "cow",
@@ -84,13 +55,7 @@ export const ANIMALS_VOCABULARY: ButtonTemplate[] = [
     twoWord: "See cow",
     category: "animals",
     color: "#8E44AD",
-    translations: {
-      en: "Cow",
-      hi: "गाय",
-      es: "Vaca",
-      fr: "Vache",
-      zh: "牛",
-    },
+    translations: getTranslationsForWord("cow"),
   },
   {
     id: "sheep",
@@ -99,13 +64,7 @@ export const ANIMALS_VOCABULARY: ButtonTemplate[] = [
     twoWord: "See sheep",
     category: "animals",
     color: "#8E44AD",
-    translations: {
-      en: "Sheep",
-      hi: "भेड़",
-      es: "Oveja",
-      fr: "Mouton",
-      zh: "羊",
-    },
+    translations: getTranslationsForWord("sheep"),
   },
   {
     id: "pig",
@@ -114,28 +73,16 @@ export const ANIMALS_VOCABULARY: ButtonTemplate[] = [
     twoWord: "See pig",
     category: "animals",
     color: "#8E44AD",
-    translations: {
-      en: "Pig",
-      hi: "सूअर",
-      es: "Cerdo",
-      fr: "Cochon",
-      zh: "猪",
-    },
+    translations: getTranslationsForWord("pig"),
   },
   {
-    id: "chicken",
+    id: "chicken-animal",
     text: "Chicken",
     message: "I see a chicken.",
     twoWord: "See chicken",
     category: "animals",
     color: "#8E44AD",
-    translations: {
-      en: "Chicken",
-      hi: "मुर्गी",
-      es: "Pollo",
-      fr: "Poule",
-      zh: "鸡",
-    },
+    translations: getTranslationsForWord("chicken-animal"),
   },
   {
     id: "duck",
@@ -144,13 +91,7 @@ export const ANIMALS_VOCABULARY: ButtonTemplate[] = [
     twoWord: "See duck",
     category: "animals",
     color: "#8E44AD",
-    translations: {
-      en: "Duck",
-      hi: "बतख",
-      es: "Pato",
-      fr: "Canard",
-      zh: "鸭子",
-    },
+    translations: getTranslationsForWord("duck"),
   },
   {
     id: "rabbit",
@@ -159,13 +100,7 @@ export const ANIMALS_VOCABULARY: ButtonTemplate[] = [
     twoWord: "See rabbit",
     category: "animals",
     color: "#8E44AD",
-    translations: {
-      en: "Rabbit",
-      hi: "खरगोश",
-      es: "Conejo",
-      fr: "Lapin",
-      zh: "兔子",
-    },
+    translations: getTranslationsForWord("rabbit"),
   },
   // Wild Animals
   {
@@ -175,13 +110,7 @@ export const ANIMALS_VOCABULARY: ButtonTemplate[] = [
     twoWord: "See lion",
     category: "animals",
     color: "#8E44AD",
-    translations: {
-      en: "Lion",
-      hi: "शेर",
-      es: "León",
-      fr: "Lion",
-      zh: "狮子",
-    },
+    translations: getTranslationsForWord("lion"),
   },
   {
     id: "tiger",
@@ -190,13 +119,7 @@ export const ANIMALS_VOCABULARY: ButtonTemplate[] = [
     twoWord: "See tiger",
     category: "animals",
     color: "#8E44AD",
-    translations: {
-      en: "Tiger",
-      hi: "बाघ",
-      es: "Tigre",
-      fr: "Tigre",
-      zh: "老虎",
-    },
+    translations: getTranslationsForWord("tiger"),
   },
   {
     id: "elephant",
@@ -205,13 +128,7 @@ export const ANIMALS_VOCABULARY: ButtonTemplate[] = [
     twoWord: "See elephant",
     category: "animals",
     color: "#8E44AD",
-    translations: {
-      en: "Elephant",
-      hi: "हाथी",
-      es: "Elefante",
-      fr: "Éléphant",
-      zh: "大象",
-    },
+    translations: getTranslationsForWord("elephant"),
   },
   {
     id: "monkey",
@@ -220,13 +137,7 @@ export const ANIMALS_VOCABULARY: ButtonTemplate[] = [
     twoWord: "See monkey",
     category: "animals",
     color: "#8E44AD",
-    translations: {
-      en: "Monkey",
-      hi: "बंदर",
-      es: "Mono",
-      fr: "Singe",
-      zh: "猴子",
-    },
+    translations: getTranslationsForWord("monkey"),
   },
   {
     id: "bear",
@@ -235,12 +146,6 @@ export const ANIMALS_VOCABULARY: ButtonTemplate[] = [
     twoWord: "See bear",
     category: "animals",
     color: "#8E44AD",
-    translations: {
-      en: "Bear",
-      hi: "भालू",
-      es: "Oso",
-      fr: "Ours",
-      zh: "熊",
-    },
+    translations: getTranslationsForWord("bear"),
   },
 ];

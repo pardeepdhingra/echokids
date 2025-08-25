@@ -1,4 +1,5 @@
 import { ButtonTemplate } from "../../types";
+import { getTranslationsForWord } from "../translations";
 
 export const COLORS_SHAPES_VOCABULARY: ButtonTemplate[] = [
   // Colors
@@ -9,13 +10,7 @@ export const COLORS_SHAPES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Red",
     category: "colors-shapes",
     color: "#F39C12",
-    translations: {
-      en: "Red",
-      hi: "लाल",
-      es: "Rojo",
-      fr: "Rouge",
-      zh: "红色",
-    },
+    translations: getTranslationsForWord("red"),
   },
   {
     id: "blue",
@@ -24,13 +19,7 @@ export const COLORS_SHAPES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Blue",
     category: "colors-shapes",
     color: "#F39C12",
-    translations: {
-      en: "Blue",
-      hi: "नीला",
-      es: "Azul",
-      fr: "Bleu",
-      zh: "蓝色",
-    },
+    translations: getTranslationsForWord("blue"),
   },
   {
     id: "green",
@@ -39,13 +28,7 @@ export const COLORS_SHAPES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Green",
     category: "colors-shapes",
     color: "#F39C12",
-    translations: {
-      en: "Green",
-      hi: "हरा",
-      es: "Verde",
-      fr: "Vert",
-      zh: "绿色",
-    },
+    translations: getTranslationsForWord("green"),
   },
   {
     id: "yellow",
@@ -54,28 +37,16 @@ export const COLORS_SHAPES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Yellow",
     category: "colors-shapes",
     color: "#F39C12",
-    translations: {
-      en: "Yellow",
-      hi: "पीला",
-      es: "Amarillo",
-      fr: "Jaune",
-      zh: "黄色",
-    },
+    translations: getTranslationsForWord("yellow"),
   },
   {
-    id: "orange",
+    id: "orange-color",
     text: "Orange",
     message: "Orange.",
     twoWord: "Orange",
     category: "colors-shapes",
     color: "#F39C12",
-    translations: {
-      en: "Orange",
-      hi: "नारंगी",
-      es: "Naranja",
-      fr: "Orange",
-      zh: "橙色",
-    },
+    translations: getTranslationsForWord("orange"),
   },
   {
     id: "purple",
@@ -84,13 +55,7 @@ export const COLORS_SHAPES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Purple",
     category: "colors-shapes",
     color: "#F39C12",
-    translations: {
-      en: "Purple",
-      hi: "बैंगनी",
-      es: "Morado",
-      fr: "Violet",
-      zh: "紫色",
-    },
+    translations: getTranslationsForWord("purple"),
   },
   {
     id: "pink",
@@ -99,13 +64,7 @@ export const COLORS_SHAPES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Pink",
     category: "colors-shapes",
     color: "#F39C12",
-    translations: {
-      en: "Pink",
-      hi: "गुलाबी",
-      es: "Rosa",
-      fr: "Rose",
-      zh: "粉色",
-    },
+    translations: getTranslationsForWord("pink"),
   },
   {
     id: "black",
@@ -114,13 +73,7 @@ export const COLORS_SHAPES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Black",
     category: "colors-shapes",
     color: "#F39C12",
-    translations: {
-      en: "Black",
-      hi: "काला",
-      es: "Negro",
-      fr: "Noir",
-      zh: "黑色",
-    },
+    translations: getTranslationsForWord("black"),
   },
   {
     id: "white",
@@ -129,13 +82,7 @@ export const COLORS_SHAPES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "White",
     category: "colors-shapes",
     color: "#F39C12",
-    translations: {
-      en: "White",
-      hi: "सफेद",
-      es: "Blanco",
-      fr: "Blanc",
-      zh: "白色",
-    },
+    translations: getTranslationsForWord("white"),
   },
   {
     id: "brown",
@@ -144,13 +91,7 @@ export const COLORS_SHAPES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Brown",
     category: "colors-shapes",
     color: "#F39C12",
-    translations: {
-      en: "Brown",
-      hi: "भूरा",
-      es: "Marrón",
-      fr: "Marron",
-      zh: "棕色",
-    },
+    translations: getTranslationsForWord("brown"),
   },
   {
     id: "gray",
@@ -159,13 +100,7 @@ export const COLORS_SHAPES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Gray",
     category: "colors-shapes",
     color: "#F39C12",
-    translations: {
-      en: "Gray",
-      hi: "ग्रे",
-      es: "Gris",
-      fr: "Gris",
-      zh: "灰色",
-    },
+    translations: getTranslationsForWord("gray"),
   },
   // Shapes
   {
@@ -175,13 +110,7 @@ export const COLORS_SHAPES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Circle",
     category: "colors-shapes",
     color: "#F39C12",
-    translations: {
-      en: "Circle",
-      hi: "वृत्त",
-      es: "Círculo",
-      fr: "Cercle",
-      zh: "圆形",
-    },
+    translations: getTranslationsForWord("circle"),
   },
   {
     id: "square",
@@ -190,13 +119,7 @@ export const COLORS_SHAPES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Square",
     category: "colors-shapes",
     color: "#F39C12",
-    translations: {
-      en: "Square",
-      hi: "वर्ग",
-      es: "Cuadrado",
-      fr: "Carré",
-      zh: "正方形",
-    },
+    translations: getTranslationsForWord("square"),
   },
   {
     id: "triangle",
@@ -205,13 +128,7 @@ export const COLORS_SHAPES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Triangle",
     category: "colors-shapes",
     color: "#F39C12",
-    translations: {
-      en: "Triangle",
-      hi: "त्रिभुज",
-      es: "Triángulo",
-      fr: "Triangle",
-      zh: "三角形",
-    },
+    translations: getTranslationsForWord("triangle"),
   },
   {
     id: "rectangle",
@@ -220,13 +137,7 @@ export const COLORS_SHAPES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Rectangle",
     category: "colors-shapes",
     color: "#F39C12",
-    translations: {
-      en: "Rectangle",
-      hi: "आयत",
-      es: "Rectángulo",
-      fr: "Rectangle",
-      zh: "长方形",
-    },
+    translations: getTranslationsForWord("rectangle"),
   },
   {
     id: "star",
@@ -235,13 +146,7 @@ export const COLORS_SHAPES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Star",
     category: "colors-shapes",
     color: "#F39C12",
-    translations: {
-      en: "Star",
-      hi: "तारा",
-      es: "Estrella",
-      fr: "Étoile",
-      zh: "星星",
-    },
+    translations: getTranslationsForWord("star"),
   },
   {
     id: "heart",
@@ -250,12 +155,6 @@ export const COLORS_SHAPES_VOCABULARY: ButtonTemplate[] = [
     twoWord: "Heart",
     category: "colors-shapes",
     color: "#F39C12",
-    translations: {
-      en: "Heart",
-      hi: "दिल",
-      es: "Corazón",
-      fr: "Cœur",
-      zh: "心形",
-    },
+    translations: getTranslationsForWord("heart"),
   },
 ];

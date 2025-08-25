@@ -1,4 +1,5 @@
 import { ButtonTemplate } from "../../types";
+import { getTranslationsForWord } from "../translations";
 
 export const EMOTIONS_VOCABULARY: ButtonTemplate[] = [
   // Positive Emotions
@@ -10,13 +11,7 @@ export const EMOTIONS_VOCABULARY: ButtonTemplate[] = [
     category: "emotions",
     subCategory: "positive",
     color: "#F1C40F",
-    translations: {
-      en: "Happy",
-      hi: "खुश",
-      es: "Feliz",
-      fr: "Heureux",
-      zh: "快乐",
-    },
+    translations: getTranslationsForWord("happy"),
   },
   {
     id: "excited",
@@ -26,13 +21,7 @@ export const EMOTIONS_VOCABULARY: ButtonTemplate[] = [
     category: "emotions",
     subCategory: "positive",
     color: "#F1C40F",
-    translations: {
-      en: "Excited",
-      hi: "उत्साहित",
-      es: "Emocionado",
-      fr: "Excité",
-      zh: "兴奋",
-    },
+    translations: getTranslationsForWord("excited"),
   },
   {
     id: "proud",
@@ -42,13 +31,7 @@ export const EMOTIONS_VOCABULARY: ButtonTemplate[] = [
     category: "emotions",
     subCategory: "positive",
     color: "#F1C40F",
-    translations: {
-      en: "Proud",
-      hi: "गर्व",
-      es: "Orgulloso",
-      fr: "Fier",
-      zh: "骄傲",
-    },
+    translations: getTranslationsForWord("proud"),
   },
   {
     id: "calm",
@@ -58,13 +41,7 @@ export const EMOTIONS_VOCABULARY: ButtonTemplate[] = [
     category: "emotions",
     subCategory: "positive",
     color: "#F1C40F",
-    translations: {
-      en: "Calm",
-      hi: "शांत",
-      es: "Tranquilo",
-      fr: "Calme",
-      zh: "平静",
-    },
+    translations: getTranslationsForWord("calm"),
   },
 
   // Negative Emotions
@@ -76,13 +53,7 @@ export const EMOTIONS_VOCABULARY: ButtonTemplate[] = [
     category: "emotions",
     subCategory: "negative",
     color: "#F1C40F",
-    translations: {
-      en: "Sad",
-      hi: "दुखी",
-      es: "Triste",
-      fr: "Triste",
-      zh: "悲伤",
-    },
+    translations: getTranslationsForWord("sad"),
   },
   {
     id: "angry",
@@ -92,13 +63,7 @@ export const EMOTIONS_VOCABULARY: ButtonTemplate[] = [
     category: "emotions",
     subCategory: "negative",
     color: "#F1C40F",
-    translations: {
-      en: "Angry",
-      hi: "गुस्सा",
-      es: "Enojado",
-      fr: "En colère",
-      zh: "生气",
-    },
+    translations: getTranslationsForWord("angry"),
   },
   {
     id: "scared",
@@ -108,13 +73,7 @@ export const EMOTIONS_VOCABULARY: ButtonTemplate[] = [
     category: "emotions",
     subCategory: "negative",
     color: "#F1C40F",
-    translations: {
-      en: "Scared",
-      hi: "डरा हुआ",
-      es: "Asustado",
-      fr: "Effrayé",
-      zh: "害怕",
-    },
+    translations: getTranslationsForWord("scared"),
   },
   {
     id: "worried",
@@ -124,13 +83,7 @@ export const EMOTIONS_VOCABULARY: ButtonTemplate[] = [
     category: "emotions",
     subCategory: "negative",
     color: "#F1C40F",
-    translations: {
-      en: "Worried",
-      hi: "चिंतित",
-      es: "Preocupado",
-      fr: "Inquiet",
-      zh: "担心",
-    },
+    translations: getTranslationsForWord("worried"),
   },
   {
     id: "tired",
@@ -140,13 +93,7 @@ export const EMOTIONS_VOCABULARY: ButtonTemplate[] = [
     category: "emotions",
     subCategory: "negative",
     color: "#F1C40F",
-    translations: {
-      en: "Tired",
-      hi: "थका हुआ",
-      es: "Cansado",
-      fr: "Fatigué",
-      zh: "疲倦",
-    },
+    translations: getTranslationsForWord("tired"),
   },
   {
     id: "sick",
@@ -156,13 +103,7 @@ export const EMOTIONS_VOCABULARY: ButtonTemplate[] = [
     category: "emotions",
     subCategory: "negative",
     color: "#F1C40F",
-    translations: {
-      en: "Sick",
-      hi: "बीमार",
-      es: "Enfermo",
-      fr: "Malade",
-      zh: "生病",
-    },
+    translations: getTranslationsForWord("sick"),
   },
   {
     id: "hurt",
@@ -172,13 +113,7 @@ export const EMOTIONS_VOCABULARY: ButtonTemplate[] = [
     category: "emotions",
     subCategory: "negative",
     color: "#F1C40F",
-    translations: {
-      en: "Hurt",
-      hi: "दर्द",
-      es: "Herido",
-      fr: "Blessé",
-      zh: "受伤",
-    },
+    translations: getTranslationsForWord("hurt"),
   },
   {
     id: "lonely",
@@ -188,13 +123,7 @@ export const EMOTIONS_VOCABULARY: ButtonTemplate[] = [
     category: "emotions",
     subCategory: "negative",
     color: "#F1C40F",
-    translations: {
-      en: "Lonely",
-      hi: "अकेला",
-      es: "Solo",
-      fr: "Seul",
-      zh: "孤独",
-    },
+    translations: getTranslationsForWord("lonely"),
   },
 
   // Neutral Emotions
@@ -206,13 +135,7 @@ export const EMOTIONS_VOCABULARY: ButtonTemplate[] = [
     category: "emotions",
     subCategory: "neutral",
     color: "#F1C40F",
-    translations: {
-      en: "Surprised",
-      hi: "हैरान",
-      es: "Sorprendido",
-      fr: "Surpris",
-      zh: "惊讶",
-    },
+    translations: getTranslationsForWord("surprised"),
   },
   {
     id: "bored",
@@ -222,13 +145,7 @@ export const EMOTIONS_VOCABULARY: ButtonTemplate[] = [
     category: "emotions",
     subCategory: "neutral",
     color: "#F1C40F",
-    translations: {
-      en: "Bored",
-      hi: "बोर",
-      es: "Aburrido",
-      fr: "Ennuyé",
-      zh: "无聊",
-    },
+    translations: getTranslationsForWord("bored"),
   },
   {
     id: "silly",
@@ -238,12 +155,6 @@ export const EMOTIONS_VOCABULARY: ButtonTemplate[] = [
     category: "emotions",
     subCategory: "neutral",
     color: "#F1C40F",
-    translations: {
-      en: "Silly",
-      hi: "मूर्ख",
-      es: "Tonto",
-      fr: "Bête",
-      zh: "傻",
-    },
+    translations: getTranslationsForWord("silly"),
   },
 ];
