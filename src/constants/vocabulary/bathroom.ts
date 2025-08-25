@@ -1,0 +1,88 @@
+import { ButtonTemplate } from "../../types";
+import { getTranslationsForWord } from "../translations";
+
+export const BATHROOM_VOCABULARY: ButtonTemplate[] = [
+  // Fixtures
+  {
+    id: "toilet",
+    text: "Toilet",
+    message: "I need to use the toilet.",
+    twoWord: "Want toilet",
+    category: "bathroom",
+    subCategory: "fixtures",
+    color: "#45B7D1",
+    translations: getTranslationsForWord("toilet"),
+  },
+  {
+    id: "sink",
+    text: "Sink",
+    message: "I want to wash my hands.",
+    twoWord: "Want sink",
+    category: "bathroom",
+    subCategory: "fixtures",
+    color: "#45B7D1",
+    translations: getTranslationsForWord("sink"),
+  },
+  {
+    id: "shower",
+    text: "Shower",
+    message: "I want to take a shower.",
+    twoWord: "Want shower",
+    category: "bathroom",
+    subCategory: "fixtures",
+    color: "#45B7D1",
+    translations: getTranslationsForWord("shower"),
+  },
+  {
+    id: "bath",
+    text: "Bath",
+    message: "I want to take a bath.",
+    twoWord: "Want bath",
+    category: "bathroom",
+    subCategory: "fixtures",
+    color: "#45B7D1",
+    translations: getTranslationsForWord("bath"),
+  },
+
+  // Hygiene
+  {
+    id: "soap",
+    text: "Soap",
+    message: "I want soap.",
+    twoWord: "Want soap",
+    category: "bathroom",
+    subCategory: "hygiene",
+    color: "#45B7D1",
+    translations: getTranslationsForWord("soap"),
+  },
+  {
+    id: "towel",
+    text: "Towel",
+    message: "I want a towel.",
+    twoWord: "Want towel",
+    category: "bathroom",
+    subCategory: "hygiene",
+    color: "#45B7D1",
+    translations: getTranslationsForWord("towel"),
+  },
+  {
+    id: "toothbrush",
+    text: "Toothbrush",
+    message: "I want to brush my teeth.",
+    twoWord: "Want toothbrush",
+    category: "bathroom",
+    subCategory: "hygiene",
+    color: "#45B7D1",
+    translations: getTranslationsForWord("toothbrush"),
+  },
+  {
+    id: "toothpaste",
+    text: "Toothpaste",
+    message: "I want toothpaste.",
+    twoWord: "Want toothpaste",
+    category: "bathroom",
+    subCategory: "hygiene",
+    color: "#45B7D1",
+    translations: getTranslationsForWord("toothpaste"),
+  },
+];

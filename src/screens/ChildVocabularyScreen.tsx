@@ -8,12 +8,19 @@ import {
   Modal,
   TextInput,
   Alert,
+  ScrollView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { VocabularyItem, AppSettings } from "../types";
+import { useFocusEffect } from "@react-navigation/native";
+import { VocabularyItem, AppSettings, Category } from "../types";
 import { COLORS } from "../constants";
 import { VocabularyGrid } from "../components/VocabularyGrid";
-import { loadVocabulary, loadSettings, loadFavorites } from "../utils/storage";
+import {
+  loadVocabulary,
+  loadSettings,
+  loadFavorites,
+  loadCategories,
+} from "../utils/storage";
 
 interface ChildVocabularyScreenProps {
   navigation: any;
@@ -31,28 +38,54 @@ export const ChildVocabularyScreen: React.FC<ChildVocabularyScreenProps> = ({
     buttonMode: "sentence",
     showText: true,
     theme: "colorful",
+    enableChildFilter: false,
+    textSize: "medium",
+    hiddenCategories: [],
+    symbolType: "emoji",
+    language: "en",
   });
   const [favorites, setFavorites] = useState<VocabularyItem[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [showFavorites, setShowFavorites] = useState(false);
   const [showMathModal, setShowMathModal] = useState(false);
   const [mathAnswer, setMathAnswer] = useState("");
   const [currentMathQuestion, setCurrentMathQuestion] = useState("");
   const correctAnswerRef = useRef<number>(0);
 
+  useFocusEffect(
+    React.useCallback(() => {
+      console.log("🔄 Child screen focused - reloading data");
+      loadData();
+    }, [])
+  );
+
+  // Also reload data when the screen comes into focus from navigation
   useEffect(() => {
-    loadData();
-  }, []);
+    const unsubscribe = navigation.addListener("focus", () => {
+      console.log("🔄 Child screen navigation focus - reloading data");
+      loadData();
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   const loadData = async () => {
-    const [vocabData, settingsData, favoritesData] = await Promise.all([
-      loadVocabulary(),
-      loadSettings(),
-      loadFavorites(),
-    ]);
+    const [vocabData, settingsData, favoritesData, categoriesData] =
+      await Promise.all([
+        loadVocabulary(),
+        loadSettings(),
+        loadFavorites(),
+        loadCategories(),
+      ]);
+
+    console.log("🔄 Child: Loading data - settings:", settingsData);
+    console.log("🔄 Child: Hidden categories:", settingsData.hiddenCategories);
 
     setVocabulary(vocabData);
     setSettings(settingsData);
     setFavorites(favoritesData);
+    setCategories(categoriesData);
   };
 
   const handleItemPress = (item: VocabularyItem) => {
@@ -69,23 +102,31 @@ export const ChildVocabularyScreen: React.FC<ChildVocabularyScreenProps> = ({
   };
 
   const generateMathQuestion = () => {
-    const num1 = Math.floor(Math.random() * 10) + 1;
-    const num2 = Math.floor(Math.random() * 10) + 1;
     const operators = ["+", "-", "×"];
     const operator = operators[Math.floor(Math.random() * operators.length)];
 
-    let answer;
+    let num1, num2, answer;
+
     switch (operator) {
       case "+":
+        num1 = Math.floor(Math.random() * 10) + 1;
+        num2 = Math.floor(Math.random() * 10) + 1;
         answer = num1 + num2;
         break;
       case "-":
+        // Ensure first number is larger than second for positive results
+        num1 = Math.floor(Math.random() * 10) + 5; // Start from 5 to ensure we have room for subtraction
+        num2 = Math.floor(Math.random() * num1) + 1; // Second number is always smaller than first
         answer = num1 - num2;
         break;
       case "×":
+        num1 = Math.floor(Math.random() * 10) + 1;
+        num2 = Math.floor(Math.random() * 10) + 1;
         answer = num1 * num2;
         break;
       default:
+        num1 = Math.floor(Math.random() * 10) + 1;
+        num2 = Math.floor(Math.random() * 10) + 1;
         answer = num1 + num2;
     }
 
@@ -114,16 +155,104 @@ export const ChildVocabularyScreen: React.FC<ChildVocabularyScreenProps> = ({
 
   const displayVocabulary = showFavorites ? favorites : vocabulary;
 
+  const filteredVocabulary = (() => {
+    console.log(
+      "🔄 Child: Filtering vocabulary - hidden categories:",
+      settings.hiddenCategories
+    );
+    console.log("🔄 Child: Total vocabulary items:", displayVocabulary.length);
+
+    // First, filter out items from hidden categories
+    let filtered = displayVocabulary.filter(
+      (item) => !(settings.hiddenCategories || []).includes(item.category || "")
+    );
+
+    console.log("🔄 Child: After hiding categories:", filtered.length);
+
+    // Then apply category filter if enabled
+    if (settings.enableChildFilter && selectedCategory !== "all") {
+      filtered = filtered.filter((item) => item.category === selectedCategory);
+    }
+
+    console.log("🔄 Child: Final filtered count:", filtered.length);
+    return filtered;
+  })();
+
   const renderModeIndicator = () => (
     <View style={styles.modeIndicator}>
       <Text style={{ fontSize: 20, color: COLORS.surface }}>
-        {settings.buttonMode === "sentence" ? "💬" : "📝"}
+        {settings.buttonMode === "sentence"
+          ? "💬"
+          : settings.buttonMode === "two-word"
+            ? "📋"
+            : "📝"}
       </Text>
       <Text style={styles.modeText}>
-        {settings.buttonMode === "sentence" ? "Talk Mode" : "Word Mode"}
+        {settings.buttonMode === "sentence"
+          ? "Talk Mode"
+          : settings.buttonMode === "two-word"
+            ? "Two-Word Mode"
+            : "Word Mode"}
       </Text>
     </View>
   );
+
+  const renderCategoryFilter = () => {
+    if (!settings.enableChildFilter) return null;
+
+    const visibleCategories = categories.filter(
+      (category) => !(settings.hiddenCategories || []).includes(category.id)
+    );
+
+    return (
+      <View style={styles.categoryFilter}>
+        <Text style={styles.filterLabel}>Filter by Category:</Text>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.filterScroll}
+        >
+          <TouchableOpacity
+            style={[
+              styles.categoryChip,
+              selectedCategory === "all" && styles.categoryChipActive,
+            ]}
+            onPress={() => setSelectedCategory("all")}
+          >
+            <Text
+              style={[
+                styles.categoryChipText,
+                selectedCategory === "all" && styles.categoryChipTextActive,
+              ]}
+            >
+              All
+            </Text>
+          </TouchableOpacity>
+          {visibleCategories.map((category) => (
+            <TouchableOpacity
+              key={category.id}
+              style={[
+                styles.categoryChip,
+                { backgroundColor: category.color },
+                selectedCategory === category.id && styles.categoryChipActive,
+              ]}
+              onPress={() => setSelectedCategory(category.id)}
+            >
+              <Text
+                style={[
+                  styles.categoryChipText,
+                  selectedCategory === category.id &&
+                    styles.categoryChipTextActive,
+                ]}
+              >
+                {category.name}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
+    );
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -157,6 +286,7 @@ export const ChildVocabularyScreen: React.FC<ChildVocabularyScreenProps> = ({
       </View>
 
       {renderModeIndicator()}
+      {renderCategoryFilter()}
 
       <View style={styles.content}>
         {displayVocabulary.length === 0 ? (
@@ -183,7 +313,7 @@ export const ChildVocabularyScreen: React.FC<ChildVocabularyScreenProps> = ({
           </View>
         ) : (
           <VocabularyGrid
-            vocabulary={displayVocabulary}
+            vocabulary={filteredVocabulary}
             settings={settings}
             onItemPress={handleItemPress}
             onItemLongPress={handleItemLongPress}
@@ -294,6 +424,42 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     color: COLORS.surface,
+  },
+  categoryFilter: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    backgroundColor: COLORS.surface,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+  },
+  filterLabel: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: COLORS.text,
+    marginBottom: 8,
+  },
+  filterScroll: {
+    flexGrow: 0,
+  },
+
+  categoryChip: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
+    marginRight: 8,
+    backgroundColor: "#000000",
+  },
+  categoryChipActive: {
+    backgroundColor: COLORS.primary,
+  },
+  categoryChipText: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#FFFFFF",
+  },
+  categoryChipTextActive: {
+    color: COLORS.surface,
+    fontWeight: "600",
   },
   content: {
     flex: 1,

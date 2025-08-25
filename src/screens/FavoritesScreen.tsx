@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   Alert,
 } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 
 import { VocabularyItem, AppSettings } from "../types";
 import { COLORS } from "../constants";
@@ -30,11 +31,19 @@ export const FavoritesScreen: React.FC<FavoritesScreenProps> = ({
     buttonMode: "sentence",
     showText: true,
     theme: "colorful",
+    enableChildFilter: false,
+    textSize: "medium",
+    hiddenCategories: [],
+    symbolType: "emoji",
+    language: "en",
   });
 
-  useEffect(() => {
-    loadData();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      console.log("🔄 Favorites screen focused - reloading data");
+      loadData();
+    }, [])
+  );
 
   const loadData = async () => {
     const [favoritesData, settingsData] = await Promise.all([

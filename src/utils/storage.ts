@@ -40,8 +40,16 @@ export const loadSettings = async (): Promise<AppSettings> => {
     const data = await AsyncStorage.getItem(STORAGE_KEYS.SETTINGS);
     console.log("🔧 Storage: Loading settings, data:", data);
     const settings = data ? JSON.parse(data) : DEFAULT_SETTINGS;
-    console.log("🔧 Storage: Loaded settings:", settings);
-    return settings;
+    
+    // Ensure all required properties exist (migration for new properties)
+    const migratedSettings = {
+      ...DEFAULT_SETTINGS,
+      ...settings,
+      hiddenCategories: settings.hiddenCategories || [],
+    };
+    
+    console.log("🔧 Storage: Loaded settings:", migratedSettings);
+    return migratedSettings;
   } catch (error) {
     console.error("🔧 Storage: Error loading settings:", error);
     return DEFAULT_SETTINGS;

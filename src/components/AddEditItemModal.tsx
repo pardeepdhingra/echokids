@@ -21,7 +21,7 @@ interface AddEditItemModalProps {
   onSave: (item: VocabularyItem) => void;
   item?: VocabularyItem;
   categories: Array<{ id: string; name: string; color: string }>;
-  buttonMode: "one-word" | "sentence";
+  buttonMode: "one-word" | "two-word" | "sentence";
 }
 
 export const AddEditItemModal: React.FC<AddEditItemModalProps> = ({
@@ -84,16 +84,23 @@ export const AddEditItemModal: React.FC<AddEditItemModalProps> = ({
   };
 
   const pickImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 0.8,
-    });
+    console.log("📷 Pick image function called");
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0.8,
+      });
 
-    if (!result.canceled && result.assets[0]) {
-      setSelectedImage(result.assets[0].uri);
-      setShowImageModal(false);
+      console.log("📷 Image picker result:", result);
+      if (!result.canceled && result.assets[0]) {
+        setSelectedImage(result.assets[0].uri);
+        setShowImageModal(false);
+      }
+    } catch (error) {
+      console.log("📷 Image picker error:", error);
+      Alert.alert("Error", "Failed to pick image. Please check permissions.");
     }
   };
 
@@ -141,106 +148,118 @@ export const AddEditItemModal: React.FC<AddEditItemModalProps> = ({
     setShowTemplateModal(false);
   };
 
-  const renderTemplateModal = () => (
-    <Modal visible={showTemplateModal} animationType="slide" transparent>
-      <View style={styles.overlay}>
-        <View style={styles.modal}>
-          <View style={styles.modalHeader}>
-            <Text style={styles.modalTitle}>Choose Template</Text>
-            <TouchableOpacity onPress={() => setShowTemplateModal(false)}>
-              <Text style={{ fontSize: 24, color: COLORS.text }}>✕</Text>
-            </TouchableOpacity>
-          </View>
+  const renderTemplateModal = () => {
+    console.log("📋 Rendering template modal, visible:", showTemplateModal);
+    if (!showTemplateModal) return null;
+    return (
+      <Modal visible={showTemplateModal} animationType="slide" transparent>
+        <View
+          style={[styles.overlay, { backgroundColor: "rgba(255, 0, 0, 0.8)" }]}
+        >
+          <View style={[styles.modal, { backgroundColor: "#FFFFFF" }]}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Choose Template</Text>
+              <TouchableOpacity onPress={() => setShowTemplateModal(false)}>
+                <Text style={{ fontSize: 24, color: COLORS.text }}>✕</Text>
+              </TouchableOpacity>
+            </View>
 
-          <ScrollView style={styles.modalContent}>
-            <View style={styles.templateGrid}>
-              {BUTTON_TEMPLATES.map((template) => {
-                return (
-                  <TouchableOpacity
-                    key={template.id}
-                    style={styles.templateItem}
-                    onPress={() => selectTemplate(template)}
-                  >
-                    <View style={styles.templateIcon}>
-                      <Text style={{ fontSize: 32, color: COLORS.primary }}>
-                        {getEmojiForText(template.text)}
+            <ScrollView style={styles.modalContent}>
+              <View style={styles.templateGrid}>
+                {BUTTON_TEMPLATES.map((template) => {
+                  return (
+                    <TouchableOpacity
+                      key={template.id}
+                      style={styles.templateItem}
+                      onPress={() => selectTemplate(template)}
+                    >
+                      <View style={styles.templateIcon}>
+                        <Text style={{ fontSize: 32, color: COLORS.primary }}>
+                          {getEmojiForText(template.id)}
+                        </Text>
+                      </View>
+                      <Text style={styles.templateText}>{template.text}</Text>
+                      <Text style={styles.templateMessage}>
+                        {template.message}
                       </Text>
-                    </View>
-                    <Text style={styles.templateText}>{template.text}</Text>
-                    <Text style={styles.templateMessage}>
-                      {template.message}
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
+            </ScrollView>
+          </View>
+        </View>
+      </Modal>
+    );
+  };
+
+  const renderImageModal = () => {
+    console.log("🖼️ Rendering image modal, visible:", showImageModal);
+    if (!showImageModal) return null;
+    return (
+      <Modal visible={showImageModal} animationType="slide" transparent>
+        <View
+          style={[styles.overlay, { backgroundColor: "rgba(0, 255, 0, 0.8)" }]}
+        >
+          <View style={[styles.modal, { backgroundColor: "#FFFFFF" }]}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Select Image</Text>
+              <TouchableOpacity onPress={() => setShowImageModal(false)}>
+                <Text style={{ fontSize: 24, color: COLORS.text }}>✕</Text>
+              </TouchableOpacity>
+            </View>
+
+            <ScrollView style={styles.modalContent}>
+              <View style={styles.imageSection}>
+                <Text style={styles.sectionTitle}>Upload Image</Text>
+                <View style={styles.uploadButtons}>
+                  <TouchableOpacity
+                    style={styles.uploadButton}
+                    onPress={pickImage}
+                  >
+                    <Text style={{ fontSize: 24, color: COLORS.primary }}>
+                      📷
+                    </Text>
+                    <Text style={styles.uploadButtonText}>Photo Library</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.uploadButton}
+                    onPress={takePhoto}
+                  >
+                    <Text style={{ fontSize: 24, color: COLORS.primary }}>
+                      📸
+                    </Text>
+                    <Text style={styles.uploadButtonText}>Take Photo</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+
+              <View style={styles.imageSection}>
+                <Text style={styles.sectionTitle}>Search Internet</Text>
+                <View style={styles.searchContainer}>
+                  <TextInput
+                    style={styles.searchInput}
+                    value={imageSearchQuery}
+                    onChangeText={setImageSearchQuery}
+                    placeholder="Search for images..."
+                    placeholderTextColor={COLORS.textSecondary}
+                  />
+                  <TouchableOpacity
+                    style={styles.searchButton}
+                    onPress={searchImageFromInternet}
+                  >
+                    <Text style={{ fontSize: 20, color: COLORS.surface }}>
+                      🔍
                     </Text>
                   </TouchableOpacity>
-                );
-              })}
-            </View>
-          </ScrollView>
-        </View>
-      </View>
-    </Modal>
-  );
-
-  const renderImageModal = () => (
-    <Modal visible={showImageModal} animationType="slide" transparent>
-      <View style={styles.overlay}>
-        <View style={styles.modal}>
-          <View style={styles.modalHeader}>
-            <Text style={styles.modalTitle}>Select Image</Text>
-            <TouchableOpacity onPress={() => setShowImageModal(false)}>
-              <Text style={{ fontSize: 24, color: COLORS.text }}>✕</Text>
-            </TouchableOpacity>
+                </View>
+              </View>
+            </ScrollView>
           </View>
-
-          <ScrollView style={styles.modalContent}>
-            <View style={styles.imageSection}>
-              <Text style={styles.sectionTitle}>Upload Image</Text>
-              <View style={styles.uploadButtons}>
-                <TouchableOpacity
-                  style={styles.uploadButton}
-                  onPress={pickImage}
-                >
-                  <Text style={{ fontSize: 24, color: COLORS.primary }}>
-                    📷
-                  </Text>
-                  <Text style={styles.uploadButtonText}>Photo Library</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.uploadButton}
-                  onPress={takePhoto}
-                >
-                  <Text style={{ fontSize: 24, color: COLORS.primary }}>
-                    📸
-                  </Text>
-                  <Text style={styles.uploadButtonText}>Take Photo</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            <View style={styles.imageSection}>
-              <Text style={styles.sectionTitle}>Search Internet</Text>
-              <View style={styles.searchContainer}>
-                <TextInput
-                  style={styles.searchInput}
-                  value={imageSearchQuery}
-                  onChangeText={setImageSearchQuery}
-                  placeholder="Search for images..."
-                  placeholderTextColor={COLORS.textSecondary}
-                />
-                <TouchableOpacity
-                  style={styles.searchButton}
-                  onPress={searchImageFromInternet}
-                >
-                  <Text style={{ fontSize: 20, color: COLORS.surface }}>
-                    🔍
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </ScrollView>
         </View>
-      </View>
-    </Modal>
-  );
+      </Modal>
+    );
+  };
 
   const colorOptions = [
     "#FF6B6B",
@@ -285,6 +304,7 @@ export const AddEditItemModal: React.FC<AddEditItemModalProps> = ({
                     "📋 Template button pressed, templates available:",
                     BUTTON_TEMPLATES.length
                   );
+                  console.log("📋 Setting showTemplateModal to true");
                   setShowTemplateModal(true);
                 }}
               >
@@ -325,6 +345,7 @@ export const AddEditItemModal: React.FC<AddEditItemModalProps> = ({
                   style={styles.imageSelector}
                   onPress={() => {
                     console.log("🖼️ Image button pressed");
+                    console.log("🖼️ Setting showImageModal to true");
                     setShowImageModal(true);
                   }}
                 >
@@ -463,60 +484,412 @@ export const AddEditItemModal: React.FC<AddEditItemModalProps> = ({
 
       {renderImageModal()}
       {renderTemplateModal()}
+
+      {/* Debug indicator for modal visibility */}
+      {showTemplateModal && (
+        <View
+          style={{
+            position: "absolute",
+            top: 50,
+            left: 50,
+            backgroundColor: "red",
+            padding: 10,
+            zIndex: 9999,
+          }}
+        >
+          <Text style={{ color: "white" }}>
+            Template Modal Should Be Visible
+          </Text>
+        </View>
+      )}
+
+      {showImageModal && (
+        <View
+          style={{
+            position: "absolute",
+            top: 100,
+            left: 50,
+            backgroundColor: "green",
+            padding: 10,
+            zIndex: 9999,
+          }}
+        >
+          <Text style={{ color: "white" }}>Image Modal Should Be Visible</Text>
+        </View>
+      )}
     </>
   );
 };
 
-const getEmojiForText = (text: string): string => {
+const getEmojiForText = (id: string): string => {
   const EMOJI_MAP: { [key: string]: string } = {
     // Greetings
     hello: "👋",
     goodbye: "👋",
-    "thank you": "🙏",
+    "thank you": "❤️",
     please: "🙏",
+    "happy birthday": "🎂",
+    "i love you": "💕",
 
-    // Food & Drink
-    food: "🍕",
-    hungry: "🍽️",
-    water: "💧",
-    thirsty: "🥤",
-    milk: "🥛",
-
-    // Basic Needs
-    bathroom: "🚽",
-    help: "🆘",
-    tired: "😴",
-    sleep: "😴",
-
-    // Emotions
-    happy: "😊",
-    sad: "😢",
-    angry: "😠",
-    scared: "😨",
-    excited: "🤩",
-
-    // Activities
-    play: "🎮",
-    stop: "⏹️",
-    more: "➕",
-    "all done": "✅",
-    book: "📚",
-
-    // People
+    // Legacy mappings - keeping only unique ones not covered in new categories
     mom: "👩",
     dad: "👨",
     friend: "👥",
-    teacher: "👩‍🏫",
-
-    // Places
-    home: "🏠",
-    school: "🏫",
+    brother: "👦",
+    sister: "👧",
+    grandpa: "👴",
+    grandma: "👵",
+    uncle: "👨‍🦱",
+    aunt: "👩‍🦰",
     park: "🌳",
     store: "🏪",
+    playground: "🎪",
+    restaurant: "🍽️",
+    "mcdonald's": "🍔",
+    hospital: "🏥",
+    library: "📚",
+    beach: "🏖️",
+
+    // Weather
+    sunny: "☀️",
+    rainy: "🌧️",
+    snowy: "❄️",
+    cloudy: "☁️",
+    windy: "💨",
+
+    // Pronouns
+    I: "👤",
+    i: "👤",
+    me: "👤",
+    you: "👤",
+    he: "👨",
+    she: "👩",
+    it: "🔵",
+    we: "👥",
+    they: "👥",
+    my: "👤",
+    mine: "👤",
+    your: "👤",
+    our: "👥",
+    their: "👥",
+
+    // Verbs
+    go: "🚶",
+    stop: "🛑",
+    want: "💭",
+    need: "🆘",
+    like: "👍",
+    "dont-like": "👎",
+    play: "🎮",
+    "play-activity": "🎮",
+    come: "👉",
+    give: "🤲",
+    take: "✋",
+    do: "⚡",
+    make: "🔨",
+    eat: "🍽️",
+    drink: "🥤",
+    look: "👀",
+    see: "👁️",
+    hear: "👂",
+    know: "🧠",
+    think: "🤔",
+    say: "💬",
+    tell: "📢",
+    feel: "💝",
+    use: "🔧",
+    put: "📦",
+    help: "🆘",
+    open: "🔓",
+    close: "🔒",
+    find: "🔍",
+    show: "👆",
+    work: "💼",
+    start: "▶️",
+    finish: "🏁",
+
+    // Descriptors
+    big: "🐘",
+    small: "🐭",
+    hot: "🔥",
+    "hot-weather": "🔥",
+    cold: "❄️",
+    "cold-weather": "❄️",
+    fast: "🏃",
+    slow: "🐌",
+    good: "👍",
+    bad: "👎",
+    more: "➕",
+    less: "➖",
+    all: "📦",
+    some: "📄",
+    same: "🔄",
+    different: "🔄",
+    first: "1️⃣",
+    last: "🔚",
+    next: "⏭️",
+    again: "🔄",
+    clean: "🧹",
+    dirty: "💩",
+
+    // Social
+    yes: "✅",
+    no: "❌",
+    sorry: "😔",
+    okay: "👌",
+    wow: "😲",
+    cool: "😎",
+    "happy-birthday": "🎂",
+    "i-love-you": "💕",
+
+    // Questions
+    what: "❓",
+    where: "📍",
+    who: "👤",
+    when: "⏰",
+    why: "🤔",
+    how: "❓",
+
+    // Home
+    house: "🏠",
+    bed: "🛏️",
+    chair: "🪑",
+    table: "🪑",
+    phone: "📱",
+    computer: "💻",
+    light: "💡",
+    door: "🚪",
+    window: "🪟",
+
+    // Kitchen
+    plate: "🍽️",
+    cup: "☕",
+    spoon: "🥄",
+    fork: "🍴",
+    knife: "🔪",
+    bowl: "🥣",
+    bottle: "🍼",
+
+    // Bathroom
+    toilet: "🚽",
+    sink: "🚰",
+    toothpaste: "🧴",
+
+    // Clothing
+    shirt: "👕",
+    pants: "👖",
+    shoes: "👟",
+    socks: "🧦",
+    jacket: "🧥",
+    hat: "🎩",
+    dress: "👗",
+    coat: "🧥",
+
+    // Food - Staples
+    rice: "🍚",
+    bread: "🍞",
+    pasta: "🍝",
+    cereal: "🥣",
+    soup: "🍲",
+
+    // Food - Proteins
+    "chicken-food": "🍗",
+    "fish-food": "🐟",
+    egg: "🥚",
+    meat: "🥩",
+    beans: "🫘",
+    cheese: "🧀",
+
+    // Food - Fruits
+    apple: "🍎",
+    banana: "🍌",
+    "orange-fruit": "🍊",
+    grape: "🍇",
+    mango: "🥭",
+    strawberry: "🍓",
+    watermelon: "🍉",
+
+    // Food - Vegetables
+    carrot: "🥕",
+    potato: "🥔",
+    tomato: "🍅",
+    cucumber: "🥒",
+    corn: "🌽",
+    peas: "🫛",
+    broccoli: "🥦",
+
+    // Food - Snacks
+    cookie: "🍪",
+    candy: "🍬",
+    cake: "🎂",
+    chips: "🍟",
+    "ice-cream": "🍦",
+    popcorn: "🍿",
+
+    // Food - Drinks
+    water: "💧",
+    milk: "🥛",
+    juice: "🧃",
+    tea: "🍵",
+    coffee: "☕",
+    soda: "🥤",
+
+    // Routines & Needs
+    hungry: "🍽️",
+    thirsty: "🥤",
+    sleepy: "😴",
+    sleep: "😴",
+    "bathroom-need": "🚽",
+    medicine: "💊",
+    pain: "😣",
+    hurt: "😢",
+    wait: "⏳",
+    finished: "✅",
+    enough: "✋",
+
+    // Play & Activities
+    toy: "🧸",
+    game: "🎮",
+    ball: "⚽",
+    doll: "👸",
+    blocks: "🧱",
+    music: "🎵",
+    dance: "💃",
+    sing: "🎤",
+    draw: "🎨",
+    paint: "🖌️",
+    color: "🎨",
+    swing: "🔄",
+    slide: "🛝",
+    "tv-play": "📺",
+    "tablet-play": "📱",
+    puzzle: "🧩",
+    ride: "🚴",
+    run: "🏃",
+    jump: "🦘",
+
+    // Animals
+    dog: "🐕",
+    cat: "🐱",
+    bird: "🐦",
+    "fish-animal": "🐟",
+    horse: "🐎",
+    cow: "🐄",
+    sheep: "🐑",
+    pig: "🐷",
+    "chicken-animal": "🐔",
+    duck: "🦆",
+    rabbit: "🐰",
+    lion: "🦁",
+    tiger: "🐯",
+    elephant: "🐘",
+    monkey: "🐒",
+    bear: "🐻",
+
+    // Colors & Shapes
+    red: "🔴",
+    blue: "🔵",
+    green: "🟢",
+    yellow: "🟡",
+    "orange-color": "🟠",
+    purple: "🟣",
+    pink: "🩷",
+    black: "⚫",
+    white: "⚪",
+    brown: "🟤",
+    gray: "🔘",
+    circle: "⭕",
+    square: "⬜",
+    triangle: "🔺",
+    rectangle: "⬜",
+    star: "⭐",
+    heart: "❤️",
+
+    // Numbers & Time
+    one: "1️⃣",
+    two: "2️⃣",
+    three: "3️⃣",
+    four: "4️⃣",
+    five: "5️⃣",
+    six: "6️⃣",
+    seven: "7️⃣",
+    eight: "8️⃣",
+    nine: "9️⃣",
+    ten: "🔟",
+    eleven: "1️⃣1️⃣",
+    twelve: "1️⃣2️⃣",
+    thirteen: "1️⃣3️⃣",
+    fourteen: "1️⃣4️⃣",
+    fifteen: "1️⃣5️⃣",
+    sixteen: "1️⃣6️⃣",
+    seventeen: "1️⃣7️⃣",
+    eighteen: "1️⃣8️⃣",
+    nineteen: "1️⃣9️⃣",
+    twenty: "2️⃣0️⃣",
+    thirty: "3️⃣0️⃣",
+    forty: "4️⃣0️⃣",
+    fifty: "5️⃣0️⃣",
+    hundred: "💯",
+    morning: "🌅",
+    afternoon: "🌞",
+    evening: "🌆",
+    night: "🌙",
+    today: "📅",
+    tomorrow: "📅",
+    yesterday: "📅",
+    now: "⏰",
+    later: "⏰",
+    soon: "⏰",
+    sun: "☀️",
+    rain: "🌧️",
+    cloud: "☁️",
+    snow: "❄️",
+    storm: "⛈️",
+
+    // School & Technology
+    student: "👨‍🎓",
+    "book-school": "📚",
+    pen: "🖊️",
+    eraser: "🧽",
+    bag: "🎒",
+    desk: "🪑",
+    "chair-school": "🪑",
+    board: "📋",
+    read: "📖",
+    write: "✍️",
+    "draw-school": "🎨",
+    cut: "✂️",
+    glue: "🩹",
+    count: "🔢",
+    answer: "💭",
+    listen: "👂",
+    talk: "💬",
+    "tablet-school": "📱",
+    "tv-school": "📺",
+    internet: "🌐",
+    video: "🎥",
+    "game-school": "🎮",
+  
+
+    // Auto-added missing mappings
+    "mcdonalds": "🍔",
+    "thank-you": "❤️",
+    happy: "😊",
+    excited: "🤩",
+    proud: "😌",
+    sad: "😢",
+    angry: "😠",
+    scared: "😨",
+    tired: "😴",
+    surprised: "😲",
+    book: "📚",
+    tv: "📺",
+  
+
+    // Auto-added missing mappings
   };
 
-  const lowerText = text.toLowerCase();
-  return EMOJI_MAP[lowerText] || "📝";
+  return EMOJI_MAP[id] || "📝";
 };
 
 const getImageForText = (text: string): string => {
@@ -580,12 +953,20 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     justifyContent: "center",
     alignItems: "center",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 1000,
   },
   modal: {
     backgroundColor: COLORS.surface,
     borderRadius: 16,
     width: "90%",
     maxHeight: "80%",
+    zIndex: 1001,
+    elevation: 10,
   },
   header: {
     flexDirection: "row",

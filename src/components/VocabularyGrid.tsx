@@ -8,9 +8,9 @@ import {
   ScrollView,
   Vibration,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { VocabularyItem, AppSettings } from "../types";
 import { COLORS } from "../constants";
+import { getTranslatedText } from "../utils/translations";
 import { speak, playBeep } from "../utils/tts";
 
 interface VocabularyGridProps {
@@ -32,6 +32,8 @@ const ICON_MAP: { [key: string]: string } = {
   goodbye: "hand-right",
   "thank you": "heart",
   please: "heart-outline",
+  "happy birthday": "gift",
+  "i love you": "heart",
 
   // Food & Drink
   food: "restaurant",
@@ -39,6 +41,30 @@ const ICON_MAP: { [key: string]: string } = {
   water: "water",
   thirsty: "cafe",
   milk: "cafe",
+  sandwich: "restaurant",
+  burger: "restaurant",
+  pizza: "restaurant",
+  spaghetti: "restaurant",
+  "cold drink": "cafe",
+  juice: "cafe",
+  breakfast: "restaurant",
+  lunch: "restaurant",
+  dinner: "restaurant",
+  italian: "restaurant",
+  indian: "restaurant",
+  chinese: "restaurant",
+  thai: "restaurant",
+  mexican: "restaurant",
+  apple: "restaurant",
+  banana: "restaurant",
+  orange: "restaurant",
+  grapes: "restaurant",
+  strawberry: "restaurant",
+  watermelon: "restaurant",
+  chips: "restaurant",
+  "ice-cream": "restaurant",
+  chocolate: "restaurant",
+  cookies: "restaurant",
 
   // Basic Needs
   bathroom: "medical",
@@ -52,6 +78,11 @@ const ICON_MAP: { [key: string]: string } = {
   angry: "flash",
   scared: "warning",
   excited: "star",
+  cold: "thermometer",
+  hot: "flame",
+  surprised: "star",
+  confused: "help-circle",
+  proud: "star",
 
   // Activities
   play: "play",
@@ -59,53 +90,445 @@ const ICON_MAP: { [key: string]: string } = {
   more: "add",
   "all done": "checkmark",
   book: "book",
+  cycling: "bicycle",
+  scooter: "bicycle",
+  tv: "tv",
 
   // People
   mom: "person",
   dad: "person",
   friend: "people",
   teacher: "school",
+  brother: "person",
+  sister: "person",
+  grandpa: "person",
+  grandma: "person",
+  uncle: "person",
+  aunt: "person",
 
   // Places
   home: "home",
   school: "school",
   park: "leaf",
   store: "storefront",
+  playground: "happy",
+  restaurant: "restaurant",
+  "mcdonald's": "restaurant",
+  hospital: "medical",
+  library: "library",
+  beach: "umbrella",
+  soap: "water",
+  shampoo: "water",
+  spoon: "restaurant",
+  fork: "restaurant",
+  knife: "restaurant",
+  scissors: "cut",
+  toothbrush: "medical",
+  towel: "water",
+  paper: "document",
+  pencil: "create",
+
+  // Weather
+  sunny: "sunny",
+  rainy: "rainy",
+  snowy: "snow",
+  cloudy: "cloudy",
+  windy: "leaf",
 };
 
 // Emoji fallback mapping
 const EMOJI_MAP: { [key: string]: string } = {
+  // Legacy mappings - keeping only unique ones not covered in new categories
   hello: "👋",
   goodbye: "👋",
   "thank you": "❤️",
   please: "🙏",
-  food: "🍽️",
-  hungry: "🍕",
-  water: "💧",
-  thirsty: "🥤",
-  milk: "🥛",
-  bathroom: "🚽",
-  help: "🆘",
-  tired: "😴",
-  sleep: "🌙",
-  happy: "😊",
-  sad: "😢",
-  angry: "😠",
-  scared: "😨",
-  excited: "🎉",
-  play: "🎮",
-  stop: "🛑",
-  more: "➕",
-  "all done": "✅",
-  book: "📚",
+  "happy birthday": "🎂",
+  "i love you": "💕",
   mom: "👩",
   dad: "👨",
   friend: "👫",
-  teacher: "👩‍🏫",
-  home: "🏠",
-  school: "🏫",
+  brother: "👦",
+  sister: "👧",
+  grandpa: "👴",
+  grandma: "👵",
+  uncle: "👨‍🦱",
+  aunt: "👩‍🦰",
   park: "🌳",
   store: "🏪",
+  playground: "🎪",
+  restaurant: "🍽️",
+  "mcdonald's": "🍔",
+  hospital: "🏥",
+  library: "📚",
+  beach: "🏖️",
+
+  // Weather
+  sunny: "☀️",
+  rainy: "🌧️",
+  snowy: "❄️",
+  cloudy: "☁️",
+  windy: "💨",
+
+  // Pronouns
+  I: "👤",
+  i: "👤",
+  me: "👤",
+  you: "👤",
+  he: "👨",
+  she: "👩",
+  it: "🔵",
+  we: "👥",
+  they: "👥",
+  my: "👤",
+  mine: "👤",
+  your: "👤",
+  our: "👥",
+  their: "👥",
+
+  // Verbs
+  go: "🚶",
+  stop: "🛑",
+  want: "💭",
+  need: "🆘",
+  like: "👍",
+  "dont-like": "👎",
+  play: "🎮",
+  "play-activity": "🎮",
+  come: "👉",
+  give: "🤲",
+  take: "✋",
+  do: "⚡",
+  make: "🔨",
+  eat: "🍽️",
+  drink: "🥤",
+  look: "👀",
+  see: "👁️",
+  hear: "👂",
+  know: "🧠",
+  think: "🤔",
+  say: "💬",
+  tell: "📢",
+  feel: "💝",
+  use: "🔧",
+  put: "📦",
+  help: "🆘",
+  open: "🔓",
+  close: "🔒",
+  find: "🔍",
+  show: "👆",
+  work: "💼",
+  start: "▶️",
+  finish: "🏁",
+
+  // Descriptors
+  big: "🐘",
+  small: "🐭",
+  hot: "🔥",
+  "hot-weather": "🔥",
+  cold: "❄️",
+  "cold-weather": "❄️",
+  fast: "🏃",
+  slow: "🐌",
+  good: "👍",
+  bad: "👎",
+  more: "➕",
+  less: "➖",
+  all: "📦",
+  some: "📄",
+  same: "🔄",
+
+  different: "🔄",
+  first: "1️⃣",
+  last: "🔚",
+  next: "⏭️",
+  again: "🔄",
+  clean: "🧹",
+  dirty: "💩",
+
+  // Social
+  yes: "✅",
+  no: "❌",
+  sorry: "😔",
+  okay: "👌",
+  wow: "😲",
+  cool: "😎",
+  hi: "👋",
+  "thank-you": "❤️",
+  "happy-birthday": "🎂",
+  "i-love-you": "💕",
+
+  // Questions
+  what: "❓",
+  where: "📍",
+  who: "👤",
+  when: "⏰",
+  why: "🤔",
+  how: "❓",
+
+  // Home
+  house: "🏠",
+  bed: "🛏️",
+  chair: "🪑",
+  phone: "📱",
+  computer: "💻",
+  light: "💡",
+  door: "🚪",
+  window: "🪟",
+
+  // Kitchen
+  plate: "🍽️",
+  cup: "☕",
+  spoon: "🥄",
+  fork: "🍴",
+  knife: "🔪",
+  bowl: "🥣",
+  bottle: "🍼",
+
+  // Bathroom
+  toilet: "🚽",
+  sink: "🚰",
+  shower: "🚿",
+  bath: "🛁",
+  soap: "🧼",
+  towel: "🛀",
+  toothbrush: "🪥",
+  toothpaste: "🧴",
+
+  // Clothing
+  shirt: "👕",
+  pants: "👖",
+  shoes: "👟",
+  socks: "🧦",
+  jacket: "🧥",
+  hat: "🎩",
+  dress: "👗",
+  coat: "🧥",
+
+  // Food - Staples
+  rice: "🍚",
+  bread: "🍞",
+  pasta: "🍝",
+  cereal: "🥣",
+  soup: "🍲",
+
+  // Food - Proteins
+  "chicken-food": "🍗",
+  "fish-food": "🐟",
+  egg: "🥚",
+  meat: "🥩",
+  beans: "🫘",
+  cheese: "🧀",
+
+  // Food - Fruits
+  apple: "🍎",
+  banana: "🍌",
+  "orange-fruit": "🍊",
+  grape: "🍇",
+  mango: "🥭",
+  strawberry: "🍓",
+  watermelon: "🍉",
+
+  // Food - Vegetables
+  carrot: "🥕",
+  potato: "🥔",
+  tomato: "🍅",
+  cucumber: "🥒",
+  corn: "🌽",
+  peas: "🫛",
+  broccoli: "🥦",
+
+  // Food - Snacks
+  cookie: "🍪",
+  candy: "🍬",
+  cake: "🎂",
+  chips: "🍟",
+  "ice-cream": "🍦",
+  popcorn: "🍿",
+
+  // Food - Drinks
+  water: "💧",
+  milk: "🥛",
+  juice: "🧃",
+  tea: "🍵",
+  coffee: "☕",
+  soda: "🥤",
+
+  // Routines & Needs
+  hungry: "🍽️",
+  thirsty: "🥤",
+  sleepy: "😴",
+  sleep: "😴",
+  "bathroom-need": "🚽",
+  medicine: "💊",
+  pain: "😣",
+  hurt: "😢",
+  wait: "⏳",
+  finished: "✅",
+  enough: "✋",
+
+  // Play & Activities
+  toy: "🧸",
+  game: "🎮",
+  ball: "⚽",
+  doll: "👸",
+  blocks: "🧱",
+  music: "🎵",
+  dance: "💃",
+  sing: "🎤",
+  draw: "🎨",
+  paint: "🖌️",
+  color: "🎨",
+  swing: "🔄",
+  slide: "🛝",
+  "tv-play": "📺",
+  tv: "📺",
+  "tablet-play": "📱",
+  puzzle: "🧩",
+  ride: "🚴",
+  run: "🏃",
+  jump: "🦘",
+
+  // Animals
+  dog: "🐕",
+  cat: "🐱",
+  bird: "🐦",
+  "fish-animal": "🐟",
+  horse: "🐎",
+  cow: "🐄",
+  sheep: "🐑",
+  pig: "🐷",
+  "chicken-animal": "🐔",
+  duck: "🦆",
+  rabbit: "🐰",
+  lion: "🦁",
+  tiger: "🐯",
+  elephant: "🐘",
+  monkey: "🐒",
+  bear: "🐻",
+
+  // Colors & Shapes
+  red: "🔴",
+  blue: "🔵",
+  green: "🟢",
+  yellow: "🟡",
+  "orange-color": "🟠",
+  purple: "🟣",
+  pink: "🩷",
+  black: "⚫",
+  white: "⚪",
+  brown: "🟤",
+  gray: "🔘",
+  circle: "⭕",
+  square: "⬜",
+  triangle: "🔺",
+  rectangle: "⬜",
+  star: "⭐",
+  heart: "❤️",
+
+  // Numbers & Time
+  one: "1️⃣",
+  two: "2️⃣",
+  three: "3️⃣",
+  four: "4️⃣",
+  five: "5️⃣",
+  six: "6️⃣",
+  seven: "7️⃣",
+  eight: "8️⃣",
+  nine: "9️⃣",
+  ten: "🔟",
+  eleven: "1️⃣1️⃣",
+  twelve: "1️⃣2️⃣",
+  thirteen: "1️⃣3️⃣",
+  fourteen: "1️⃣4️⃣",
+  fifteen: "1️⃣5️⃣",
+  sixteen: "1️⃣6️⃣",
+  seventeen: "1️⃣7️⃣",
+  eighteen: "1️⃣8️⃣",
+  nineteen: "1️⃣9️⃣",
+  twenty: "2️⃣0️⃣",
+  thirty: "3️⃣0️⃣",
+  forty: "4️⃣0️⃣",
+  fifty: "5️⃣0️⃣",
+  hundred: "💯",
+  morning: "🌅",
+  afternoon: "🌞",
+  evening: "🌆",
+  night: "🌙",
+  today: "📅",
+  tomorrow: "📅",
+  yesterday: "📅",
+  now: "⏰",
+  later: "⏰",
+  soon: "⏰",
+  sun: "☀️",
+  rain: "🌧️",
+  cloud: "☁️",
+  snow: "❄️",
+  storm: "⛈️",
+
+  // School & Technology
+  student: "👨‍🎓",
+  "book-school": "📚",
+  book: "📚",
+  pen: "🖊️",
+  eraser: "🧽",
+  bag: "🎒",
+  desk: "🪑",
+  "chair-school": "🪑",
+  board: "📋",
+  read: "📖",
+  write: "✍️",
+  "draw-school": "🎨",
+  cut: "✂️",
+  glue: "🩹",
+  count: "🔢",
+  answer: "💭",
+  listen: "👂",
+  talk: "💬",
+  "tablet-school": "📱",
+  "tv-school": "📺",
+  internet: "🌐",
+  video: "🎥",
+  "game-school": "🎮",
+
+  // Missing emotion mappings
+  calm: "😌",
+  worried: "😟",
+  sick: "🤒",
+  lonely: "😔",
+  bored: "😴",
+  silly: "🤪",
+  happy: "😊",
+  excited: "🤩",
+  proud: "😌",
+  sad: "😢",
+  angry: "😠",
+  scared: "😨",
+  tired: "😴",
+  surprised: "😲",
+
+  // Missing animal mappings
+
+  // Missing color mappings
+
+  // Missing food mappings
+
+  // Missing weather mappings
+
+  // Missing place mappings
+  mcdonalds: "🍔",
+
+  // Missing activity mappings
+
+  // Auto-added missing mappings
+
+  // Context-specific mappings
+  "computer-home": "💻",
+  "computer-school": "💻",
+  "phone-home": "📱",
+  "phone-school": "📱",
+  table: "🪑",
 };
 
 const getIconForText = (text: string): string => {
@@ -113,9 +536,8 @@ const getIconForText = (text: string): string => {
   return ICON_MAP[lowerText] || "chatbubble";
 };
 
-const getEmojiForText = (text: string): string => {
-  const lowerText = text.toLowerCase();
-  return EMOJI_MAP[lowerText] || "💬";
+const getEmojiForText = (id: string): string => {
+  return EMOJI_MAP[id] || "💬";
 };
 
 export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
@@ -126,6 +548,12 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
   onToggleFavorite,
   isChildMode = false,
 }) => {
+  // Debug logging for settings
+  console.log("🎨 VocabularyGrid Settings:", {
+    showText: settings.showText,
+    gridSize: settings.gridSize,
+  });
+
   const [pressedItemId, setPressedItemId] = useState<string | null>(null);
   const gridSize = settings.gridSize;
   // Calculate item size based on screen width, accounting for margins and gaps
@@ -133,7 +561,22 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
   const gapSize = 8; // Gap between items
   const totalGaps = gridSize - 1; // Number of gaps in a row
   const availableWidth = width - screenPadding * 2 - totalGaps * gapSize;
-  const itemSize = Math.min(availableWidth / gridSize, 120); // Max size of 120px
+
+  // Dynamic sizing based on grid size - larger buttons for smaller grids
+  let maxItemSize;
+  if (gridSize === 1) {
+    maxItemSize = Math.min(availableWidth, 250); // Very large for 1x1
+  } else if (gridSize === 2) {
+    maxItemSize = Math.min(availableWidth / gridSize, 180); // Large for 2x2
+  } else if (gridSize === 3) {
+    maxItemSize = Math.min(availableWidth / gridSize, 140); // Medium for 3x3
+  } else if (gridSize === 4) {
+    maxItemSize = Math.min(availableWidth / gridSize, 110); // Smaller for 4x4
+  } else {
+    maxItemSize = Math.min(availableWidth / gridSize, 90); // Smallest for 5x5
+  }
+
+  const itemSize = maxItemSize;
 
   const handleItemPress = async (item: VocabularyItem) => {
     console.log("🎯 Item pressed:", item.text);
@@ -151,10 +594,17 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
       console.log("📳 Vibration failed:", vibrationError);
     }
 
-    const textToSpeak =
-      settings.buttonMode === "sentence" && item.message
-        ? item.message
-        : item.text;
+    const textToSpeak = (() => {
+      switch (settings.buttonMode) {
+        case "sentence":
+          return item.message || item.text;
+        case "two-word":
+          return item.twoWord || item.text;
+        case "one-word":
+        default:
+          return item.text;
+      }
+    })();
 
     console.log("🎤 Button Mode Debug:", {
       buttonMode: settings.buttonMode,
@@ -262,14 +712,33 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
     }
   };
 
+  const renderSymbol = (
+    item: VocabularyItem,
+    buttonSize: number,
+    gridSize: number
+  ) => {
+    return (
+      <Text
+        style={{
+          fontSize: Math.min(
+            buttonSize * (gridSize <= 3 ? 0.5 : 0.4),
+            gridSize <= 3 ? 70 : 50
+          ),
+          textAlign: "center",
+          textShadowColor: "rgba(0,0,0,0.3)",
+          textShadowOffset: { width: 1, height: 1 },
+          textShadowRadius: 2,
+        }}
+      >
+        {getEmojiForText(item.id)}
+      </Text>
+    );
+  };
+
   const renderGridItem = (item: VocabularyItem, index: number) => {
-    const isLastInRow = (index + 1) % gridSize === 0;
-    const isLastRow = index >= vocabulary.length - gridSize;
     const buttonSize = getButtonSize(item);
     const buttonColor = getButtonColor(item);
     const iconName = getIconForText(item.text);
-
-    console.log(`Item: ${item.text}, Icon: ${iconName}`); // Debug log
 
     const isPressed = pressedItemId === item.id;
 
@@ -281,8 +750,6 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
           {
             width: buttonSize,
             height: buttonSize,
-            marginRight: isLastInRow ? 0 : 8,
-            marginBottom: isLastRow ? 0 : 8,
             backgroundColor: isPressed ? themeColors.surface : buttonColor,
             borderRadius: isChildMode ? 25 : 15,
             borderWidth: isChildMode ? 3 : 2,
@@ -299,56 +766,110 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
         <View
           style={[
             styles.itemContent,
-            { padding: isChildMode ? 6 : 8 }, // Less padding in child mode for more text space
+            {
+              padding: settings.showText ? (isChildMode ? 12 : 15) : 0, // Much more padding for better spacing
+              justifyContent: settings.showText ? "space-between" : "center",
+              alignItems: "center",
+            },
           ]}
         >
-          <View
-            style={[
-              styles.itemIcon,
-              {
-                width: buttonSize * (isChildMode ? 0.5 : 0.6), // Smaller icon in child mode
-                height: buttonSize * (isChildMode ? 0.4 : 0.5), // Smaller icon in child mode
-                backgroundColor: themeColors.surface,
-                borderRadius: 12,
-                justifyContent: "center",
-                alignItems: "center",
-                marginBottom: isChildMode ? 4 : 6, // Less margin in child mode
-              },
-            ]}
-          >
-            {/* Use emojis for reliable display */}
-            <Text
-              style={{
-                fontSize: Math.min(buttonSize * 0.25, 32),
-                textAlign: "center",
-              }}
-            >
-              {getEmojiForText(item.text)}
-            </Text>
-          </View>
+          {settings.showText ? (
+            // Text mode - icon with text below
+            <>
+              <View
+                style={[
+                  styles.itemIcon,
+                  {
+                    width: buttonSize * (gridSize <= 3 ? 0.7 : 0.6),
+                    height: buttonSize * (gridSize <= 3 ? 0.7 : 0.6),
+                    borderRadius: 20,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginBottom: isChildMode ? 2 : 4,
+                    shadowColor: "#000",
+                    shadowOffset: {
+                      width: 0,
+                      height: 3,
+                    },
+                    shadowOpacity: 0.3,
+                    shadowRadius: 6,
+                    elevation: 8,
+                  },
+                ]}
+              >
+                {renderSymbol(item, buttonSize, gridSize)}
+              </View>
 
-          {settings.showText && (
-            <Text
+              <Text
+                style={[
+                  styles.itemLabel,
+                  {
+                    fontSize: (() => {
+                      const baseSize = Math.min(
+                        isChildMode ? 12 : 10,
+                        buttonSize * (gridSize <= 3 ? 0.12 : 0.1)
+                      );
+                      // Reduce font size for longer texts
+                      const textLength = item.text.length;
+                      let sizeMultiplier = 1;
+                      if (textLength > 10) sizeMultiplier = 0.8;
+                      if (textLength > 15) sizeMultiplier = 0.7;
+
+                      switch (settings.textSize) {
+                        case "small":
+                          return (
+                            baseSize *
+                            (gridSize <= 3 ? 0.9 : 0.8) *
+                            sizeMultiplier
+                          );
+                        case "large":
+                          return (
+                            baseSize *
+                            (gridSize <= 3 ? 1.6 : 1.5) *
+                            sizeMultiplier
+                          );
+                        default: // medium
+                          return (
+                            baseSize *
+                            (gridSize <= 3 ? 1.1 : 1.0) *
+                            sizeMultiplier
+                          );
+                      }
+                    })(),
+                    color: themeColors.surface,
+                    fontWeight: isChildMode ? "800" : "700",
+                    textShadowColor: "rgba(0,0,0,0.3)",
+                    textShadowOffset: { width: 1, height: 1 },
+                    textShadowRadius: 2,
+                    width: buttonSize * 0.9,
+                    textAlign: "center",
+                  },
+                ]}
+                numberOfLines={isChildMode ? 2 : 1}
+                adjustsFontSizeToFit={true}
+                minimumFontScale={isChildMode ? 0.5 : 0.7}
+                ellipsizeMode="tail"
+              >
+                {item.translations && settings.language
+                  ? getTranslatedText(item as any, settings.language)
+                  : item.text}
+              </Text>
+            </>
+          ) : (
+            // Image-only mode - large symbol covering the entire button
+            <View
               style={[
-                styles.itemLabel,
+                styles.fullSizeIcon,
                 {
-                  fontSize: Math.min(isChildMode ? 14 : 12, buttonSize * 0.12),
-                  color: themeColors.surface,
-                  fontWeight: isChildMode ? "800" : "700",
-                  textShadowColor: "rgba(0,0,0,0.3)",
-                  textShadowOffset: { width: 1, height: 1 },
-                  textShadowRadius: 2,
-                  width: buttonSize * 0.85, // Fixed width instead of maxWidth
-                  textAlign: "center",
+                  width: buttonSize * 0.8,
+                  height: buttonSize * 0.8,
+                  justifyContent: "center",
+                  alignItems: "center",
                 },
               ]}
-              numberOfLines={isChildMode ? 2 : 1}
-              adjustsFontSizeToFit={true}
-              minimumFontScale={isChildMode ? 0.6 : 0.8}
-              ellipsizeMode="tail"
             >
-              {item.text}
-            </Text>
+              {renderSymbol(item, buttonSize, gridSize)}
+            </View>
           )}
 
           {!isChildMode && onToggleFavorite && (
@@ -400,6 +921,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "flex-start",
     alignItems: "flex-start",
+    gap: 8,
   },
   gridItem: {
     justifyContent: "center",
@@ -421,6 +943,10 @@ const styles = StyleSheet.create({
   },
   itemIcon: {
     marginBottom: 8,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  fullSizeIcon: {
     justifyContent: "center",
     alignItems: "center",
   },

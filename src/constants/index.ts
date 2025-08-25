@@ -4,18 +4,26 @@ import {
   Category,
   ButtonTemplate,
 } from "../types";
+import { CATEGORIES, getAllCategories } from "./categories";
+import { getAllVocabularyItems, getAllVocabulary } from "./vocabulary";
 
 export const DEFAULT_SETTINGS: AppSettings = {
   gridSize: 3,
-  ttsVoice: "en-US", // Use language code instead of specific voice ID
+  ttsVoice: "en-US",
   volume: 1.0,
   speechRate: 0.8,
-  buttonMode: "sentence",
+  buttonMode: "two-word",
   showText: true,
   theme: "colorful",
+  enableChildFilter: false,
+  textSize: "large",
+  hiddenCategories: [],
+  childAge: undefined,
+  hasShownAgePrompt: false,
+  symbolType: "emoji",
+  language: "en",
 };
 
-// This will be populated dynamically with available voices
 export let VOICE_OPTIONS: Array<{
   id: string;
   name: string;
@@ -23,10 +31,8 @@ export let VOICE_OPTIONS: Array<{
   category: string;
 }> = [];
 
-// Function to update voice options with available voices
 export const updateVoiceOptions = (availableVoices: any[]) => {
   if (!availableVoices || availableVoices.length === 0) {
-    // Fallback to basic language options
     VOICE_OPTIONS = [
       {
         id: "en-US",
@@ -50,13 +56,11 @@ export const updateVoiceOptions = (availableVoices: any[]) => {
     return;
   }
 
-  // Convert available voices to our format
   VOICE_OPTIONS = availableVoices.map((voice) => {
     const name = voice.name || voice.identifier;
     const lowerName = name.toLowerCase();
 
-    // Better categorization logic
-    let category = "adult-female"; // default
+    let category = "adult-female";
     if (
       lowerName.includes("male") ||
       lowerName.includes("alex") ||
@@ -83,7 +87,6 @@ export const updateVoiceOptions = (availableVoices: any[]) => {
     };
   });
 
-  // Sort by language and name
   VOICE_OPTIONS.sort((a, b) => {
     if (a.language !== b.language) {
       return a.language.localeCompare(b.language);
@@ -92,13 +95,11 @@ export const updateVoiceOptions = (availableVoices: any[]) => {
   });
 };
 
-// Function to get default voice from available voices
 export const getDefaultVoice = (availableVoices: any[]): string => {
   if (!availableVoices || availableVoices.length === 0) {
     return "com.apple.voice.compact.en-US.Samantha";
   }
 
-  // Try to find a good default voice
   const preferredVoices = [
     "com.apple.ttsbundle.Samantha-compact",
     "com.apple.ttsbundle.Alex-compact",
@@ -116,7 +117,6 @@ export const getDefaultVoice = (availableVoices: any[]): string => {
     }
   }
 
-  // Fallback to first available voice
   return availableVoices[0].identifier;
 };
 
@@ -126,305 +126,117 @@ export const VOICE_CATEGORIES = [
   { id: "adult-male", name: "Male Voices" },
 ];
 
-export const BUTTON_TEMPLATES: ButtonTemplate[] = [
-  // Greetings
-  {
-    id: "hello",
-    text: "Hello",
-    message: "Hello, how are you?",
-    category: "greetings",
-    color: "#FF6B9D", // Bright pink
-  },
-  {
-    id: "goodbye",
-    text: "Goodbye",
-    message: "Goodbye, see you later.",
-    category: "greetings",
-    color: "#4ECDC4", // Turquoise
-  },
-  {
-    id: "thank-you",
-    text: "Thank you",
-    message: "Thank you very much.",
-    category: "greetings",
-    color: "#9B59B6", // Purple
-  },
-  {
-    id: "please",
-    text: "Please",
-    message: "Please help me.",
-    category: "greetings",
-    color: "#F1C40F", // Yellow
-  },
+// Use the new modular vocabulary system
+export const DEFAULT_VOCABULARY: VocabularyItem[] = getAllVocabularyItems();
 
-  // Food & Drink
-  {
-    id: "food",
-    text: "Food",
-    message: "I want food.",
-    category: "food",
-    color: "#FFB347", // Warm orange
-  },
-  {
-    id: "hungry",
-    text: "Hungry",
-    message: "I am hungry.",
-    category: "food",
-    color: "#E67E22", // Dark orange
-  },
-  {
-    id: "water",
-    text: "Water",
-    message: "I want water.",
-    category: "food",
-    color: "#45B7D1", // Sky blue
-  },
-  {
-    id: "thirsty",
-    text: "Thirsty",
-    message: "I am thirsty.",
-    category: "food",
-    color: "#3498DB", // Blue
-  },
-  {
-    id: "milk",
-    text: "Milk",
-    message: "I want milk.",
-    category: "food",
-    color: "#98D8C8", // Mint green
-  },
+// Use the new modular categories system
+export const DEFAULT_CATEGORIES: Category[] = getAllCategories();
 
-  // Basic Needs
-  {
-    id: "bathroom",
-    text: "Bathroom",
-    message: "I need to use the bathroom.",
-    category: "needs",
-    color: "#E74C3C", // Red
-  },
-  {
-    id: "help",
-    text: "Help",
-    message: "I need help.",
-    category: "needs",
-    color: "#F39C12", // Orange
-  },
-  {
-    id: "tired",
-    text: "Tired",
-    message: "I am tired.",
-    category: "needs",
-    color: "#8E44AD", // Purple
-  },
-  {
-    id: "sleep",
-    text: "Sleep",
-    message: "I want to sleep.",
-    category: "needs",
-    color: "#2C3E50", // Dark blue
-  },
-
-  // Emotions
-  {
-    id: "happy",
-    text: "Happy",
-    message: "I am happy.",
-    category: "emotions",
-    color: "#F1C40F", // Yellow
-  },
-  {
-    id: "sad",
-    text: "Sad",
-    message: "I am sad.",
-    category: "emotions",
-    color: "#3498DB", // Blue
-  },
-  {
-    id: "angry",
-    text: "Angry",
-    message: "I am angry.",
-    category: "emotions",
-    color: "#E74C3C", // Red
-  },
-  {
-    id: "scared",
-    text: "Scared",
-    message: "I am scared.",
-    category: "emotions",
-    color: "#8E44AD", // Purple
-  },
-  {
-    id: "excited",
-    text: "Excited",
-    message: "I am excited!",
-    category: "emotions",
-    color: "#FF6B9D", // Pink
-  },
-
-  // Activities
-  {
-    id: "play",
-    text: "Play",
-    message: "I want to play.",
-    category: "activities",
-    color: "#2ECC71", // Green
-  },
-  {
-    id: "stop",
-    text: "Stop",
-    message: "Please stop.",
-    category: "activities",
-    color: "#E74C3C", // Red
-  },
-  {
-    id: "more",
-    text: "More",
-    message: "I want more.",
-    category: "activities",
-    color: "#F39C12", // Orange
-  },
-  {
-    id: "all-done",
-    text: "All Done",
-    message: "I am all done.",
-    category: "activities",
-    color: "#9B59B6", // Purple
-  },
-  {
-    id: "book",
-    text: "Book",
-    message: "I want to read a book.",
-    category: "activities",
-    color: "#45B7D1", // Sky blue
-  },
-
-  // People
-  {
-    id: "mom",
-    text: "Mom",
-    message: "I want my mom.",
-    category: "people",
-    color: "#FF6B9D", // Pink
-  },
-  {
-    id: "dad",
-    text: "Dad",
-    message: "I want my dad.",
-    category: "people",
-    color: "#4ECDC4", // Turquoise
-  },
-  {
-    id: "friend",
-    text: "Friend",
-    message: "I want to see my friend.",
-    category: "people",
-    color: "#F1C40F", // Yellow
-  },
-  {
-    id: "teacher",
-    text: "Teacher",
-    message: "I need my teacher.",
-    category: "people",
-    color: "#9B59B6", // Purple
-  },
-
-  // Places
-  {
-    id: "home",
-    text: "Home",
-    message: "I want to go home.",
-    category: "places",
-    color: "#2ECC71", // Green
-  },
-  {
-    id: "school",
-    text: "School",
-    message: "I want to go to school.",
-    category: "places",
-    color: "#3498DB", // Blue
-  },
-  {
-    id: "park",
-    text: "Park",
-    message: "I want to go to the park.",
-    category: "places",
-    color: "#98D8C8", // Mint green
-  },
-  {
-    id: "store",
-    text: "Store",
-    message: "I want to go to the store.",
-    category: "places",
-    color: "#FFB347", // Orange
-  },
-];
-
-export const DEFAULT_VOCABULARY: VocabularyItem[] = BUTTON_TEMPLATES.map(
-  (template, index) => ({
-    id: (index + 1).toString(),
-    text: template.text,
-    message: template.message,
-    isFavorite: false,
-    category: template.category,
-    color: template.color,
-    size: "medium" as const,
-  })
-);
-
-export const DEFAULT_CATEGORIES: Category[] = [
-  { id: "greetings", name: "Greetings", color: "#FF6B9D", icon: "hand-left" },
-  { id: "food", name: "Food & Drink", color: "#FFB347", icon: "restaurant" },
-  { id: "needs", name: "Basic Needs", color: "#E74C3C", icon: "help-circle" },
-  { id: "emotions", name: "Emotions", color: "#F1C40F", icon: "heart" },
-  { id: "activities", name: "Activities", color: "#2ECC71", icon: "play" },
-  { id: "people", name: "People", color: "#4ECDC4", icon: "people" },
-  { id: "places", name: "Places", color: "#3498DB", icon: "location" },
-];
+// Legacy BUTTON_TEMPLATES for backward compatibility
+export const BUTTON_TEMPLATES: ButtonTemplate[] = getAllVocabulary();
 
 export const COLORS = {
-  primary: "#FF6B9D", // Bright pink
-  secondary: "#4ECDC4", // Turquoise
-  background: "#F8F9FF", // Light blue background
+  primary: "#FF6B9D",
+  secondary: "#4ECDC4",
+  background: "#F8F9FF",
   surface: "#FFFFFF",
-  text: "#2C3E50", // Dark blue text
+  text: "#2C3E50",
   textSecondary: "#7F8C8D",
-  border: "#E8F4FD", // Light blue border
-  success: "#2ECC71", // Bright green
-  warning: "#F39C12", // Orange
-  error: "#E74C3C", // Red
-  // Theme-specific colors
+  border: "#E8F4FD",
+  success: "#2ECC71",
+  warning: "#F39C12",
+  error: "#E74C3C",
   default: {
-    primary: "#FF6B9D", // Bright pink
-    secondary: "#4ECDC4", // Turquoise
-    background: "#F8F9FF", // Light blue background
+    primary: "#FF6B9D",
+    secondary: "#4ECDC4",
+    background: "#F8F9FF",
     surface: "#FFFFFF",
-    text: "#2C3E50", // Dark blue text
-    border: "#E8F4FD", // Light blue border
+    text: "#2C3E50",
+    border: "#E8F4FD",
   },
   colorful: {
-    primary: "#FF6B9D", // Bright pink
-    secondary: "#4ECDC4", // Turquoise
-    accent: "#45B7D1", // Sky blue
-    warm: "#FFB347", // Warm orange
-    cool: "#98D8C8", // Mint green
-    purple: "#9B59B6", // Purple
-    yellow: "#F1C40F", // Yellow
-    background: "#FFF5F5", // Light pink background
+    primary: "#FF6B9D",
+    secondary: "#4ECDC4",
+    accent: "#45B7D1",
+    warm: "#FFB347",
+    cool: "#98D8C8",
+    purple: "#9B59B6",
+    yellow: "#F1C40F",
+    background: "#FFF5F5",
     surface: "#FFFFFF",
-    text: "#2C3E50", // Dark blue text
-    border: "#FFE0E0", // Light pink border
+    text: "#2C3E50",
+    border: "#FFE0E0",
   },
   minimal: {
-    primary: "#3498DB", // Blue
-    secondary: "#2ECC71", // Green
-    accent: "#E74C3C", // Red
-    background: "#F8F9FA", // Light gray background
+    primary: "#3498DB",
+    secondary: "#2ECC71",
+    accent: "#E74C3C",
+    background: "#F8F9FA",
     surface: "#FFFFFF",
-    text: "#2C3E50", // Dark blue text
-    border: "#E9ECEF", // Light gray border
+    text: "#2C3E50",
+    border: "#E9ECEF",
   },
 };
 
-export const GRID_SIZES = [2, 3, 4, 5, 6];
+export const GRID_SIZES = [1, 2, 3, 4, 5];
 export const BUTTON_SIZES = ["small", "medium", "large"];
 export const THEMES = ["default", "colorful", "minimal"];
+
+export const getSuggestedCategoriesForAge = (age: number): string[] => {
+  if (age <= 2) {
+    return ["greetings", "needs", "emotions", "food"];
+  } else if (age <= 4) {
+    return ["greetings", "needs", "emotions", "food", "activities", "people"];
+  } else if (age <= 6) {
+    return [
+      "greetings",
+      "needs",
+      "emotions",
+      "food",
+      "activities",
+      "people",
+      "places",
+      "daily-items",
+    ];
+  } else if (age <= 8) {
+    return [
+      "greetings",
+      "needs",
+      "emotions",
+      "food",
+      "food-choices",
+      "activities",
+      "people",
+      "places",
+      "daily-items",
+      "weather",
+    ];
+  } else {
+    return [
+      "greetings",
+      "needs",
+      "emotions",
+      "food",
+      "food-choices",
+      "activities",
+      "people",
+      "places",
+      "daily-items",
+      "weather",
+      "pronouns",
+      "verbs",
+      "descriptors",
+      "social",
+      "questions",
+    ];
+  }
+};
+
+// Language options
+export const SUPPORTED_LANGUAGES = [
+  { code: "en", name: "English", nativeName: "English" },
+  { code: "hi", name: "Hindi", nativeName: "हिंदी" },
+  { code: "es", name: "Spanish", nativeName: "Español" },
+  { code: "fr", name: "French", nativeName: "Français" },
+  { code: "zh", name: "Chinese", nativeName: "中文" },
+];

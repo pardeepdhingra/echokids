@@ -10,6 +10,7 @@ import {
   Modal,
 } from "react-native";
 import * as Localization from "expo-localization";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { AppSettings } from "../types";
 import {
@@ -18,11 +19,14 @@ import {
   VOICE_OPTIONS,
   VOICE_CATEGORIES,
   BUTTON_SIZES,
+  DEFAULT_CATEGORIES,
   updateVoiceOptions,
   getDefaultVoice,
+  SUPPORTED_LANGUAGES,
 } from "../constants";
 import { saveSettings, loadSettings } from "../utils/storage";
 import { speak, getAvailableVoices } from "../utils/tts";
+import { HierarchicalCategorySelector } from "../components/HierarchicalCategorySelector";
 
 interface SettingsScreenProps {
   navigation: any;
@@ -39,11 +43,18 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
     buttonMode: "sentence",
     showText: true,
     theme: "colorful",
+    enableChildFilter: false,
+    textSize: "medium",
+    hiddenCategories: [],
+    symbolType: "emoji", // Always use emoji for now
+    language: "en",
   });
   const [isLocked, setIsLocked] = useState(false);
   const [showVoiceModal, setShowVoiceModal] = useState(false);
   const [selectedVoiceCategory, setSelectedVoiceCategory] = useState("all");
   const [selectedLanguage, setSelectedLanguage] = useState("all");
+  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
+  const [showCategorySelector, setShowCategorySelector] = useState(false);
   const [availableVoices, setAvailableVoices] = useState<
     Array<{ identifier: string; name: string }>
   >([]);
@@ -119,6 +130,33 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
     console.log("🔧 Setting Changed:", { key, value, newSettings });
     setSettings(newSettings);
     await saveSettings(newSettings);
+  };
+
+  const handleCategoryToggle = (categoryId: string) => {
+    const currentHiddenCategories = settings.hiddenCategories || [];
+    const isHidden = currentHiddenCategories.includes(categoryId);
+
+    const newHiddenCategories = isHidden
+      ? currentHiddenCategories.filter((id) => id !== categoryId)
+      : [...currentHiddenCategories, categoryId];
+
+    console.log("🔧 Settings: Toggling category", {
+      category: categoryId,
+      isHidden,
+      currentHiddenCategories,
+      newHiddenCategories,
+    });
+
+    handleSettingChange("hiddenCategories", newHiddenCategories);
+  };
+
+  const handleSubCategoryToggle = (
+    categoryId: string,
+    subCategoryId: string
+  ) => {
+    // For now, we'll just toggle the main category
+    // In the future, we could implement subcategory-specific hiding
+    handleCategoryToggle(categoryId);
   };
 
   const handleLockToggle = () => {
@@ -387,7 +425,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
       <ScrollView style={styles.content}>
         {renderSettingItem(
           "Button Mode",
-          "Choose between one-word or sentence mode",
+          "Choose between one-word, two-word, or sentence mode",
           <View style={styles.modeButtons}>
             <TouchableOpacity
               style={[
@@ -415,6 +453,34 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
                 ]}
               >
                 One Word
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.modeButton,
+                settings.buttonMode === "two-word" && styles.modeButtonActive,
+              ]}
+              onPress={() => handleSettingChange("buttonMode", "two-word")}
+            >
+              <Text
+                style={{
+                  fontSize: 24,
+                  color:
+                    settings.buttonMode === "two-word"
+                      ? COLORS.surface
+                      : COLORS.primary,
+                }}
+              >
+                📋
+              </Text>
+              <Text
+                style={[
+                  styles.modeButtonText,
+                  settings.buttonMode === "two-word" &&
+                    styles.modeButtonTextActive,
+                ]}
+              >
+                Two Words
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -603,6 +669,130 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
         )}
 
         {renderSettingItem(
+          "Language",
+          "Choose the language for vocabulary buttons",
+          <View style={styles.dropdownContainer}>
+            <TouchableOpacity
+              style={styles.dropdownButton}
+              onPress={() => setShowLanguageDropdown(!showLanguageDropdown)}
+            >
+              <Text style={styles.dropdownButtonText}>
+                {SUPPORTED_LANGUAGES.find(
+                  (lang) => lang.code === settings.language
+                )?.nativeName || "Select Language"}
+              </Text>
+              <Text style={styles.dropdownArrow}>
+                {showLanguageDropdown ? "▲" : "▼"}
+              </Text>
+            </TouchableOpacity>
+
+            {showLanguageDropdown && (
+              <View style={styles.dropdownList}>
+                <ScrollView showsVerticalScrollIndicator={false}>
+                  {SUPPORTED_LANGUAGES.map((lang) => (
+                    <TouchableOpacity
+                      key={lang.code}
+                      style={[
+                        styles.dropdownItem,
+                        settings.language === lang.code &&
+                          styles.dropdownItemActive,
+                      ]}
+                      onPress={() => {
+                        handleSettingChange("language", lang.code);
+                        setShowLanguageDropdown(false);
+                      }}
+                    >
+                      <Text
+                        style={[
+                          styles.dropdownItemText,
+                          settings.language === lang.code &&
+                            styles.dropdownItemTextActive,
+                        ]}
+                      >
+                        {lang.nativeName} ({lang.name})
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </ScrollView>
+              </View>
+            )}
+          </View>
+        )}
+
+        {renderSettingItem(
+          "Text Size",
+          "Adjust the size of text on buttons",
+          <View style={styles.buttonGroup}>
+            <TouchableOpacity
+              style={[
+                styles.sizeButton,
+                settings.textSize === "small" && styles.sizeButtonActive,
+              ]}
+              onPress={() => handleSettingChange("textSize", "small")}
+            >
+              <Text
+                style={[
+                  styles.sizeButtonText,
+                  settings.textSize === "small" && styles.sizeButtonTextActive,
+                ]}
+              >
+                Small
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.sizeButton,
+                settings.textSize === "medium" && styles.sizeButtonActive,
+              ]}
+              onPress={() => handleSettingChange("textSize", "medium")}
+            >
+              <Text
+                style={[
+                  styles.sizeButtonText,
+                  settings.textSize === "medium" && styles.sizeButtonTextActive,
+                ]}
+              >
+                Medium
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.sizeButton,
+                settings.textSize === "large" && styles.sizeButtonActive,
+              ]}
+              onPress={() => handleSettingChange("textSize", "large")}
+            >
+              <Text
+                style={[
+                  styles.sizeButtonText,
+                  settings.textSize === "large" && styles.sizeButtonTextActive,
+                ]}
+              >
+                Large
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {renderSettingItem(
+          "Child Mode Filter",
+          "Enable category filter in child mode",
+          <View style={styles.switchContainer}>
+            <Switch
+              value={settings.enableChildFilter}
+              onValueChange={(value) =>
+                handleSettingChange("enableChildFilter", value)
+              }
+              trackColor={{ false: COLORS.border, true: COLORS.primary }}
+              thumbColor={COLORS.surface}
+            />
+            <Text style={styles.switchLabel}>
+              {settings.enableChildFilter ? "Enabled" : "Disabled"}
+            </Text>
+          </View>
+        )}
+
+        {renderSettingItem(
           "App Lock",
           "Prevent child from editing boards",
           <View style={styles.switchContainer}>
@@ -616,6 +806,24 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
               {isLocked ? "Locked" : "Unlocked"}
             </Text>
           </View>
+        )}
+
+        {renderSettingItem(
+          "Category Management",
+          "Organize and hide categories to simplify vocabulary for your child",
+          <TouchableOpacity
+            style={styles.categoryManagementButton}
+            onPress={() => setShowCategorySelector(true)}
+          >
+            <Text style={styles.categoryManagementButtonText}>
+              Manage Categories
+            </Text>
+            <Text style={styles.categoryManagementButtonSubtext}>
+              {DEFAULT_CATEGORIES.length -
+                (settings.hiddenCategories?.length || 0)}{" "}
+              of {DEFAULT_CATEGORIES.length} categories visible
+            </Text>
+          </TouchableOpacity>
         )}
 
         <TouchableOpacity
@@ -639,11 +847,61 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           </Text>
         </TouchableOpacity>
 
+        <TouchableOpacity
+          style={[
+            styles.dangerButton,
+            { backgroundColor: COLORS.warning + "20" },
+          ]}
+          onPress={async () => {
+            Alert.alert(
+              "Reset Vocabulary to Default",
+              "This will reset all vocabulary buttons to the default set including the new family member buttons (Brother, Sister, Grandpa, Grandma, Uncle, Aunt). This action cannot be undone. Continue?",
+              [
+                { text: "Cancel", style: "cancel" },
+                {
+                  text: "Reset Vocabulary",
+                  style: "destructive",
+                  onPress: async () => {
+                    try {
+                      // Clear the saved vocabulary completely
+                      await AsyncStorage.removeItem("echo_kids_vocabulary");
+                      Alert.alert(
+                        "Vocabulary Reset Complete",
+                        "Vocabulary has been reset to default. The new family member buttons are now available!"
+                      );
+                    } catch (error) {
+                      Alert.alert(
+                        "Error",
+                        "Failed to reset vocabulary. Please try again."
+                      );
+                    }
+                  },
+                },
+              ]
+            );
+          }}
+        >
+          <Text style={{ fontSize: 20, color: COLORS.warning }}>🔄</Text>
+          <Text style={[styles.dangerButtonText, { color: COLORS.warning }]}>
+            Reset Vocabulary to Default
+          </Text>
+        </TouchableOpacity>
+
         <TouchableOpacity style={styles.dangerButton} onPress={handleResetData}>
           <Text style={{ fontSize: 20, color: COLORS.error }}>🗑️</Text>
           <Text style={styles.dangerButtonText}>Reset All Data</Text>
         </TouchableOpacity>
       </ScrollView>
+
+      <HierarchicalCategorySelector
+        visible={showCategorySelector}
+        onClose={() => setShowCategorySelector(false)}
+        selectedCategories={DEFAULT_CATEGORIES.filter(
+          (category) => !settings.hiddenCategories?.includes(category.id)
+        ).map((category) => category.id)}
+        onCategoryToggle={handleCategoryToggle}
+        onSubCategoryToggle={handleSubCategoryToggle}
+      />
 
       {renderVoiceModal()}
     </View>
@@ -708,7 +966,7 @@ const styles = StyleSheet.create({
   },
   modeButton: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
     padding: 16,
@@ -718,15 +976,20 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.border,
   },
+  modeButtonIcon: {
+    fontSize: 24,
+    marginBottom: 4,
+  },
   modeButtonActive: {
     backgroundColor: COLORS.primary,
     borderColor: COLORS.primary,
   },
   modeButtonText: {
-    marginLeft: 8,
+    marginTop: 8,
     fontSize: 14,
     fontWeight: "500",
     color: COLORS.text,
+    textAlign: "center",
   },
   modeButtonTextActive: {
     color: COLORS.surface,
@@ -910,6 +1173,34 @@ const styles = StyleSheet.create({
   categoryChipTextActive: {
     color: COLORS.surface,
   },
+  textSizeContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 8,
+  },
+  textSizeButton: {
+    flex: 1,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    backgroundColor: COLORS.background,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    alignItems: "center",
+  },
+  textSizeButtonActive: {
+    backgroundColor: COLORS.primary,
+    borderColor: COLORS.primary,
+  },
+  textSizeButtonText: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: COLORS.text,
+  },
+  textSizeButtonTextActive: {
+    color: COLORS.surface,
+    fontWeight: "600",
+  },
   voiceList: {
     padding: 20,
   },
@@ -964,5 +1255,163 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "600",
     color: COLORS.primary,
+  },
+  categoryManagementContainer: {
+    gap: 8,
+  },
+  categoryToggleButton: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 12,
+    borderRadius: 8,
+    backgroundColor: COLORS.background,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+  },
+  categoryToggleButtonHidden: {
+    backgroundColor: COLORS.border,
+    borderColor: COLORS.textSecondary,
+  },
+  categoryToggleContent: {
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 1,
+  },
+  categoryColorIndicator: {
+    width: 16,
+    height: 16,
+    borderRadius: 8,
+    marginRight: 12,
+  },
+  categoryToggleText: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: COLORS.text,
+  },
+  categoryToggleTextHidden: {
+    color: COLORS.textSecondary,
+  },
+  categoryToggleStatus: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  categoryToggleStatusText: {
+    fontSize: 14,
+    color: COLORS.success,
+    fontWeight: "500",
+  },
+  categoryToggleStatusTextHidden: {
+    color: COLORS.textSecondary,
+  },
+  categoryToggleIcon: {
+    fontSize: 16,
+  },
+  buttonGroup: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 8,
+  },
+  sizeButton: {
+    flex: 1,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    backgroundColor: COLORS.background,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    alignItems: "center",
+  },
+  sizeButtonActive: {
+    backgroundColor: COLORS.primary,
+    borderColor: COLORS.primary,
+  },
+  sizeButtonText: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: COLORS.text,
+  },
+  sizeButtonTextActive: {
+    color: COLORS.surface,
+    fontWeight: "600",
+  },
+  dropdownContainer: {
+    position: "relative",
+    zIndex: 1000,
+  },
+  dropdownButton: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    backgroundColor: COLORS.background,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+  },
+  dropdownButtonText: {
+    fontSize: 16,
+    color: COLORS.text,
+    fontWeight: "500",
+  },
+  dropdownArrow: {
+    fontSize: 12,
+    color: COLORS.textSecondary,
+  },
+  dropdownList: {
+    position: "absolute",
+    top: "100%",
+    left: 0,
+    right: 0,
+    backgroundColor: COLORS.surface,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    marginTop: 4,
+    maxHeight: 200,
+    zIndex: 1001,
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  dropdownItem: {
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+  },
+  dropdownItemActive: {
+    backgroundColor: COLORS.primary,
+  },
+  dropdownItemText: {
+    fontSize: 14,
+    color: COLORS.text,
+  },
+  dropdownItemTextActive: {
+    color: COLORS.surface,
+    fontWeight: "600",
+  },
+  categoryManagementButton: {
+    backgroundColor: COLORS.primary + "20",
+    padding: 16,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: COLORS.primary + "40",
+  },
+  categoryManagementButtonText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: COLORS.primary,
+    textAlign: "center",
+    marginBottom: 4,
+  },
+  categoryManagementButtonSubtext: {
+    fontSize: 14,
+    color: COLORS.textSecondary,
+    textAlign: "center",
   },
 });
