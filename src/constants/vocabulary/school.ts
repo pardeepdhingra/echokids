@@ -186,22 +186,22 @@ export const SCHOOL_VOCABULARY: ButtonTemplate[] = [
   },
   // Technology
   {
-    id: "phone",
+    id: "phone-school",
     text: "Phone",
     message: "I want the phone.",
     twoWord: "Want phone",
     category: "school",
     color: "#16A085",
-    translations: getTranslationsForWord("phone"),
+    translations: getTranslationsForWord("phone-school"),
   },
   {
-    id: "computer",
+    id: "computer-school",
     text: "Computer",
     message: "I want the computer.",
     twoWord: "Want computer",
     category: "school",
     color: "#16A085",
-    translations: getTranslationsForWord("computer"),
+    translations: getTranslationsForWord("computer-school"),
   },
   {
     id: "tablet-school",

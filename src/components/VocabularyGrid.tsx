@@ -171,6 +171,7 @@ const EMOJI_MAP: { [key: string]: string } = {
   windy: "💨",
 
   // Pronouns
+  I: "👤",
   i: "👤",
   me: "👤",
   you: "👤",
@@ -193,6 +194,7 @@ const EMOJI_MAP: { [key: string]: string } = {
   like: "👍",
   "dont-like": "👎",
   play: "🎮",
+  "play-activity": "🎮",
   come: "👉",
   give: "🤲",
   take: "✋",
@@ -223,7 +225,9 @@ const EMOJI_MAP: { [key: string]: string } = {
   big: "🐘",
   small: "🐭",
   hot: "🔥",
+  "hot-weather": "🔥",
   cold: "❄️",
+  "cold-weather": "❄️",
   fast: "🏃",
   slow: "🐌",
   good: "👍",
@@ -233,6 +237,7 @@ const EMOJI_MAP: { [key: string]: string } = {
   all: "📦",
   some: "📄",
   same: "🔄",
+
   different: "🔄",
   first: "1️⃣",
   last: "🔚",
@@ -248,6 +253,10 @@ const EMOJI_MAP: { [key: string]: string } = {
   okay: "👌",
   wow: "😲",
   cool: "😎",
+  hi: "👋",
+  "thank-you": "❤️",
+  "happy-birthday": "🎂",
+  "i-love-you": "💕",
 
   // Questions
   what: "❓",
@@ -261,7 +270,6 @@ const EMOJI_MAP: { [key: string]: string } = {
   house: "🏠",
   bed: "🛏️",
   chair: "🪑",
-  table: "🪑",
   phone: "📱",
   computer: "💻",
   light: "💡",
@@ -271,13 +279,21 @@ const EMOJI_MAP: { [key: string]: string } = {
   // Kitchen
   plate: "🍽️",
   cup: "☕",
+  spoon: "🥄",
+  fork: "🍴",
+  knife: "🔪",
   bowl: "🥣",
   bottle: "🍼",
 
   // Bathroom
   toilet: "🚽",
   sink: "🚰",
-  toothpaste: "🪥",
+  shower: "🚿",
+  bath: "🛁",
+  soap: "🧼",
+  towel: "🛀",
+  toothbrush: "🪥",
+  toothpaste: "🧴",
 
   // Clothing
   shirt: "👕",
@@ -297,16 +313,21 @@ const EMOJI_MAP: { [key: string]: string } = {
   soup: "🍲",
 
   // Food - Proteins
-  chicken: "🍗",
-  fish: "🐟",
+  "chicken-food": "🍗",
+  "fish-food": "🐟",
   egg: "🥚",
   meat: "🥩",
   beans: "🫘",
   cheese: "🧀",
 
   // Food - Fruits
+  apple: "🍎",
+  banana: "🍌",
+  "orange-fruit": "🍊",
   grape: "🍇",
   mango: "🥭",
+  strawberry: "🍓",
+  watermelon: "🍉",
 
   // Food - Vegetables
   carrot: "🥕",
@@ -321,9 +342,14 @@ const EMOJI_MAP: { [key: string]: string } = {
   cookie: "🍪",
   candy: "🍬",
   cake: "🎂",
+  chips: "🍟",
+  "ice-cream": "🍦",
   popcorn: "🍿",
 
   // Food - Drinks
+  water: "💧",
+  milk: "🥛",
+  juice: "🧃",
   tea: "🍵",
   coffee: "☕",
   soda: "🥤",
@@ -356,6 +382,7 @@ const EMOJI_MAP: { [key: string]: string } = {
   swing: "🔄",
   slide: "🛝",
   "tv-play": "📺",
+  tv: "📺",
   "tablet-play": "📱",
   puzzle: "🧩",
   ride: "🚴",
@@ -443,6 +470,7 @@ const EMOJI_MAP: { [key: string]: string } = {
   // School & Technology
   student: "👨‍🎓",
   "book-school": "📚",
+  book: "📚",
   pen: "🖊️",
   eraser: "🧽",
   bag: "🎒",
@@ -463,6 +491,44 @@ const EMOJI_MAP: { [key: string]: string } = {
   internet: "🌐",
   video: "🎥",
   "game-school": "🎮",
+
+  // Missing emotion mappings
+  calm: "😌",
+  worried: "😟",
+  sick: "🤒",
+  lonely: "😔",
+  bored: "😴",
+  silly: "🤪",
+  happy: "😊",
+  excited: "🤩",
+  proud: "😌",
+  sad: "😢",
+  angry: "😠",
+  scared: "😨",
+  tired: "😴",
+  surprised: "😲",
+
+  // Missing animal mappings
+
+  // Missing color mappings
+
+  // Missing food mappings
+
+  // Missing weather mappings
+
+  // Missing place mappings
+  mcdonalds: "🍔",
+
+  // Missing activity mappings
+
+  // Auto-added missing mappings
+
+  // Context-specific mappings
+  "computer-home": "💻",
+  "computer-school": "💻",
+  "phone-home": "📱",
+  "phone-school": "📱",
+  table: "🪑",
 };
 
 const getIconForText = (text: string): string => {
@@ -470,9 +536,8 @@ const getIconForText = (text: string): string => {
   return ICON_MAP[lowerText] || "chatbubble";
 };
 
-const getEmojiForText = (text: string): string => {
-  const lowerText = text.toLowerCase();
-  return EMOJI_MAP[lowerText] || "💬";
+const getEmojiForText = (id: string): string => {
+  return EMOJI_MAP[id] || "💬";
 };
 
 export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
@@ -665,7 +730,7 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
           textShadowRadius: 2,
         }}
       >
-        {getEmojiForText(item.text)}
+        {getEmojiForText(item.id)}
       </Text>
     );
   };

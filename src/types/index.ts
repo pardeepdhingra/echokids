@@ -43,6 +43,17 @@ export interface Category {
   icon?: string;
 }
 
+export interface SubCategory {
+  id: string;
+  name: string;
+  description?: string;
+}
+
+export interface CategoryWithSubs extends Category {
+  subCategories?: SubCategory[];
+  parentCategory?: string;
+}
+
 export interface AppState {
   vocabulary: VocabularyItem[];
   favorites: VocabularyItem[];

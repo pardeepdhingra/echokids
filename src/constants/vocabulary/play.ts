@@ -4,13 +4,13 @@ import { getTranslationsForWord } from "../translations";
 export const PLAY_VOCABULARY: ButtonTemplate[] = [
   // Basic Play
   {
-    id: "play",
+    id: "play-activity",
     text: "Play",
     message: "I want to play.",
     twoWord: "Want play",
     category: "play",
     color: "#2ECC71",
-    translations: getTranslationsForWord("play"),
+    translations: getTranslationsForWord("play-activity"),
   },
   {
     id: "toy",

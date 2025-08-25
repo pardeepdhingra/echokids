@@ -175,7 +175,7 @@ export const AddEditItemModal: React.FC<AddEditItemModalProps> = ({
                     >
                       <View style={styles.templateIcon}>
                         <Text style={{ fontSize: 32, color: COLORS.primary }}>
-                          {getEmojiForText(template.text)}
+                          {getEmojiForText(template.id)}
                         </Text>
                       </View>
                       <Text style={styles.templateText}>{template.text}</Text>
@@ -521,7 +521,7 @@ export const AddEditItemModal: React.FC<AddEditItemModalProps> = ({
   );
 };
 
-const getEmojiForText = (text: string): string => {
+const getEmojiForText = (id: string): string => {
   const EMOJI_MAP: { [key: string]: string } = {
     // Greetings
     hello: "👋",
@@ -558,6 +558,7 @@ const getEmojiForText = (text: string): string => {
     windy: "💨",
 
     // Pronouns
+    I: "👤",
     i: "👤",
     me: "👤",
     you: "👤",
@@ -580,6 +581,7 @@ const getEmojiForText = (text: string): string => {
     like: "👍",
     "dont-like": "👎",
     play: "🎮",
+    "play-activity": "🎮",
     come: "👉",
     give: "🤲",
     take: "✋",
@@ -610,7 +612,9 @@ const getEmojiForText = (text: string): string => {
     big: "🐘",
     small: "🐭",
     hot: "🔥",
+    "hot-weather": "🔥",
     cold: "❄️",
+    "cold-weather": "❄️",
     fast: "🏃",
     slow: "🐌",
     good: "👍",
@@ -635,6 +639,8 @@ const getEmojiForText = (text: string): string => {
     okay: "👌",
     wow: "😲",
     cool: "😎",
+    "happy-birthday": "🎂",
+    "i-love-you": "💕",
 
     // Questions
     what: "❓",
@@ -658,13 +664,16 @@ const getEmojiForText = (text: string): string => {
     // Kitchen
     plate: "🍽️",
     cup: "☕",
+    spoon: "🥄",
+    fork: "🍴",
+    knife: "🔪",
     bowl: "🥣",
     bottle: "🍼",
 
     // Bathroom
     toilet: "🚽",
     sink: "🚰",
-    toothpaste: "🪥",
+    toothpaste: "🧴",
 
     // Clothing
     shirt: "👕",
@@ -684,16 +693,21 @@ const getEmojiForText = (text: string): string => {
     soup: "🍲",
 
     // Food - Proteins
-    chicken: "🍗",
-    fish: "🐟",
+    "chicken-food": "🍗",
+    "fish-food": "🐟",
     egg: "🥚",
     meat: "🥩",
     beans: "🫘",
     cheese: "🧀",
 
     // Food - Fruits
+    apple: "🍎",
+    banana: "🍌",
+    "orange-fruit": "🍊",
     grape: "🍇",
     mango: "🥭",
+    strawberry: "🍓",
+    watermelon: "🍉",
 
     // Food - Vegetables
     carrot: "🥕",
@@ -708,9 +722,14 @@ const getEmojiForText = (text: string): string => {
     cookie: "🍪",
     candy: "🍬",
     cake: "🎂",
+    chips: "🍟",
+    "ice-cream": "🍦",
     popcorn: "🍿",
 
     // Food - Drinks
+    water: "💧",
+    milk: "🥛",
+    juice: "🧃",
     tea: "🍵",
     coffee: "☕",
     soda: "🥤",
@@ -850,10 +869,27 @@ const getEmojiForText = (text: string): string => {
     internet: "🌐",
     video: "🎥",
     "game-school": "🎮",
+  
+
+    // Auto-added missing mappings
+    "mcdonalds": "🍔",
+    "thank-you": "❤️",
+    happy: "😊",
+    excited: "🤩",
+    proud: "😌",
+    sad: "😢",
+    angry: "😠",
+    scared: "😨",
+    tired: "😴",
+    surprised: "😲",
+    book: "📚",
+    tv: "📺",
+  
+
+    // Auto-added missing mappings
   };
 
-  const lowerText = text.toLowerCase();
-  return EMOJI_MAP[lowerText] || "📝";
+  return EMOJI_MAP[id] || "📝";
 };
 
 const getImageForText = (text: string): string => {

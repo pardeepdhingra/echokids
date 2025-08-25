@@ -26,6 +26,7 @@ import {
 } from "../constants";
 import { saveSettings, loadSettings } from "../utils/storage";
 import { speak, getAvailableVoices } from "../utils/tts";
+import { HierarchicalCategorySelector } from "../components/HierarchicalCategorySelector";
 
 interface SettingsScreenProps {
   navigation: any;
@@ -53,6 +54,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
   const [selectedVoiceCategory, setSelectedVoiceCategory] = useState("all");
   const [selectedLanguage, setSelectedLanguage] = useState("all");
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
+  const [showCategorySelector, setShowCategorySelector] = useState(false);
   const [availableVoices, setAvailableVoices] = useState<
     Array<{ identifier: string; name: string }>
   >([]);
@@ -121,6 +123,33 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
     console.log("🔧 Setting Changed:", { key, value, newSettings });
     setSettings(newSettings);
     await saveSettings(newSettings);
+  };
+
+  const handleCategoryToggle = (categoryId: string) => {
+    const currentHiddenCategories = settings.hiddenCategories || [];
+    const isHidden = currentHiddenCategories.includes(categoryId);
+
+    const newHiddenCategories = isHidden
+      ? currentHiddenCategories.filter((id) => id !== categoryId)
+      : [...currentHiddenCategories, categoryId];
+
+    console.log("🔧 Settings: Toggling category", {
+      category: categoryId,
+      isHidden,
+      currentHiddenCategories,
+      newHiddenCategories,
+    });
+
+    handleSettingChange("hiddenCategories", newHiddenCategories);
+  };
+
+  const handleSubCategoryToggle = (
+    categoryId: string,
+    subCategoryId: string
+  ) => {
+    // For now, we'll just toggle the main category
+    // In the future, we could implement subcategory-specific hiding
+    handleCategoryToggle(categoryId);
   };
 
   const handleLockToggle = () => {
@@ -820,72 +849,20 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
 
         {renderSettingItem(
           "Category Management",
-          "Hide categories to simplify vocabulary for your child",
-          <View style={styles.categoryManagementContainer}>
-            {DEFAULT_CATEGORIES.map((category) => {
-              const isHidden = (settings.hiddenCategories || []).includes(
-                category.id
-              );
-              return (
-                <TouchableOpacity
-                  key={category.id}
-                  style={[
-                    styles.categoryToggleButton,
-                    isHidden && styles.categoryToggleButtonHidden,
-                  ]}
-                  onPress={() => {
-                    const currentHiddenCategories =
-                      settings.hiddenCategories || [];
-                    const newHiddenCategories = isHidden
-                      ? currentHiddenCategories.filter(
-                          (id) => id !== category.id
-                        )
-                      : [...currentHiddenCategories, category.id];
-                    console.log("🔧 Settings: Toggling category", {
-                      category: category.name,
-                      isHidden,
-                      currentHiddenCategories,
-                      newHiddenCategories,
-                    });
-                    handleSettingChange(
-                      "hiddenCategories",
-                      newHiddenCategories
-                    );
-                  }}
-                >
-                  <View style={styles.categoryToggleContent}>
-                    <View
-                      style={[
-                        styles.categoryColorIndicator,
-                        { backgroundColor: category.color },
-                      ]}
-                    />
-                    <Text
-                      style={[
-                        styles.categoryToggleText,
-                        isHidden && styles.categoryToggleTextHidden,
-                      ]}
-                    >
-                      {category.name}
-                    </Text>
-                  </View>
-                  <View style={styles.categoryToggleStatus}>
-                    <Text
-                      style={[
-                        styles.categoryToggleStatusText,
-                        isHidden && styles.categoryToggleStatusTextHidden,
-                      ]}
-                    >
-                      {isHidden ? "Hidden" : "Visible"}
-                    </Text>
-                    <Text style={styles.categoryToggleIcon}>
-                      {isHidden ? "👁️‍🗨️" : "👁️"}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
+          "Organize and hide categories to simplify vocabulary for your child",
+          <TouchableOpacity
+            style={styles.categoryManagementButton}
+            onPress={() => setShowCategorySelector(true)}
+          >
+            <Text style={styles.categoryManagementButtonText}>
+              Manage Categories
+            </Text>
+            <Text style={styles.categoryManagementButtonSubtext}>
+              {DEFAULT_CATEGORIES.length -
+                (settings.hiddenCategories?.length || 0)}{" "}
+              of {DEFAULT_CATEGORIES.length} categories visible
+            </Text>
+          </TouchableOpacity>
         )}
 
         <TouchableOpacity
@@ -954,6 +931,16 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           <Text style={styles.dangerButtonText}>Reset All Data</Text>
         </TouchableOpacity>
       </ScrollView>
+
+      <HierarchicalCategorySelector
+        visible={showCategorySelector}
+        onClose={() => setShowCategorySelector(false)}
+        selectedCategories={DEFAULT_CATEGORIES.filter(
+          (category) => !settings.hiddenCategories?.includes(category.id)
+        ).map((category) => category.id)}
+        onCategoryToggle={handleCategoryToggle}
+        onSubCategoryToggle={handleSubCategoryToggle}
+      />
 
       {renderVoiceModal()}
     </View>
@@ -1446,5 +1433,24 @@ const styles = StyleSheet.create({
   dropdownItemTextActive: {
     color: COLORS.surface,
     fontWeight: "600",
+  },
+  categoryManagementButton: {
+    backgroundColor: COLORS.primary + "20",
+    padding: 16,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: COLORS.primary + "40",
+  },
+  categoryManagementButtonText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: COLORS.primary,
+    textAlign: "center",
+    marginBottom: 4,
+  },
+  categoryManagementButtonSubtext: {
+    fontSize: 14,
+    color: COLORS.textSecondary,
+    textAlign: "center",
   },
 });

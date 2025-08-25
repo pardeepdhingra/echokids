@@ -56,24 +56,24 @@ export const HOME_VOCABULARY: ButtonTemplate[] = [
     translations: getTranslationsForWord("tv"),
   },
   {
-    id: "phone",
+    id: "phone-home",
     text: "Phone",
     message: "I want to use the phone.",
     twoWord: "Want phone",
     category: "home",
     subCategory: "electronics",
     color: "#4ECDC4",
-    translations: getTranslationsForWord("phone"),
+    translations: getTranslationsForWord("phone-home"),
   },
   {
-    id: "computer",
+    id: "computer-home",
     text: "Computer",
     message: "I want to use the computer.",
     twoWord: "Want computer",
     category: "home",
     subCategory: "electronics",
     color: "#4ECDC4",
-    translations: getTranslationsForWord("computer"),
+    translations: getTranslationsForWord("computer-home"),
   },
 
   // Rooms

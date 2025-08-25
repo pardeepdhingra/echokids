@@ -110,12 +110,6 @@ export const CATEGORIES: CategoryWithSubs[] = [
     icon: "help-circle",
   },
   {
-    id: "greetings",
-    name: "Greetings",
-    color: "#FF6B9D",
-    icon: "hand-left",
-  },
-  {
     id: "needs",
     name: "Basic Needs",
     color: "#E74C3C",
@@ -126,18 +120,6 @@ export const CATEGORIES: CategoryWithSubs[] = [
     name: "Activities",
     color: "#2ECC71",
     icon: "play",
-  },
-  {
-    id: "people",
-    name: "People",
-    color: "#4ECDC4",
-    icon: "people",
-  },
-  {
-    id: "places",
-    name: "Places",
-    color: "#3498DB",
-    icon: "location",
   },
   {
     id: "weather",
@@ -171,7 +153,7 @@ export const CATEGORIES: CategoryWithSubs[] = [
   },
   {
     id: "numbers-time",
-    name: "Numbers, Time, Weather",
+    name: "Numbers & Time",
     color: "#2980B9",
     icon: "time",
   },

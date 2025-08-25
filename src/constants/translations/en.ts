@@ -22,6 +22,7 @@ export const EN_TRANSLATIONS = {
   like: "Like",
   "dont-like": "Don't like",
   play: "Play",
+  "play-activity": "Play",
   come: "Come",
   give: "Give",
   take: "Take",
@@ -53,7 +54,9 @@ export const EN_TRANSLATIONS = {
   big: "Big",
   small: "Small",
   hot: "Hot",
+  "hot-weather": "Hot",
   cold: "Cold",
+  "cold-weather": "Cold",
   fast: "Fast",
   slow: "Slow",
   good: "Good",
@@ -368,4 +371,12 @@ export const EN_TRANSLATIONS = {
 
   // Activities
   "all-done": "All Done",
+
+  // Context-specific translations
+  "computer-home": "Computer",
+  "computer-school": "Computer",
+  "phone-home": "Phone",
+  "phone-school": "Phone",
+
+
 };

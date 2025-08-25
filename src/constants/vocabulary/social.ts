@@ -101,4 +101,22 @@ export const SOCIAL_VOCABULARY: ButtonTemplate[] = [
     color: "#E67E22",
     translations: getTranslationsForWord("cool"),
   },
+  {
+    id: "happy-birthday",
+    text: "Happy Birthday",
+    message: "Happy Birthday!",
+    twoWord: "Happy Birthday",
+    category: "social",
+    color: "#E67E22",
+    translations: getTranslationsForWord("happy-birthday"),
+  },
+  {
+    id: "i-love-you",
+    text: "I love you",
+    message: "I love you!",
+    twoWord: "I love you",
+    category: "social",
+    color: "#E67E22",
+    translations: getTranslationsForWord("i-love-you"),
+  },
 ];
