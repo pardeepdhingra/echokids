@@ -145,6 +145,42 @@ export const CATEGORIES: CategoryWithSubs[] = [
     color: "#45B7D1",
     icon: "partly-sunny",
   },
+  {
+    id: "routines",
+    name: "Needs & Routines",
+    color: "#E67E22",
+    icon: "medical",
+  },
+  {
+    id: "play",
+    name: "Play & Activities",
+    color: "#2ECC71",
+    icon: "game-controller",
+  },
+  {
+    id: "animals",
+    name: "Animals",
+    color: "#8E44AD",
+    icon: "paw",
+  },
+  {
+    id: "colors-shapes",
+    name: "Colors & Shapes",
+    color: "#F39C12",
+    icon: "color-palette",
+  },
+  {
+    id: "numbers-time",
+    name: "Numbers, Time, Weather",
+    color: "#2980B9",
+    icon: "time",
+  },
+  {
+    id: "school",
+    name: "School & Technology",
+    color: "#16A085",
+    icon: "school",
+  },
 ];
 
 export const getCategoryById = (id: string): CategoryWithSubs | undefined => {

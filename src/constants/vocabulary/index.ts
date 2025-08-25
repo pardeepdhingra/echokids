@@ -5,6 +5,12 @@ import { BATHROOM_VOCABULARY } from "./bathroom";
 import { CLOTHING_VOCABULARY } from "./clothing";
 import { FOOD_VOCABULARY } from "./food";
 import { EMOTIONS_VOCABULARY } from "./emotions";
+import { ROUTINES_VOCABULARY } from "./routines";
+import { PLAY_VOCABULARY } from "./play";
+import { ANIMALS_VOCABULARY } from "./animals";
+import { COLORS_SHAPES_VOCABULARY } from "./colors-shapes";
+import { NUMBERS_TIME_VOCABULARY } from "./numbers-time";
+import { SCHOOL_VOCABULARY } from "./school";
 
 // Import existing vocabulary from the old system (legacy templates)
 import { BUTTON_TEMPLATES } from "../legacy-templates";
@@ -17,14 +23,31 @@ const CATEGORY_VOCABULARY: { [key: string]: ButtonTemplate[] } = {
   clothing: CLOTHING_VOCABULARY,
   food: FOOD_VOCABULARY,
   emotions: EMOTIONS_VOCABULARY,
+  routines: ROUTINES_VOCABULARY,
+  play: PLAY_VOCABULARY,
+  animals: ANIMALS_VOCABULARY,
+  "colors-shapes": COLORS_SHAPES_VOCABULARY,
+  "numbers-time": NUMBERS_TIME_VOCABULARY,
+  school: SCHOOL_VOCABULARY,
 };
 
 // Legacy vocabulary (from old system)
 const LEGACY_VOCABULARY = BUTTON_TEMPLATES.filter(
   (template) =>
-    !["home", "kitchen", "bathroom", "clothing", "food", "emotions"].includes(
-      template.category
-    )
+    ![
+      "home",
+      "kitchen",
+      "bathroom",
+      "clothing",
+      "food",
+      "emotions",
+      "routines",
+      "play",
+      "animals",
+      "colors-shapes",
+      "numbers-time",
+      "school",
+    ].includes(template.category)
 );
 
 // Get vocabulary for a specific category
