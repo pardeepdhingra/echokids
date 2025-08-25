@@ -6,6 +6,7 @@ export interface VocabularyItem {
   image?: string;
   isFavorite: boolean;
   category?: string;
+  subCategory?: string;
   color?: string;
   size?: "small" | "medium" | "large";
   position?: { x: number; y: number };
@@ -54,6 +55,7 @@ export interface ButtonTemplate {
   text: string;
   message: string;
   category: string;
+  subCategory?: string;
   color: string;
   image?: string;
   twoWord?: string;

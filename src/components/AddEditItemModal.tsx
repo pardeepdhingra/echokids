@@ -153,7 +153,9 @@ export const AddEditItemModal: React.FC<AddEditItemModalProps> = ({
     if (!showTemplateModal) return null;
     return (
       <Modal visible={showTemplateModal} animationType="slide" transparent>
-        <View style={[styles.overlay, { backgroundColor: "rgba(255, 0, 0, 0.8)" }]}>
+        <View
+          style={[styles.overlay, { backgroundColor: "rgba(255, 0, 0, 0.8)" }]}
+        >
           <View style={[styles.modal, { backgroundColor: "#FFFFFF" }]}>
             <View style={styles.modalHeader}>
               <Text style={styles.modalTitle}>Choose Template</Text>
@@ -196,7 +198,9 @@ export const AddEditItemModal: React.FC<AddEditItemModalProps> = ({
     if (!showImageModal) return null;
     return (
       <Modal visible={showImageModal} animationType="slide" transparent>
-        <View style={[styles.overlay, { backgroundColor: "rgba(0, 255, 0, 0.8)" }]}>
+        <View
+          style={[styles.overlay, { backgroundColor: "rgba(0, 255, 0, 0.8)" }]}
+        >
           <View style={[styles.modal, { backgroundColor: "#FFFFFF" }]}>
             <View style={styles.modalHeader}>
               <Text style={styles.modalTitle}>Select Image</Text>
@@ -480,31 +484,37 @@ export const AddEditItemModal: React.FC<AddEditItemModalProps> = ({
 
       {renderImageModal()}
       {renderTemplateModal()}
-      
+
       {/* Debug indicator for modal visibility */}
       {showTemplateModal && (
-        <View style={{
-          position: 'absolute',
-          top: 50,
-          left: 50,
-          backgroundColor: 'red',
-          padding: 10,
-          zIndex: 9999,
-        }}>
-          <Text style={{ color: 'white' }}>Template Modal Should Be Visible</Text>
+        <View
+          style={{
+            position: "absolute",
+            top: 50,
+            left: 50,
+            backgroundColor: "red",
+            padding: 10,
+            zIndex: 9999,
+          }}
+        >
+          <Text style={{ color: "white" }}>
+            Template Modal Should Be Visible
+          </Text>
         </View>
       )}
-      
+
       {showImageModal && (
-        <View style={{
-          position: 'absolute',
-          top: 100,
-          left: 50,
-          backgroundColor: 'green',
-          padding: 10,
-          zIndex: 9999,
-        }}>
-          <Text style={{ color: 'white' }}>Image Modal Should Be Visible</Text>
+        <View
+          style={{
+            position: "absolute",
+            top: 100,
+            left: 50,
+            backgroundColor: "green",
+            padding: 10,
+            zIndex: 9999,
+          }}
+        >
+          <Text style={{ color: "white" }}>Image Modal Should Be Visible</Text>
         </View>
       )}
     </>
@@ -620,6 +630,156 @@ const getEmojiForText = (text: string): string => {
     snowy: "❄️",
     cloudy: "☁️",
     windy: "💨",
+
+    // Pronouns
+    i: "👤",
+    me: "👤",
+    you: "👤",
+    he: "👨",
+    she: "👩",
+    it: "🔵",
+    we: "👥",
+    they: "👥",
+    my: "👤",
+    mine: "👤",
+    your: "👤",
+    our: "👥",
+    their: "👥",
+
+    // Verbs
+    go: "🚶",
+    want: "💭",
+    like: "👍",
+    "don't like": "👎",
+    come: "👉",
+    give: "🤲",
+    take: "✋",
+    do: "⚡",
+    make: "🔨",
+    eat: "🍽️",
+    drink: "🥤",
+    look: "👀",
+    see: "👁️",
+    hear: "👂",
+    know: "🧠",
+    think: "🤔",
+    say: "💬",
+    tell: "📢",
+    feel: "💝",
+    use: "🔧",
+    put: "📦",
+    open: "🔓",
+    close: "🔒",
+    find: "🔍",
+    show: "👆",
+    work: "💼",
+    wait: "⏳",
+    start: "▶️",
+    finish: "🏁",
+
+    // Descriptors
+    big: "🐘",
+    small: "🐭",
+    fast: "🏃",
+    slow: "🐌",
+    good: "👍",
+    bad: "👎",
+    less: "➖",
+    all: "📦",
+    some: "📄",
+    same: "🔄",
+    different: "🔄",
+    first: "1️⃣",
+    last: "🔚",
+    next: "⏭️",
+    again: "🔄",
+
+    // Social
+    yes: "✅",
+    no: "❌",
+    sorry: "😔",
+    okay: "👌",
+    wow: "😲",
+    cool: "😎",
+
+    // Questions
+    what: "❓",
+    where: "📍",
+    who: "👤",
+    when: "⏰",
+    why: "🤔",
+    how: "❓",
+
+    // Home
+    house: "🏠",
+    bed: "🛏️",
+    chair: "🪑",
+    table: "🪑",
+    phone: "📱",
+    computer: "💻",
+    light: "💡",
+    door: "🚪",
+    window: "🪟",
+
+    // Kitchen
+    plate: "🍽️",
+    cup: "☕",
+    bowl: "🥣",
+    bottle: "🍼",
+
+    // Bathroom
+    toilet: "🚽",
+    sink: "🚰",
+    toothpaste: "🪥",
+
+    // Clothing
+    shirt: "👕",
+    pants: "👖",
+    shoes: "👟",
+    socks: "🧦",
+    jacket: "🧥",
+    hat: "🎩",
+    dress: "👗",
+    coat: "🧥",
+
+    // Food - Staples
+    rice: "🍚",
+    bread: "🍞",
+    pasta: "🍝",
+    cereal: "🥣",
+    soup: "🍲",
+
+    // Food - Proteins
+    chicken: "🍗",
+    fish: "🐟",
+    egg: "🥚",
+    meat: "🥩",
+    beans: "🫘",
+    cheese: "🧀",
+
+    // Food - Fruits
+    grape: "🍇",
+    mango: "🥭",
+
+    // Food - Vegetables
+    carrot: "🥕",
+    potato: "🥔",
+    tomato: "🍅",
+    cucumber: "🥒",
+    corn: "🌽",
+    peas: "🫛",
+    broccoli: "🥦",
+
+    // Food - Snacks
+    cookie: "🍪",
+    candy: "🍬",
+    cake: "🎂",
+    popcorn: "🍿",
+
+    // Food - Drinks
+    tea: "🍵",
+    coffee: "☕",
+    soda: "🥤",
   };
 
   const lowerText = text.toLowerCase();

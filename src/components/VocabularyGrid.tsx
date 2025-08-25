@@ -12,7 +12,6 @@ import { VocabularyItem, AppSettings } from "../types";
 import { COLORS } from "../constants";
 import { getTranslatedText } from "../utils/translations";
 import { speak, playBeep } from "../utils/tts";
-import { getSymbolPath } from "../utils/symbolMapping";
 
 interface VocabularyGridProps {
   vocabulary: VocabularyItem[];
@@ -240,6 +239,156 @@ const EMOJI_MAP: { [key: string]: string } = {
   snowy: "❄️",
   cloudy: "☁️",
   windy: "💨",
+
+  // Pronouns
+  i: "👤",
+  me: "👤",
+  you: "👤",
+  he: "👨",
+  she: "👩",
+  it: "🔵",
+  we: "👥",
+  they: "👥",
+  my: "👤",
+  mine: "👤",
+  your: "👤",
+  our: "👥",
+  their: "👥",
+
+  // Verbs
+  go: "🚶",
+  want: "💭",
+  like: "👍",
+  "don't like": "👎",
+  come: "👉",
+  give: "🤲",
+  take: "✋",
+  do: "⚡",
+  make: "🔨",
+  eat: "🍽️",
+  drink: "🥤",
+  look: "👀",
+  see: "👁️",
+  hear: "👂",
+  know: "🧠",
+  think: "🤔",
+  say: "💬",
+  tell: "📢",
+  feel: "💝",
+  use: "🔧",
+  put: "📦",
+  open: "🔓",
+  close: "🔒",
+  find: "🔍",
+  show: "👆",
+  work: "💼",
+  wait: "⏳",
+  start: "▶️",
+  finish: "🏁",
+
+  // Descriptors
+  big: "🐘",
+  small: "🐭",
+  fast: "🏃",
+  slow: "🐌",
+  good: "👍",
+  bad: "👎",
+  less: "➖",
+  all: "📦",
+  some: "📄",
+  same: "🔄",
+  different: "🔄",
+  first: "1️⃣",
+  last: "🔚",
+  next: "⏭️",
+  again: "🔄",
+
+  // Social
+  yes: "✅",
+  no: "❌",
+  sorry: "😔",
+  okay: "👌",
+  wow: "😲",
+  cool: "😎",
+
+  // Questions
+  what: "❓",
+  where: "📍",
+  who: "👤",
+  when: "⏰",
+  why: "🤔",
+  how: "❓",
+
+  // Home
+  house: "🏠",
+  bed: "🛏️",
+  chair: "🪑",
+  table: "🪑",
+  phone: "📱",
+  computer: "💻",
+  light: "💡",
+  door: "🚪",
+  window: "🪟",
+
+  // Kitchen
+  plate: "🍽️",
+  cup: "☕",
+  bowl: "🥣",
+  bottle: "🍼",
+
+  // Bathroom
+  toilet: "🚽",
+  sink: "🚰",
+  toothpaste: "🪥",
+
+  // Clothing
+  shirt: "👕",
+  pants: "👖",
+  shoes: "👟",
+  socks: "🧦",
+  jacket: "🧥",
+  hat: "🎩",
+  dress: "👗",
+  coat: "🧥",
+
+  // Food - Staples
+  rice: "🍚",
+  bread: "🍞",
+  pasta: "🍝",
+  cereal: "🥣",
+  soup: "🍲",
+
+  // Food - Proteins
+  chicken: "🍗",
+  fish: "🐟",
+  egg: "🥚",
+  meat: "🥩",
+  beans: "🫘",
+  cheese: "🧀",
+
+  // Food - Fruits
+  grape: "🍇",
+  mango: "🥭",
+
+  // Food - Vegetables
+  carrot: "🥕",
+  potato: "🥔",
+  tomato: "🍅",
+  cucumber: "🥒",
+  corn: "🌽",
+  peas: "🫛",
+  broccoli: "🥦",
+
+  // Food - Snacks
+  cookie: "🍪",
+  candy: "🍬",
+  cake: "🎂",
+  popcorn: "🍿",
+
+  // Food - Drinks
+  tea: "🍵",
+  coffee: "☕",
+  soda: "🥤",
 };
 
 const getIconForText = (text: string): string => {
