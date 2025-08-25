@@ -12,6 +12,7 @@ import { VocabularyItem, AppSettings } from "../types";
 import { COLORS } from "../constants";
 import { getTranslatedText } from "../utils/translations";
 import { speak, playBeep } from "../utils/tts";
+import { getSymbolPath } from "../utils/symbolMapping";
 
 interface VocabularyGridProps {
   vocabulary: VocabularyItem[];
@@ -94,17 +95,17 @@ const ICON_MAP: { [key: string]: string } = {
   scooter: "bicycle",
   tv: "tv",
 
-      // People
-    mom: "person",
-    dad: "person",
-    friend: "people",
-    teacher: "school",
-    brother: "person",
-    sister: "person",
-    grandpa: "person",
-    grandma: "person",
-    uncle: "person",
-    aunt: "person",
+  // People
+  mom: "person",
+  dad: "person",
+  friend: "people",
+  teacher: "school",
+  brother: "person",
+  sister: "person",
+  grandpa: "person",
+  grandma: "person",
+  uncle: "person",
+  aunt: "person",
 
   // Places
   home: "home",
@@ -259,6 +260,12 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
   onToggleFavorite,
   isChildMode = false,
 }) => {
+  // Debug logging for settings
+  console.log("🎨 VocabularyGrid Settings:", {
+    showText: settings.showText,
+    gridSize: settings.gridSize,
+  });
+
   const [pressedItemId, setPressedItemId] = useState<string | null>(null);
   const gridSize = settings.gridSize;
   // Calculate item size based on screen width, accounting for margins and gaps
@@ -417,12 +424,33 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
     }
   };
 
+  const renderSymbol = (
+    item: VocabularyItem,
+    buttonSize: number,
+    gridSize: number
+  ) => {
+    return (
+      <Text
+        style={{
+          fontSize: Math.min(
+            buttonSize * (gridSize <= 3 ? 0.5 : 0.4),
+            gridSize <= 3 ? 70 : 50
+          ),
+          textAlign: "center",
+          textShadowColor: "rgba(0,0,0,0.3)",
+          textShadowOffset: { width: 1, height: 1 },
+          textShadowRadius: 2,
+        }}
+      >
+        {getEmojiForText(item.text)}
+      </Text>
+    );
+  };
+
   const renderGridItem = (item: VocabularyItem, index: number) => {
     const buttonSize = getButtonSize(item);
     const buttonColor = getButtonColor(item);
     const iconName = getIconForText(item.text);
-
-
 
     const isPressed = pressedItemId === item.id;
 
@@ -448,14 +476,14 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
         activeOpacity={0.8}
       >
         <View
-                      style={[
-              styles.itemContent,
-              {
-                padding: settings.showText ? (isChildMode ? 12 : 15) : 0, // Much more padding for better spacing
-                justifyContent: settings.showText ? "space-between" : "center",
-                alignItems: "center",
-              },
-            ]}
+          style={[
+            styles.itemContent,
+            {
+              padding: settings.showText ? (isChildMode ? 12 : 15) : 0, // Much more padding for better spacing
+              justifyContent: settings.showText ? "space-between" : "center",
+              alignItems: "center",
+            },
+          ]}
         >
           {settings.showText ? (
             // Text mode - icon with text below
@@ -481,17 +509,7 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
                   },
                 ]}
               >
-                <Text
-                  style={{
-                    fontSize: Math.min(buttonSize * (gridSize <= 3 ? 0.5 : 0.4), gridSize <= 3 ? 70 : 50),
-                    textAlign: "center",
-                    textShadowColor: "rgba(0,0,0,0.3)",
-                    textShadowOffset: { width: 1, height: 1 },
-                    textShadowRadius: 2,
-                  }}
-                >
-                  {getEmojiForText(item.text)}
-                </Text>
+                {renderSymbol(item, buttonSize, gridSize)}
               </View>
 
               <Text
@@ -508,14 +526,26 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
                       let sizeMultiplier = 1;
                       if (textLength > 10) sizeMultiplier = 0.8;
                       if (textLength > 15) sizeMultiplier = 0.7;
-                      
+
                       switch (settings.textSize) {
                         case "small":
-                          return baseSize * (gridSize <= 3 ? 0.9 : 0.8) * sizeMultiplier;
+                          return (
+                            baseSize *
+                            (gridSize <= 3 ? 0.9 : 0.8) *
+                            sizeMultiplier
+                          );
                         case "large":
-                          return baseSize * (gridSize <= 3 ? 1.6 : 1.5) * sizeMultiplier;
+                          return (
+                            baseSize *
+                            (gridSize <= 3 ? 1.6 : 1.5) *
+                            sizeMultiplier
+                          );
                         default: // medium
-                          return baseSize * (gridSize <= 3 ? 1.1 : 1.0) * sizeMultiplier;
+                          return (
+                            baseSize *
+                            (gridSize <= 3 ? 1.1 : 1.0) *
+                            sizeMultiplier
+                          );
                       }
                     })(),
                     color: themeColors.surface,
@@ -532,14 +562,13 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
                 minimumFontScale={isChildMode ? 0.5 : 0.7}
                 ellipsizeMode="tail"
               >
-                {item.translations && settings.language ? 
-                  getTranslatedText(item as any, settings.language) : 
-                  item.text
-                }
+                {item.translations && settings.language
+                  ? getTranslatedText(item as any, settings.language)
+                  : item.text}
               </Text>
             </>
           ) : (
-            // Image-only mode - large emoji covering the entire button
+            // Image-only mode - large symbol covering the entire button
             <View
               style={[
                 styles.fullSizeIcon,
@@ -551,14 +580,7 @@ export const VocabularyGrid: React.FC<VocabularyGridProps> = ({
                 },
               ]}
             >
-              <Text
-                style={{
-                  fontSize: Math.min(buttonSize * 0.5, 60), // Smaller emoji
-                  textAlign: "center",
-                }}
-              >
-                {getEmojiForText(item.text)}
-              </Text>
+              {renderSymbol(item, buttonSize, gridSize)}
             </View>
           )}
 

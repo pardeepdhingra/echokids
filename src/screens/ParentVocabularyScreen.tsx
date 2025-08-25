@@ -44,6 +44,8 @@ export const ParentVocabularyScreen: React.FC<ParentVocabularyScreenProps> = ({
     enableChildFilter: false,
     textSize: "medium",
     hiddenCategories: [],
+    symbolType: "emoji",
+    language: "en",
   });
   const [categories, setCategories] = useState<Category[]>([]);
   const [favorites, setFavorites] = useState<VocabularyItem[]>([]);
@@ -57,10 +59,6 @@ export const ParentVocabularyScreen: React.FC<ParentVocabularyScreenProps> = ({
       loadData();
     }, [])
   );
-
-
-
-
 
   const loadData = async () => {
     const [vocabData, settingsData, categoriesData, favoritesData] =
@@ -174,8 +172,6 @@ export const ParentVocabularyScreen: React.FC<ParentVocabularyScreenProps> = ({
     );
   };
 
-
-
   const filteredVocabulary = (() => {
     // First, filter out items from hidden categories
     let filtered = vocabulary.filter(
@@ -210,7 +206,10 @@ export const ParentVocabularyScreen: React.FC<ParentVocabularyScreenProps> = ({
           </Text>
         </TouchableOpacity>
         {categories
-          .filter((category) => !(settings.hiddenCategories || []).includes(category.id))
+          .filter(
+            (category) =>
+              !(settings.hiddenCategories || []).includes(category.id)
+          )
           .map((category) => (
             <TouchableOpacity
               key={category.id}
@@ -239,10 +238,18 @@ export const ParentVocabularyScreen: React.FC<ParentVocabularyScreenProps> = ({
   const renderModeIndicator = () => (
     <View style={styles.modeIndicator}>
       <Text style={{ fontSize: 16, color: COLORS.primary }}>
-        {settings.buttonMode === "sentence" ? "💬" : settings.buttonMode === "two-word" ? "📋" : "📝"}
+        {settings.buttonMode === "sentence"
+          ? "💬"
+          : settings.buttonMode === "two-word"
+            ? "📋"
+            : "📝"}
       </Text>
       <Text style={styles.modeText}>
-        {settings.buttonMode === "sentence" ? "Sentence Mode" : settings.buttonMode === "two-word" ? "Two-Word Mode" : "One Word Mode"}
+        {settings.buttonMode === "sentence"
+          ? "Sentence Mode"
+          : settings.buttonMode === "two-word"
+            ? "Two-Word Mode"
+            : "One Word Mode"}
       </Text>
     </View>
   );

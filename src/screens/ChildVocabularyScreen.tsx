@@ -15,7 +15,12 @@ import { useFocusEffect } from "@react-navigation/native";
 import { VocabularyItem, AppSettings, Category } from "../types";
 import { COLORS } from "../constants";
 import { VocabularyGrid } from "../components/VocabularyGrid";
-import { loadVocabulary, loadSettings, loadFavorites, loadCategories } from "../utils/storage";
+import {
+  loadVocabulary,
+  loadSettings,
+  loadFavorites,
+  loadCategories,
+} from "../utils/storage";
 
 interface ChildVocabularyScreenProps {
   navigation: any;
@@ -36,6 +41,8 @@ export const ChildVocabularyScreen: React.FC<ChildVocabularyScreenProps> = ({
     enableChildFilter: false,
     textSize: "medium",
     hiddenCategories: [],
+    symbolType: "emoji",
+    language: "en",
   });
   const [favorites, setFavorites] = useState<VocabularyItem[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -55,7 +62,7 @@ export const ChildVocabularyScreen: React.FC<ChildVocabularyScreenProps> = ({
 
   // Also reload data when the screen comes into focus from navigation
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
+    const unsubscribe = navigation.addListener("focus", () => {
       console.log("🔄 Child screen navigation focus - reloading data");
       loadData();
     });
@@ -64,12 +71,13 @@ export const ChildVocabularyScreen: React.FC<ChildVocabularyScreenProps> = ({
   }, [navigation]);
 
   const loadData = async () => {
-    const [vocabData, settingsData, favoritesData, categoriesData] = await Promise.all([
-      loadVocabulary(),
-      loadSettings(),
-      loadFavorites(),
-      loadCategories(),
-    ]);
+    const [vocabData, settingsData, favoritesData, categoriesData] =
+      await Promise.all([
+        loadVocabulary(),
+        loadSettings(),
+        loadFavorites(),
+        loadCategories(),
+      ]);
 
     console.log("🔄 Child: Loading data - settings:", settingsData);
     console.log("🔄 Child: Hidden categories:", settingsData.hiddenCategories);
@@ -98,7 +106,7 @@ export const ChildVocabularyScreen: React.FC<ChildVocabularyScreenProps> = ({
     const operator = operators[Math.floor(Math.random() * operators.length)];
 
     let num1, num2, answer;
-    
+
     switch (operator) {
       case "+":
         num1 = Math.floor(Math.random() * 10) + 1;
@@ -146,11 +154,14 @@ export const ChildVocabularyScreen: React.FC<ChildVocabularyScreenProps> = ({
   };
 
   const displayVocabulary = showFavorites ? favorites : vocabulary;
-  
+
   const filteredVocabulary = (() => {
-    console.log("🔄 Child: Filtering vocabulary - hidden categories:", settings.hiddenCategories);
+    console.log(
+      "🔄 Child: Filtering vocabulary - hidden categories:",
+      settings.hiddenCategories
+    );
     console.log("🔄 Child: Total vocabulary items:", displayVocabulary.length);
-    
+
     // First, filter out items from hidden categories
     let filtered = displayVocabulary.filter(
       (item) => !(settings.hiddenCategories || []).includes(item.category || "")
@@ -170,25 +181,37 @@ export const ChildVocabularyScreen: React.FC<ChildVocabularyScreenProps> = ({
   const renderModeIndicator = () => (
     <View style={styles.modeIndicator}>
       <Text style={{ fontSize: 20, color: COLORS.surface }}>
-        {settings.buttonMode === "sentence" ? "💬" : settings.buttonMode === "two-word" ? "📋" : "📝"}
+        {settings.buttonMode === "sentence"
+          ? "💬"
+          : settings.buttonMode === "two-word"
+            ? "📋"
+            : "📝"}
       </Text>
       <Text style={styles.modeText}>
-        {settings.buttonMode === "sentence" ? "Talk Mode" : settings.buttonMode === "two-word" ? "Two-Word Mode" : "Word Mode"}
+        {settings.buttonMode === "sentence"
+          ? "Talk Mode"
+          : settings.buttonMode === "two-word"
+            ? "Two-Word Mode"
+            : "Word Mode"}
       </Text>
     </View>
   );
 
   const renderCategoryFilter = () => {
     if (!settings.enableChildFilter) return null;
-    
-    const visibleCategories = categories.filter((category) => 
-      !(settings.hiddenCategories || []).includes(category.id)
+
+    const visibleCategories = categories.filter(
+      (category) => !(settings.hiddenCategories || []).includes(category.id)
     );
-    
+
     return (
       <View style={styles.categoryFilter}>
         <Text style={styles.filterLabel}>Filter by Category:</Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.filterScroll}
+        >
           <TouchableOpacity
             style={[
               styles.categoryChip,

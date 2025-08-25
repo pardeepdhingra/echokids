@@ -31,7 +31,7 @@ export interface AppSettings {
   hiddenCategories: string[];
   childAge?: number;
   hasShownAgePrompt?: boolean;
-  iconSystem?: "emoji" | "icon";
+  symbolType: "emoji" | "mulberry";
   language: "en" | "hi" | "es" | "fr" | "zh";
 }
 

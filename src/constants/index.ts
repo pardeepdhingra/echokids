@@ -18,6 +18,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   hiddenCategories: [],
   childAge: undefined,
   hasShownAgePrompt: false,
+  symbolType: "emoji",
   language: "en",
 };
 
@@ -132,8 +133,6 @@ export const VOICE_CATEGORIES = [
   { id: "adult-male", name: "Male Voices" },
 ];
 
-
-
 export const BUTTON_TEMPLATES: ButtonTemplate[] = [
   // Greetings
   {
@@ -147,8 +146,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "नमस्ते",
       es: "Hola",
       fr: "Bonjour",
-      zh: "你好"
-    }
+      zh: "你好",
+    },
   },
   {
     id: "goodbye",
@@ -161,8 +160,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "अलविदा",
       es: "Adiós",
       fr: "Au revoir",
-      zh: "再见"
-    }
+      zh: "再见",
+    },
   },
   {
     id: "thank-you",
@@ -175,8 +174,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "धन्यवाद",
       es: "Gracias",
       fr: "Merci",
-      zh: "谢谢"
-    }
+      zh: "谢谢",
+    },
   },
   {
     id: "please",
@@ -189,8 +188,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "कृपया",
       es: "Por favor",
       fr: "S'il vous plaît",
-      zh: "请"
-    }
+      zh: "请",
+    },
   },
   {
     id: "happy-birthday",
@@ -203,8 +202,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "जन्मदिन मुबारक",
       es: "Feliz Cumpleaños",
       fr: "Joyeux Anniversaire",
-      zh: "生日快乐"
-    }
+      zh: "生日快乐",
+    },
   },
   {
     id: "i-love-you",
@@ -217,8 +216,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "मैं तुमसे प्यार करता हूं",
       es: "Te amo",
       fr: "Je t'aime",
-      zh: "我爱你"
-    }
+      zh: "我爱你",
+    },
   },
 
   // Food & Drink
@@ -233,8 +232,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "खाना",
       es: "Comida",
       fr: "Nourriture",
-      zh: "食物"
-    }
+      zh: "食物",
+    },
   },
   {
     id: "hungry",
@@ -247,8 +246,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "भूखा",
       es: "Hambriento",
       fr: "Affamé",
-      zh: "饿了"
-    }
+      zh: "饿了",
+    },
   },
   {
     id: "water",
@@ -261,8 +260,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "पानी",
       es: "Agua",
       fr: "Eau",
-      zh: "水"
-    }
+      zh: "水",
+    },
   },
   {
     id: "thirsty",
@@ -275,8 +274,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "प्यासा",
       es: "Sediento",
       fr: "Assoiffé",
-      zh: "渴了"
-    }
+      zh: "渴了",
+    },
   },
   {
     id: "milk",
@@ -289,8 +288,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "दूध",
       es: "Leche",
       fr: "Lait",
-      zh: "牛奶"
-    }
+      zh: "牛奶",
+    },
   },
   {
     id: "sandwich",
@@ -506,8 +505,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "बाथरूम",
       es: "Baño",
       fr: "Salle de bain",
-      zh: "浴室"
-    }
+      zh: "浴室",
+    },
   },
   {
     id: "help",
@@ -520,8 +519,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "मदद",
       es: "Ayuda",
       fr: "Aide",
-      zh: "帮助"
-    }
+      zh: "帮助",
+    },
   },
   {
     id: "tired",
@@ -534,8 +533,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "थका हुआ",
       es: "Cansado",
       fr: "Fatigué",
-      zh: "累了"
-    }
+      zh: "累了",
+    },
   },
   {
     id: "sleep",
@@ -548,8 +547,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "नींद",
       es: "Dormir",
       fr: "Dormir",
-      zh: "睡觉"
-    }
+      zh: "睡觉",
+    },
   },
 
   // Emotions
@@ -564,8 +563,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "खुश",
       es: "Feliz",
       fr: "Heureux",
-      zh: "开心"
-    }
+      zh: "开心",
+    },
   },
   {
     id: "sad",
@@ -578,8 +577,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "दुखी",
       es: "Triste",
       fr: "Triste",
-      zh: "伤心"
-    }
+      zh: "伤心",
+    },
   },
   {
     id: "angry",
@@ -592,8 +591,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "गुस्सा",
       es: "Enojado",
       fr: "En colère",
-      zh: "生气"
-    }
+      zh: "生气",
+    },
   },
   {
     id: "scared",
@@ -606,8 +605,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "डरा हुआ",
       es: "Asustado",
       fr: "Effrayé",
-      zh: "害怕"
-    }
+      zh: "害怕",
+    },
   },
   {
     id: "excited",
@@ -620,8 +619,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "उत्साहित",
       es: "Emocionado",
       fr: "Excité",
-      zh: "兴奋"
-    }
+      zh: "兴奋",
+    },
   },
   {
     id: "cold",
@@ -651,8 +650,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "हैरान",
       es: "Sorprendido",
       fr: "Surpris",
-      zh: "惊讶"
-    }
+      zh: "惊讶",
+    },
   },
   {
     id: "confused",
@@ -666,8 +665,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "उलझन में",
       es: "Confundido",
       fr: "Confus",
-      zh: "困惑"
-    }
+      zh: "困惑",
+    },
   },
   {
     id: "proud",
@@ -681,8 +680,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "गर्व",
       es: "Orgulloso",
       fr: "Fier",
-      zh: "骄傲"
-    }
+      zh: "骄傲",
+    },
   },
   {
     id: "clean",
@@ -727,8 +726,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "खेलना",
       es: "Jugar",
       fr: "Jouer",
-      zh: "玩"
-    }
+      zh: "玩",
+    },
   },
   {
     id: "stop",
@@ -741,8 +740,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "रुको",
       es: "Parar",
       fr: "Arrêter",
-      zh: "停止"
-    }
+      zh: "停止",
+    },
   },
   {
     id: "more",
@@ -755,8 +754,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "और",
       es: "Más",
       fr: "Plus",
-      zh: "更多"
-    }
+      zh: "更多",
+    },
   },
   {
     id: "all-done",
@@ -769,8 +768,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "सब हो गया",
       es: "Todo listo",
       fr: "Terminé",
-      zh: "完成了"
-    }
+      zh: "完成了",
+    },
   },
   {
     id: "book",
@@ -783,8 +782,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "किताब",
       es: "Libro",
       fr: "Livre",
-      zh: "书"
-    }
+      zh: "书",
+    },
   },
   {
     id: "cycling",
@@ -798,8 +797,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "साइकिल चलाना",
       es: "Ciclismo",
       fr: "Vélo",
-      zh: "骑自行车"
-    }
+      zh: "骑自行车",
+    },
   },
   {
     id: "scooter",
@@ -813,8 +812,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "स्कूटर",
       es: "Patineta",
       fr: "Trottinette",
-      zh: "滑板车"
-    }
+      zh: "滑板车",
+    },
   },
   {
     id: "tv",
@@ -828,8 +827,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "टीवी",
       es: "TV",
       fr: "TV",
-      zh: "电视"
-    }
+      zh: "电视",
+    },
   },
 
   // Daily Items
@@ -901,8 +900,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "तौलिया",
       es: "Toalla",
       fr: "Serviette",
-      zh: "毛巾"
-    }
+      zh: "毛巾",
+    },
   },
   {
     id: "paper",
@@ -916,8 +915,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "कागज",
       es: "Papel",
       fr: "Papier",
-      zh: "纸"
-    }
+      zh: "纸",
+    },
   },
   {
     id: "pencil",
@@ -931,8 +930,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "पेंसिल",
       es: "Lápiz",
       fr: "Crayon",
-      zh: "铅笔"
-    }
+      zh: "铅笔",
+    },
   },
   {
     id: "shower",
@@ -1022,8 +1021,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "माँ",
       es: "Mamá",
       fr: "Maman",
-      zh: "妈妈"
-    }
+      zh: "妈妈",
+    },
   },
   {
     id: "dad",
@@ -1036,8 +1035,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "पापा",
       es: "Papá",
       fr: "Papa",
-      zh: "爸爸"
-    }
+      zh: "爸爸",
+    },
   },
   {
     id: "friend",
@@ -1050,8 +1049,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "दोस्त",
       es: "Amigo",
       fr: "Ami",
-      zh: "朋友"
-    }
+      zh: "朋友",
+    },
   },
   {
     id: "teacher",
@@ -1064,8 +1063,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "शिक्षक",
       es: "Maestro",
       fr: "Enseignant",
-      zh: "老师"
-    }
+      zh: "老师",
+    },
   },
   {
     id: "brother",
@@ -1079,8 +1078,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "भाई",
       es: "Hermano",
       fr: "Frère",
-      zh: "兄弟"
-    }
+      zh: "兄弟",
+    },
   },
   {
     id: "sister",
@@ -1135,8 +1134,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "घर",
       es: "Casa",
       fr: "Maison",
-      zh: "家"
-    }
+      zh: "家",
+    },
   },
   {
     id: "school",
@@ -1149,8 +1148,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "स्कूल",
       es: "Escuela",
       fr: "École",
-      zh: "学校"
-    }
+      zh: "学校",
+    },
   },
   {
     id: "park",
@@ -1163,8 +1162,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "पार्क",
       es: "Parque",
       fr: "Parc",
-      zh: "公园"
-    }
+      zh: "公园",
+    },
   },
   {
     id: "store",
@@ -1177,8 +1176,8 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
       hi: "दुकान",
       es: "Tienda",
       fr: "Magasin",
-      zh: "商店"
-    }
+      zh: "商店",
+    },
   },
   {
     id: "playground",
@@ -1344,7 +1343,7 @@ export const BUTTON_TEMPLATES: ButtonTemplate[] = [
 
 export const DEFAULT_VOCABULARY: VocabularyItem[] = BUTTON_TEMPLATES.map(
   (template, index) => ({
-    id: (index + 1).toString(),
+    id: template.id, // Use the template ID instead of numeric ID
     text: template.text,
     message: template.message,
     twoWord: template.twoWord,
@@ -1359,13 +1358,23 @@ export const DEFAULT_VOCABULARY: VocabularyItem[] = BUTTON_TEMPLATES.map(
 export const DEFAULT_CATEGORIES: Category[] = [
   { id: "greetings", name: "Greetings", color: "#FF6B9D", icon: "hand-left" },
   { id: "food", name: "Food & Drink", color: "#FFB347", icon: "restaurant" },
-  { id: "food-choices", name: "Food Choices", color: "#E91E63", icon: "restaurant" },
+  {
+    id: "food-choices",
+    name: "Food Choices",
+    color: "#E91E63",
+    icon: "restaurant",
+  },
   { id: "needs", name: "Basic Needs", color: "#E74C3C", icon: "help-circle" },
   { id: "emotions", name: "Emotions", color: "#F1C40F", icon: "heart" },
   { id: "activities", name: "Activities", color: "#2ECC71", icon: "play" },
   { id: "people", name: "People", color: "#4ECDC4", icon: "people" },
   { id: "places", name: "Places", color: "#3498DB", icon: "location" },
-  { id: "daily-items", name: "Daily Items", color: "#9B59B6", icon: "construct" },
+  {
+    id: "daily-items",
+    name: "Daily Items",
+    color: "#9B59B6",
+    icon: "construct",
+  },
   { id: "weather", name: "Weather", color: "#45B7D1", icon: "partly-sunny" },
 ];
 
@@ -1426,13 +1435,44 @@ export const getSuggestedCategoriesForAge = (age: number): string[] => {
     return ["greetings", "needs", "emotions", "food", "activities", "people"];
   } else if (age <= 6) {
     // Preschool: add places, daily items
-    return ["greetings", "needs", "emotions", "food", "activities", "people", "places", "daily-items"];
+    return [
+      "greetings",
+      "needs",
+      "emotions",
+      "food",
+      "activities",
+      "people",
+      "places",
+      "daily-items",
+    ];
   } else if (age <= 8) {
     // Early school: add food choices, weather
-    return ["greetings", "needs", "emotions", "food", "food-choices", "activities", "people", "places", "daily-items", "weather"];
+    return [
+      "greetings",
+      "needs",
+      "emotions",
+      "food",
+      "food-choices",
+      "activities",
+      "people",
+      "places",
+      "daily-items",
+      "weather",
+    ];
   } else {
     // Older children: all categories
-    return ["greetings", "needs", "emotions", "food", "food-choices", "activities", "people", "places", "daily-items", "weather"];
+    return [
+      "greetings",
+      "needs",
+      "emotions",
+      "food",
+      "food-choices",
+      "activities",
+      "people",
+      "places",
+      "daily-items",
+      "weather",
+    ];
   }
 };
 
@@ -1442,5 +1482,5 @@ export const SUPPORTED_LANGUAGES = [
   { code: "hi", name: "Hindi", nativeName: "हिंदी" },
   { code: "es", name: "Spanish", nativeName: "Español" },
   { code: "fr", name: "French", nativeName: "Français" },
-  { code: "zh", name: "Chinese", nativeName: "中文" }
+  { code: "zh", name: "Chinese", nativeName: "中文" },
 ];

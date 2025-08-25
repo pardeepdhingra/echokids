@@ -34,6 +34,8 @@ export const FavoritesScreen: React.FC<FavoritesScreenProps> = ({
     enableChildFilter: false,
     textSize: "medium",
     hiddenCategories: [],
+    symbolType: "emoji",
+    language: "en",
   });
 
   useFocusEffect(

@@ -45,6 +45,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
     enableChildFilter: false,
     textSize: "medium",
     hiddenCategories: [],
+    symbolType: "emoji", // Always use emoji for now
     language: "en",
   });
   const [isLocked, setIsLocked] = useState(false);
@@ -686,13 +687,15 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
               onPress={() => setShowLanguageDropdown(!showLanguageDropdown)}
             >
               <Text style={styles.dropdownButtonText}>
-                {SUPPORTED_LANGUAGES.find(lang => lang.code === settings.language)?.nativeName || "Select Language"}
+                {SUPPORTED_LANGUAGES.find(
+                  (lang) => lang.code === settings.language
+                )?.nativeName || "Select Language"}
               </Text>
               <Text style={styles.dropdownArrow}>
                 {showLanguageDropdown ? "▲" : "▼"}
               </Text>
             </TouchableOpacity>
-            
+
             {showLanguageDropdown && (
               <View style={styles.dropdownList}>
                 <ScrollView showsVerticalScrollIndicator={false}>
@@ -701,7 +704,8 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
                       key={lang.code}
                       style={[
                         styles.dropdownItem,
-                        settings.language === lang.code && styles.dropdownItemActive,
+                        settings.language === lang.code &&
+                          styles.dropdownItemActive,
                       ]}
                       onPress={() => {
                         handleSettingChange("language", lang.code);
@@ -711,7 +715,8 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
                       <Text
                         style={[
                           styles.dropdownItemText,
-                          settings.language === lang.code && styles.dropdownItemTextActive,
+                          settings.language === lang.code &&
+                            styles.dropdownItemTextActive,
                         ]}
                       >
                         {lang.nativeName} ({lang.name})
@@ -785,7 +790,9 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           <View style={styles.switchContainer}>
             <Switch
               value={settings.enableChildFilter}
-              onValueChange={(value) => handleSettingChange("enableChildFilter", value)}
+              onValueChange={(value) =>
+                handleSettingChange("enableChildFilter", value)
+              }
               trackColor={{ false: COLORS.border, true: COLORS.primary }}
               thumbColor={COLORS.surface}
             />
@@ -816,7 +823,9 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           "Hide categories to simplify vocabulary for your child",
           <View style={styles.categoryManagementContainer}>
             {DEFAULT_CATEGORIES.map((category) => {
-              const isHidden = (settings.hiddenCategories || []).includes(category.id);
+              const isHidden = (settings.hiddenCategories || []).includes(
+                category.id
+              );
               return (
                 <TouchableOpacity
                   key={category.id}
@@ -825,17 +834,23 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
                     isHidden && styles.categoryToggleButtonHidden,
                   ]}
                   onPress={() => {
-                    const currentHiddenCategories = settings.hiddenCategories || [];
+                    const currentHiddenCategories =
+                      settings.hiddenCategories || [];
                     const newHiddenCategories = isHidden
-                      ? currentHiddenCategories.filter((id) => id !== category.id)
+                      ? currentHiddenCategories.filter(
+                          (id) => id !== category.id
+                        )
                       : [...currentHiddenCategories, category.id];
                     console.log("🔧 Settings: Toggling category", {
                       category: category.name,
                       isHidden,
                       currentHiddenCategories,
-                      newHiddenCategories
+                      newHiddenCategories,
                     });
-                    handleSettingChange("hiddenCategories", newHiddenCategories);
+                    handleSettingChange(
+                      "hiddenCategories",
+                      newHiddenCategories
+                    );
                   }}
                 >
                   <View style={styles.categoryToggleContent}>
@@ -894,10 +909,11 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           </Text>
         </TouchableOpacity>
 
-
-
-        <TouchableOpacity 
-          style={[styles.dangerButton, { backgroundColor: COLORS.warning + "20" }]} 
+        <TouchableOpacity
+          style={[
+            styles.dangerButton,
+            { backgroundColor: COLORS.warning + "20" },
+          ]}
           onPress={async () => {
             Alert.alert(
               "Reset Vocabulary to Default",
@@ -912,11 +928,14 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
                       // Clear the saved vocabulary completely
                       await AsyncStorage.removeItem("echo_kids_vocabulary");
                       Alert.alert(
-                        "Vocabulary Reset Complete", 
+                        "Vocabulary Reset Complete",
                         "Vocabulary has been reset to default. The new family member buttons are now available!"
                       );
                     } catch (error) {
-                      Alert.alert("Error", "Failed to reset vocabulary. Please try again.");
+                      Alert.alert(
+                        "Error",
+                        "Failed to reset vocabulary. Please try again."
+                      );
                     }
                   },
                 },
@@ -1008,6 +1027,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
     borderWidth: 1,
     borderColor: COLORS.border,
+  },
+  modeButtonIcon: {
+    fontSize: 24,
+    marginBottom: 4,
   },
   modeButtonActive: {
     backgroundColor: COLORS.primary,
